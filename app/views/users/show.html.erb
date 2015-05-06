@@ -1,0 +1,7 @@
+<h1>Show user</h1>
+
+
+<h2><%= @user.first_name %></h2>
+<% if @user == @current_user %>
+  <h3><%= @user.email %></h3>
+<% end %>

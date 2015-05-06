@@ -1,0 +1,22 @@
+<h1>Users index</h1>
+
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.first_name, user %></td>
+        <% if user == @current_user %>
+          <td><%= user.email %></td>
+        <% else %>
+          <td></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

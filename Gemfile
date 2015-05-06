@@ -1,5 +1,13 @@
 source 'https://rubygems.org'
 
+gem 'bootstrap_form'
+
+# for OAuth
+gem 'omniauth'
+gem 'omniauth-facebook'
+# gem 'omniauth-twitter'
+# gem 'omniauth-google-oauth2'
+# gem 'omniauth-linkedin-oauth2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
@@ -24,7 +32,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -35,6 +43,16 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+
+  # for unit testing
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'responders'
+  gem 'awesome_print'
+
+  # for mailers
+  gem "pry-rails"
+  gem "letter_opener"
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
