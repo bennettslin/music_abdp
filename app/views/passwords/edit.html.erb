@@ -1,0 +1,6 @@
+<h1>Change password</h1>
+
+<%= bootstrap_form_for @user, url: password_path(@user.code) do |f| %>
+  <%= f.password_field :password %>
+  <%= f.submit "Update", class: "btn btn-primary" %>
+<% end %>
