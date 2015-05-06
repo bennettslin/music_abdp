@@ -5,8 +5,8 @@ gem 'bootstrap_form'
 # for OAuth
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
 # gem 'omniauth-twitter'
-# gem 'omniauth-google-oauth2'
 # gem 'omniauth-linkedin-oauth2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
