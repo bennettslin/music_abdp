@@ -5,8 +5,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     scope: ['email', 'https://www.googleapis.com/auth/gmail.modify'],
     access_type: 'offline'
   }
-  # provider :linkedin, ENV['LINKEDIN_CLIENT_ID'], ENV['LINKEDIN_CLIENT_SECRET']
+  provider :linkedin, ENV['LINKEDIN_CLIENT_ID'], ENV['LINKEDIN_CLIENT_SECRET']
 
-  # provider :twitter, ENV['TWITTER_CONSUMER_KEY'], ENV['TWITTER_CONSUMER_SECRET']
+  provider :twitter, ENV['TWITTER_CONSUMER_KEY'], ENV['TWITTER_CONSUMER_SECRET']
 
 end

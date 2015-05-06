@@ -37,7 +37,9 @@ class AuthController < ApplicationController
     elsif params[:provider] == "twitter"
       user = User.find_or_create_by(provider_id:provider_user['uid'], provider: params[:provider]) do |u|
         u.provider_hash = provider_user['credentials']['token']
-        u.first_name = provider_user['info']['first_name']
+        u.first_name = provider_user['info']["name"]
+        u.last_name = provider_user['info']['nickname']
+
         u.email = "#{provider_user['info']['nickname']}@example.com"
         u.password = "123"
       end
@@ -49,6 +51,7 @@ class AuthController < ApplicationController
       user = User.find_or_create_by(provider_id:provider_user['uid'], provider: params[:provider]) do |u|
         u.provider_hash = provider_user['credentials']['token']
         u.first_name = provider_user['info']['first_name']
+        u.last_name = provider_user['info']['last_name']
         u.email = provider_user['info']['email']
         u.password = "123"
       end
