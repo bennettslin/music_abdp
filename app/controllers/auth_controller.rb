@@ -61,6 +61,8 @@ class AuthController < ApplicationController
 
     end
 
+    user.save
+
     # send them home
     redirect_to root_path
   end
