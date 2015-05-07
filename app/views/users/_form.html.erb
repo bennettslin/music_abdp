@@ -1,5 +1,6 @@
 <%= bootstrap_form_for @user do |f| %>
 
+  <%= f.collection_check_boxes :genre_preference, @genres, :id, :name %>
   <%= f.text_field :first_name, placeholder: "Your first name", icon: "user" %>
   <%= f.text_field :last_name, placeholder: "Your last name", icon: "user" %>
   <%= f.text_field :email, placeholder: "Your email", icon: "envelope" %>
