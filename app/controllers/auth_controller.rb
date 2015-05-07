@@ -15,7 +15,8 @@ class AuthController < ApplicationController
         u.provider_hash = provider_user['credentials']['token']
         u.first_name = provider_user['info']['first_name']
         u.last_name = provider_user['info']['last_name']
-        u.email = provider_user['info']['email']
+        # u.email = provider_user['info']['email']
+        u.email = "logged in through Facebook"
         u.password = "123"
       end
 
@@ -27,7 +28,8 @@ class AuthController < ApplicationController
         u.provider_hash = provider_user['credentials']['token']
         u.first_name = provider_user['info']['first_name']
         u.last_name = provider_user['info']['last_name']
-        u.email = provider_user['info']['email']
+        # u.email = provider_user['info']['email']
+        u.email = "logged in through Google"
         u.password = "123"
       end
 
@@ -39,8 +41,7 @@ class AuthController < ApplicationController
         u.provider_hash = provider_user['credentials']['token']
         u.first_name = provider_user['info']["name"]
         u.last_name = provider_user['info']['nickname']
-
-        u.email = "#{provider_user['info']['nickname']}@example.com"
+        u.email = "logged in through Twitter"
         u.password = "123"
       end
 
@@ -60,8 +61,6 @@ class AuthController < ApplicationController
       session[:user_id] = user.id
 
     end
-
-    user.save
 
     # send them home
     redirect_to root_path
