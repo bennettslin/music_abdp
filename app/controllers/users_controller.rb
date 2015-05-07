@@ -24,9 +24,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @friends_array = [];
 
     if @user == current_user && @user.provider == "facebook"
-      @facebook_friends_array = [];
 
       friends_list = "https://graph.facebook.com/" + @user.provider_id + "/friends?access_token=" + @user.provider_hash;
 
@@ -35,7 +35,21 @@ class UsersController < ApplicationController
         data_hash['data'].select do |friend_hash|
           friend = User.find_by_provider_id(friend_hash['id'])
           if friend
-            @facebook_friends_array << friend
+            @friends_array << friend
+          end
+        end
+      rescue => event
+        puts "failure: #{event}"
+      end
+    elsif @user == current_user && @user.provider == 'google_oauth2'
+      friends_list = "https://www.googleapis.com/plus/v1/people/" + @user.provider_id
+
+      begin
+        data_hash = JSON.parse(open(URI.encode(friends_list)).read)
+        data_hash['data'].select do |friend_hash|
+          friend = User.find_by_provider_id(friend_hash['id'])
+          if friend
+            @friends_array << friend
           end
         end
       rescue => event

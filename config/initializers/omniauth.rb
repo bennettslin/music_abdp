@@ -1,11 +1,11 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
 
   provider :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'], {
-    scope: ['email', 'public_profile', 'user_friends']
+    scope: ['public_profile', 'user_friends']
   }
 
   provider :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], {
-    scope: ['email', 'https://www.googleapis.com/auth/gmail.modify'],
+    scope: ['profile', 'contacts'],
     access_type: 'offline'
   }
 
