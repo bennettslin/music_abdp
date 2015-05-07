@@ -29,8 +29,7 @@ class UsersController < ApplicationController
       @facebook_friends_array = [];
 
       friends_list = "https://graph.facebook.com/#{@user.provider_id}/friends?access_token=#{@user.provider_hash}";
-      render :json => friends_list
-      return
+
       data_hash = JSON.parse(open(friends_list).read)
       data_hash['data'].select do |friend_hash|
         friend = User.find_by_provider_id(friend_hash['id'])
