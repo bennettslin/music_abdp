@@ -1,0 +1,46 @@
+body {
+  background: url("vinyl.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+h1, h2, h3, th {
+  color: white;
+}
+
+nav.navbar.navbar-default {
+  opacity: .5;
+  border-radius: 0;
+  background-color: #556b2f;
+  border-color: #555555;
+  border-width: 0 0 5px;
+  -webkit-transition: 0.5s ease-out;
+  -moz-transition: 0.5s ease-out;
+  -ms-transition: 0.5s ease-out;
+  -o-transition: 0.5s ease-out;
+  transition: 0.5s ease-out;
+}
+
+nav.navbar.navbar-default:hover {
+  opacity: .85;
+  -webkit-transition: 0.5s ease-out;
+  -moz-transition: 0.5s ease-out;
+  -ms-transition: 0.5s ease-out;
+  -o-transition: 0.5s ease-out;
+  transition: 0.5s ease-out;
+}
+
+
+nav.navbar.navbar-default a {
+  color: #ffffff;
+  padding-top: 18px;
+}
+
+nav.navbar.navbar-default a:hover {
+  color: #dddddd;
+  padding-bottom: 10px;
+}
+
+nav.navbar.navbar-default a:active {
+  color: #ffffff;
+}
