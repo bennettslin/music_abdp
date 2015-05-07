@@ -24,10 +24,15 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+
     if @user.provider == "facebook"
 
-      render :json => @user
-      return
+     friends_list = "https://graph.facebook.com/#{@user.provider_id}/friends?access_token=#{@user.provider_hash}";
+
+       open friends_list do |io|
+         data = io.read
+         render :json => data
+       end
 
     end
 
