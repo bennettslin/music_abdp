@@ -28,13 +28,18 @@ class UsersController < ApplicationController
     friends_list = ""
 
     if @user == current_user
-      if @user.provider == "facebook"
 
-        friends_list = "https://graph.facebook.com/" + @user.provider_id + "/friends?access_token=" + @user.provider_hash;
+      if @user.provider == "facebook"
+        friends_list = "https://graph.facebook.com/" + @user.provider_id + "/friends?access_token=" + @user.provider_hash
 
       elsif @user.provider == 'google_oauth2'
+        friends_list = "https://www.googleapis.com/plus/v1/people/" + @user.provider_id + "/people/connected?access_token=" + @user.provider_hash
 
-        friends_list = "https://www.googleapis.com/plus/v1/people/" + @user.provider_id
+      elsif @user.provider == "linkedin"
+
+
+      elsif @user.provider == "twitter"
+
 
       end
 
