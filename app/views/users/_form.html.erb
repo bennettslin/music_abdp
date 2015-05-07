@@ -1,8 +1,14 @@
 <%= bootstrap_form_for @user do |f| %>
+
   <%= f.text_field :first_name, placeholder: "Your first name", icon: "user" %>
   <%= f.text_field :last_name, placeholder: "Your last name", icon: "user" %>
   <%= f.text_field :email, placeholder: "Your email", icon: "envelope" %>
   <%= f.password_field :password, placeholder: "Your password", icon: "lock" %>
+
+  <%# f.check_box :genre_alternative, label: "Alternative" %>
+  <%# f.check_box :genre_country, label: "Country" %>
+  <%# f.check_box :genre_classical, label: "Classical" %>
+
   <%= f.primary %>
 <% end %>
 

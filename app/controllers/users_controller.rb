@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class UsersController < ApplicationController
 
   def index
@@ -22,6 +24,17 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+
+    if (@user.provider == "facebook")
+
+      friends_list = "https://graph.facebook.com/#{@user.provider_id}/friends?access_token=#{@user.provider_hash}";
+      open friends_list do |io|
+        data = io.read
+        render :json => data
+        return
+      end
+
+    end
   end
 
   private

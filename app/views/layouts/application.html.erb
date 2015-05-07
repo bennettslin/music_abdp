@@ -30,6 +30,7 @@
         <li><a href="/users">Users</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+        <li><a href="/about">About</a></li>
         <% if @current_user %>
         <li><a href="/users/<%= @current_user.id %>">Hi, <%= @current_user.first_name %>!</a></li>
         <li><a href="/logout">Logout</a></li>
