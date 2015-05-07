@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   root 'users#index'
 
+  get 'team' => 'site#team'
+
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   get 'logout' => 'sessions#destroy'
