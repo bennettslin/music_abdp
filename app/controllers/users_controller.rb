@@ -68,7 +68,7 @@ class UsersController < ApplicationController
 
     @user.genres.clear
 
-    genres = params[:user][:genre_preference]
+    genres = params[:user][:genre_ids]
     genres.each do |g|
       @user.genres << Genre.find(g) unless g.blank?
 

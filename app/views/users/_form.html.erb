@@ -1,7 +1,7 @@
 <%= bootstrap_form_for @user do |f| %>
 
   <% if @genres %>
-    <%= f.collection_check_boxes :genre_preference, @genres, :id, :name %>
+    <%= f.collection_check_boxes :genre_ids, @genres, :id, :name %>
   <% end %>
 
   <%= f.text_field :first_name, placeholder: "Your first name", icon: "user" %>
