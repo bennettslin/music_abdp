@@ -25,17 +25,22 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
 
-    if @user.provider == "facebook"
+    if @user == current_user && @user.provider == "facebook"
+      @facebook_friends_array = [];
 
-     friends_list = "https://graph.facebook.com/#{@user.provider_id}/friends?access_token=#{@user.provider_hash}";
+      friends_list = "https://graph.facebook.com/#{@user.provider_id}/friends?access_token=#{@user.provider_hash}";
 
-       open friends_list do |io|
-         data = io.read
-         render :json => data
-       end
-
+      open friends_list do |io|
+        json_data = io.read
+        data_hash = JSON.parse(json_data)
+        data_hash['data'].select do |friend_hash|
+          friend = User.find_by_provider_id(friend_hash['id'])
+          if friend
+            @facebook_friends_array << friend
+          end
+        end
+      end
     end
-
   end
 
   private
