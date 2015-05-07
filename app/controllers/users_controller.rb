@@ -37,20 +37,19 @@ class UsersController < ApplicationController
         friends_list = "https://www.googleapis.com/plus/v1/people/" + @user.provider_id
 
       end
-    end
 
-    begin
-      data_hash = JSON.parse(open(URI.encode(friends_list)).read)
-      data_hash['data'].select do |friend_hash|
-        friend = User.find_by_provider_id(friend_hash['id'])
-        if friend
-          @friends_array << friend
+      begin
+        data_hash = JSON.parse(open(URI.encode(friends_list)).read)
+        data_hash['data'].select do |friend_hash|
+          friend = User.find_by_provider_id(friend_hash['id'])
+          if friend
+            @friends_array << friend
+          end
         end
+      rescue => event
+        puts "failure: #{event}"
       end
-    rescue => event
-      puts "failure: #{event}"
     end
-
   end
 
   private

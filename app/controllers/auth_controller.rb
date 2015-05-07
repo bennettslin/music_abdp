@@ -24,8 +24,6 @@ class AuthController < ApplicationController
       session[:user_id] = user.id
 
     elsif params[:provider] == "google_oauth2"
-      render :json => provider_user
-      return
       user = User.find_or_create_by(provider_id:provider_user['uid'], provider: params[:provider]) do |u|
         u.provider_hash = provider_user['credentials']['token']
         u.first_name = provider_user['info']['first_name']
