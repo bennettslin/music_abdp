@@ -5,6 +5,7 @@
 <% if @user == @current_user %>
 
   <h3><%= @user.email %></h3>
+  <h4><%= @user.provider %></h4>
 
   <% if @friends_array.any? %>
     <table class="table table-hover">
