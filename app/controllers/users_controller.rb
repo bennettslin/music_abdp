@@ -25,6 +25,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @friends_array = [];
+    friends_list = ""
 
     if @user == current_user
       if @user.provider == "facebook"

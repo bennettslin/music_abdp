@@ -15,8 +15,8 @@ class AuthController < ApplicationController
         u.provider_hash = provider_user['credentials']['token']
         u.first_name = provider_user['info']['first_name']
         u.last_name = provider_user['info']['last_name']
-        # u.email = provider_user['info']['email']
-        u.email = "logged in through Facebook"
+        # u.email = provider_user['info']['email'] # with email permissions
+        u.email = "logged in through Facebook" # without email permissions
         u.password = "123"
       end
 
@@ -24,12 +24,14 @@ class AuthController < ApplicationController
       session[:user_id] = user.id
 
     elsif params[:provider] == "google_oauth2"
+      render :json => provider_user
+      return
       user = User.find_or_create_by(provider_id:provider_user['uid'], provider: params[:provider]) do |u|
         u.provider_hash = provider_user['credentials']['token']
         u.first_name = provider_user['info']['first_name']
         u.last_name = provider_user['info']['last_name']
-        # u.email = provider_user['info']['email']
-        u.email = "logged in through Google"
+        # u.email = provider_user['info']['email'] # with email permissions
+        u.email = "logged in through Google" # without email permissions
         u.password = "123"
       end
 
@@ -41,7 +43,7 @@ class AuthController < ApplicationController
         u.provider_hash = provider_user['credentials']['token']
         u.first_name = provider_user['info']["name"]
         u.last_name = provider_user['info']['nickname']
-        u.email = "logged in through Twitter"
+        u.email = "logged in through Twitter" # Twitter does not provide email
         u.password = "123"
       end
 
