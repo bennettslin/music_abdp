@@ -24,6 +24,13 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    if @user.provider == "facebook"
+
+      render :json => @user
+      return
+
+    end
+
   end
 
   private
