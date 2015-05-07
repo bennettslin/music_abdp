@@ -36,6 +36,7 @@
         <li><a href="#" data-toggle="modal" data-target="#userModal">
           <%= @current_user.first_name %> <span class="badge">4 <i class="glyphicon glyphicon-dashboard"></i></span></a>
         </li>
+        <li><a href="/users/<%= @current_user.id%>/edit">Edit Profile</a></li>
         <li><a href="/logout">Logout</a></li>
         <% else %>
         <li><a href="/signup">Signup</a></li>

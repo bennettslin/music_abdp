@@ -2,8 +2,8 @@
 class UsersController < ApplicationController
   require 'open-uri'
   require 'net/https'
-  require 'google/api_client'
-  require 'google/api_client/client_secrets'
+  # require 'google/api_client'
+  # require 'google/api_client/client_secrets'
 
   def index
     @users = User.all
@@ -55,6 +55,26 @@ class UsersController < ApplicationController
         puts "failure: #{event}"
       end
     end
+  end
+
+  def edit
+    @user = User.find(params[:id])
+    @genres = Genre.all
+  end
+
+  def update
+    @user = User.find(params[:id])
+    @user.update(user_params)
+
+    @user.genres.clear
+
+    genres = params[:user][:genre_preference]
+    genres.each do |g|
+      @user.genres << Genre.find(g) unless g.blank?
+
+
+    end
+    redirect_to @user
   end
 
   private
