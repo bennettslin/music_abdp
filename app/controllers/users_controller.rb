@@ -1,4 +1,9 @@
+
 class UsersController < ApplicationController
+  require 'open-uri'
+  require 'net/https'
+  require 'google/api_client'
+  require 'google/api_client/client_secrets'
 
   def index
     @users = User.all
@@ -22,6 +27,34 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @friends_array = [];
+    friends_list = ""
+
+    if @user == current_user
+
+      if @user.provider == "facebook"
+        friends_list = "https://graph.facebook.com/" + @user.provider_id + "/friends?access_token=" + @user.provider_hash
+
+      elsif @user.provider == 'google_oauth2'
+
+      elsif @user.provider == "linkedin"
+
+      elsif @user.provider == "twitter"
+
+      end
+
+      begin
+        data_hash = JSON.parse(open(URI.encode(friends_list)).read)
+        data_hash['data'].select do |friend_hash|
+          friend = User.find_by_provider_id(friend_hash['id'])
+          if friend
+            @friends_array << friend
+          end
+        end
+      rescue => event
+        puts "failure: #{event}"
+      end
+    end
   end
 
   def edit

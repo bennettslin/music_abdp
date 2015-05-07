@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Cool Music App</title>
+  <title>Aptitune</title>
   <!-- Latest compiled and minified CSS & JS -->
   <link rel="stylesheet" media="screen" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
   <script src="//code.jquery.com/jquery.js"></script>
@@ -21,17 +21,20 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">Cool Music App</a>
+      <a class="navbar-brand" href="/">Aptitune</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
       <ul class="nav navbar-nav">
         <li><a href="/users">Users</a></li>
+        <li><a href="#" data-toggle="modal" data-target="#aboutModal">About</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if @current_user %>
-        <li><a href="/users/<%= @current_user.id %>">Hi, <%= @current_user.first_name %>!</a></li>
+        <li><a href="#" data-toggle="modal" data-target="#userModal">
+          <%= @current_user.first_name %> <span class="badge">4</span></a>
+        </li>
         <li><a href="/logout">Logout</a></li>
         <% else %>
         <li><a href="/signup">Signup</a></li>
@@ -40,6 +43,9 @@
       </ul>
     </div><!-- /.navbar-collapse -->
   </nav>
+
+  <!-- About Modal -->
+  <%= render "/layouts/about" %>
 
   <div class="container">
     <div class="row">
@@ -50,5 +56,27 @@
     </div>
   </div>
 
-</body>
-</html>
+  <!-- User Modal – will need to solve DRY issue with AJAX -->
+  <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">
+          <% if @current_user %>
+          <%= @current_user.first_name %></h4>
+        </div>
+        <div class="modal-body">
+          <h4><%= @current_user.email %></h4>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  </body>
+  </html>
