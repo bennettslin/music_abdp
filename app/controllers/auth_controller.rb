@@ -73,8 +73,8 @@ class AuthController < ApplicationController
   end
 
   def failure
-    # TODO: display error page
-    render plain: "This is a failure."
+    flash[:danger] = "Failed to authenticate user."
+    redirect_to root_path
   end
 
 end
