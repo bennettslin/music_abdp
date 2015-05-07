@@ -30,15 +30,16 @@ class UsersController < ApplicationController
 
       friends_list = "https://graph.facebook.com/" + @user.provider_id + "/friends?access_token=" + @user.provider_hash;
 
-      thing  = open(URI.encode(friends_list)).read
-      render :json => thing
-      return
-      data_hash = JSON.parse(open(friends_list).read)
-      data_hash['data'].select do |friend_hash|
-        friend = User.find_by_provider_id(friend_hash['id'])
-        if friend
-          @facebook_friends_array << friend
+      begin
+        data_hash = JSON.parse(open(URI.encode(friends_list)).read)
+        data_hash['data'].select do |friend_hash|
+          friend = User.find_by_provider_id(friend_hash['id'])
+          if friend
+            @facebook_friends_array << friend
+          end
         end
+      rescue => event
+        puts "failure: #{event}"
       end
     end
   end
