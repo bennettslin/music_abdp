@@ -40,30 +40,6 @@
 
 #player img {
   width: 100%;
-  -webkit-filter: blur(20px) grayscale(50%);
-  -moz-filter: blur(20px) grayscale(50%);
-  -o-filter: blur(20px) grayscale(50%);
-  -ms-filter: blur(20px) grayscale(50%);
-  filter: blur(20px);
-  -webkit-transition: .5s ease-out;
-  -moz-transition: .5s ease-out;
-  -ms-transition: .5s ease-out;
-  -o-transition: .5s ease-out;
-  transition: .5s ease-out;
-}
-
-#player img:hover {
-  width: 100%;
-  -webkit-filter: blur(0px);
-  -moz-filter: blur(0px);
-  -o-filter: blur(0px);
-  -ms-filter: blur(0px);
-  filter: blur(0px);
-  -webkit-transition: .5s ease-out;
-  -moz-transition: .5s ease-out;
-  -ms-transition: .5s ease-out;
-  -o-transition: .5s ease-out;
-  transition: .5s ease-out;
 }
 
 .audiojs audio { position: absolute; left: -1px; }

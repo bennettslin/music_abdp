@@ -29,7 +29,6 @@ Rails.application.routes.draw do
   get 'about' => 'site#about'
   get 'test' => 'test#index'
 
-  get 'related_artist' => 'songs#related_artist'
   get 'genre' => 'songs#genre'
 
   # Example of regular route:
