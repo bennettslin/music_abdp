@@ -1,46 +1,24 @@
-body {
-  background: url("vinyl.jpg");
-  background-size: cover;
-  background-attachment: fixed;
-}
-
 h1, h2, h3, th {
   color: white;
 }
 
 nav.navbar.navbar-default {
-  opacity: .5;
+  opacity: .9;
   border-radius: 0;
-  background-color: #556b2f;
-  border-color: #555555;
+  background-color: #ffffff;
+  border-color: #efefef;
   border-width: 0 0 5px;
-  -webkit-transition: 0.5s ease-out;
-  -moz-transition: 0.5s ease-out;
-  -ms-transition: 0.5s ease-out;
-  -o-transition: 0.5s ease-out;
-  transition: 0.5s ease-out;
 }
-
-nav.navbar.navbar-default:hover {
-  opacity: .85;
-  -webkit-transition: 0.5s ease-out;
-  -moz-transition: 0.5s ease-out;
-  -ms-transition: 0.5s ease-out;
-  -o-transition: 0.5s ease-out;
-  transition: 0.5s ease-out;
-}
-
 
 nav.navbar.navbar-default a {
-  color: #ffffff;
+  color: #333333;
   padding-top: 18px;
 }
 
 nav.navbar.navbar-default a:hover {
   color: #dddddd;
-  padding-bottom: 10px;
 }
 
 nav.navbar.navbar-default a:active {
-  color: #ffffff;
+  color: #333333;
 }

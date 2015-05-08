@@ -1,7 +1,15 @@
-<h1>Reset password</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
 
-<!-- form tag is not around an object -->
-<%= bootstrap_form_tag url: passwords_path do |f| %>
-  <%= f.text_field :email %>
-  <%= f.submit "Reset password", class: "btn btn-primary" %>
-<% end %>
+      <h1>Reset password</h1>
+
+      <!-- form tag is not around an object -->
+      <%= bootstrap_form_tag url: passwords_path do |f| %>
+      <%= f.text_field :email %>
+      <%= f.submit "Reset password", class: "btn btn-primary" %>
+      <% end %>
+
+    </div>
+  </div>
+</div>
