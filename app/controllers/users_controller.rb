@@ -12,21 +12,20 @@ class UsersController < ApplicationController
     end
   end
 
-  def new
-    @user = User.new
-    @signup = true
-  end
+  # def new
+  #   @user = User.new
+  #   @signup = true
+  # end
 
   def create
-
     @user = User.create(user_params)
     @user.genres << @genres
     if @user.save
       flash[:success] = "User created. Please log in!"
-      redirect_to login_path
+      redirect_to team_path
     else
       flash[:danger] = "User was not created."
-      render 'new'
+      render '/site/team'
     end
   end
 
