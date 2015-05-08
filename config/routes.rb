@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get 'test' => 'test#index'
 
   get 'genre' => 'songs#genre'
+  get 'album' => 'songs#album'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

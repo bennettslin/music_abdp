@@ -20,4 +20,19 @@ class SongsController < ApplicationController
 
   end
 
+  # for test purposes
+  def album
+    genre = RSpotify::Artist.search('genre:Bluegrass')
+    #search term variable
+    genre.each do |x|
+      @id = x.id
+      return @album unless @album.nil?
+      data = RSpotify.get("artists/#{@id}/albums")
+      @album = data['items']
+
+      render :json => @album
+      return
+    end
+  end
+
 end
