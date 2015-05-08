@@ -1,5 +1,5 @@
 body {
-  background-image: image-url("vinyl.jpg");
+  background-image: image-url("crowd.jpg");
   background-size: cover;
   background-attachment: fixed;
 }
@@ -17,12 +17,12 @@ nav.navbar.navbar-default {
 }
 
 nav.navbar.navbar-default a {
-  color: #333333;
+  color: #555555;
   padding-top: 18px;
 }
 
 nav.navbar.navbar-default a:hover {
-  color: #dddddd;
+  color: #000000;
 }
 
 nav.navbar.navbar-default a:active {
