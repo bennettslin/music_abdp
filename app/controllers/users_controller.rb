@@ -57,12 +57,8 @@ class UsersController < ApplicationController
     end
   end
 
-  # def edit
-  #   @user = User.find(params[:id])
-  #   @genres = Genre.all
-  # end
-
   def update
+
     @user = User.find(params[:id])
     @user.update(user_params)
 
@@ -72,15 +68,15 @@ class UsersController < ApplicationController
     genres.each do |g|
       @user.genres << Genre.find(g) unless g.blank?
 
-
     end
-    # redirect_to @user
+    flash[:success] = "Your preferences have been updated!"
+    redirect_to @user
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password)
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :genre_ids)
   end
 
 end

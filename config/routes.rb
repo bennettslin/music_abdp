@@ -18,7 +18,8 @@ Rails.application.routes.draw do
   get 'auth/failure' => 'auth#failure'
   get 'auth/:provider/callback' => 'auth#callback'
 
-  resources :users
+  # no edit page for user, because update form is in a modal accessed through nav bar
+  resources :users, except: [:edit]
 
   resources :passwords, except: [:index, :show]
 

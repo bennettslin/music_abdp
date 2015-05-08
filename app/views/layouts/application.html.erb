@@ -29,15 +29,15 @@
       <ul class="nav navbar-nav">
         <li><a href="/users">Users (dev only)</a></li>
         <li><a href="#" data-toggle="modal" data-target="#aboutModal">How to Play</a></li>
-        <li><a href="/team">Meet the Team</a></li>
+        <li><a href="#">Leaderboards <i class="glyphicon glyphicon-stats"></i></a></li>
+
       </ul>
       <ul class="nav navbar-nav navbar-right">
+        <li><a href="/team">Meet the Team</a></li>
         <% if @current_user %>
         <li><a href="#" data-toggle="modal" data-target="#userModal"><%= @current_user.first_name %>'s Dashboard
            <span class="badge">4</span><i class="glyphicon glyphicon-dashboard"></i></a>
         </li>
-        <li><a href="/users/<%= @current_user.id%>/edit">Edit Profile</a></li>
-        <li><a href="#">Leaderboards <i class="glyphicon glyphicon-stats"></i></a></li>
         <li><a href="/logout">Logout</a></li>
         <% else %>
         <li><a href="/signup">Signup</a></li>
@@ -51,6 +51,8 @@
   <%= render "/layouts/about" %>
 
   <%= render "layouts/flash" %>
+
+
   <%= yield %>
 
   <!-- User Modal – will need to solve DRY issue with AJAX -->
