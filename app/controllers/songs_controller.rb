@@ -3,36 +3,25 @@ class SongsController < ApplicationController
   attr_accessor :genre
 
   def genre
-    genre = RSpotify::Artist.search('genre:Pop')
-    #search term variable
-    genre.each do |x|
-      @id = x.id
-      return @genre unless @genre.nil?
-      data = RSpotify.get("artists/#{@id}/related-artists")
-      @genre = data['artists'][0,3]
 
-      # pass id into related artist string
-      render :json => @genre
+    # get list of artists by specified genre
+    artists = RSpotify::Artist.search('genre:Pop')
+
+    # gets three unique index numbers
+    random_indices = Set.new
+    while random_indices.count < 3 do
+      random_indices << rand(artists.count)
     end
-  end
 
-  def artist
-
-  end
-
-  # for test purposes
-  def album
-    genre = RSpotify::Artist.search('genre:Bluegrass')
-    #search term variable
-    genre.each do |x|
-      @id = x.id
-      return @album unless @album.nil?
-      data = RSpotify.get("artists/#{@id}/albums")
-      @album = data['items']
-
-      render :json => @album
-      return
+    # get three random artists based on index numbers
+    random_artists = random_indices.map do |index|
+      artists[index].name
     end
+
+    # FIXME: temporarily show three random artists
+    render :json => random_artists
+    return
+
   end
 
 end
