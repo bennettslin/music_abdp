@@ -25,6 +25,9 @@ Rails.application.routes.draw do
   get 'signup' => 'users#new'
   post 'signup' => 'users#create'
 
+  get 'about' => 'site#about'
+  get 'test' => 'test#index'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aptitune</title>
   <!-- Latest compiled and minified CSS & JS -->
   <link rel="stylesheet" media="screen" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -11,7 +12,6 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
   <nav class="navbar navbar-default" role="navigation">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -50,14 +50,8 @@
   <!-- About Modal -->
   <%= render "/layouts/about" %>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-6 col-sm-offset-3">
-        <%= render "layouts/flash" %>
-        <%= yield %>
-      </div>
-    </div>
-  </div>
+  <%= render "layouts/flash" %>
+  <%= yield %>
 
   <!-- User Modal – will need to solve DRY issue with AJAX -->
   <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -94,6 +88,8 @@
     </div>
   </div>
 
+  </div>
 
-  </body>
-  </html>
+
+</body>
+</html>
