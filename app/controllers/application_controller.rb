@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   before_action :genres
 
   # this will get overridden in show, update, or destroy
-  before_action :user
+  # before_action :user
 
   def is_authenticated?
     unless current_user
@@ -29,8 +29,8 @@ class ApplicationController < ActionController::Base
     @genres ||= Genre.all
   end
 
-  def user
-    @user ||= User.new
-  end
+  # def user
+  #   @user ||= User.new
+  # end
 
 end

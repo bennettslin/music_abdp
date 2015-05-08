@@ -12,10 +12,9 @@ class UsersController < ApplicationController
     end
   end
 
-  # def new
-  #   @user = User.new
-  #   @signup = true
-  # end
+  def new
+    @user = User.new
+  end
 
   def create
     @user = User.create(user_params)
@@ -25,7 +24,7 @@ class UsersController < ApplicationController
       redirect_to team_path
     else
       flash[:danger] = "User was not created."
-      render '/site/team'
+      render :new
     end
   end
 
