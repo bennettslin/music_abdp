@@ -42,8 +42,8 @@
         </li>
         <li><a href="/logout">Logout</a></li>
         <% else %>
-        <li><a href="/signup">Signup</a></li>
-        <li><a href="/login">Login</a></li>
+        <!-- <li><a href="/signup">Signup</a></li> -->
+        <li><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
         <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->
@@ -55,43 +55,74 @@
   <%= yield %>
 
  <!-- User Modal – will need to solve DRY issue with AJAX -->
- <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">
-          <% if @current_user %>
-            <%= @current_user.first_name %></h4>
+  <% if @current_user %>
+     <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">
+              <%= @current_user.first_name %></h4>
+            </div>
+            <div class="modal-body">
+              <% if @current_user && @current_user.email == ENV['MY_FACEBOOK_EMAIL'] && @current_user.provider == 'facebook' %>
+                <ul>
+                  <li class="admin-only">email: <%= @current_user.email %></li>
+                  <li class="admin-only">provider: <%= @current_user.provider %></li>
+                </ul>
+              <% end %>
+
+              <%= bootstrap_form_for @current_user do |f| %>
+
+              <% if @genres %>
+              <%= f.collection_check_boxes :genre_ids, @genres, :id, :name %>
+              <% end %>
+
+              <%= f.text_field :first_name, placeholder: "Your first name", icon: "user" %>
+              <%= f.text_field :last_name, placeholder: "Your last name", icon: "user" %>
+              <%= f.text_field :email, placeholder: "Your email", icon: "envelope" %>
+              <%= f.password_field :password, placeholder: "Your password", icon: "lock" %>
+
+              <%= f.primary %>
+              <% end %>
           </div>
-          <div class="modal-body">
-            <% if @current_user && @current_user.email == ENV['MY_FACEBOOK_EMAIL'] && @current_user.provider == 'facebook' %>
-              <ul>
-                <li class="admin-only">email: <%= @user.email %></li>
-                <li class="admin-only">provider: <%= @user.provider %></li>
-              </ul>
-            <% end %>
-
-            <%= bootstrap_form_for @current_user do |f| %>
-
-            <% if @genres %>
-            <%= f.collection_check_boxes :genre_ids, @genres, :id, :name %>
-            <% end %>
-
-            <%= f.text_field :first_name, placeholder: "Your first name", icon: "user" %>
-            <%= f.text_field :last_name, placeholder: "Your last name", icon: "user" %>
-            <%= f.text_field :email, placeholder: "Your email", icon: "envelope" %>
-            <%= f.password_field :password, placeholder: "Your password", icon: "lock" %>
-
-            <%= f.primary %>
-            <% end %>
-          <% end %>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  <% else %>
+     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h1>Login</h1>
+
+            <%= bootstrap_form_for :user do |f| %>
+
+            <%= f.text_field :email, placeholder: "Your email", icon: "user" %>
+            <%= f.password_field :password, placeholder: "Your password", icon: "lock" %>
+            <%= f.submit "Login", class: "btn btn-primary" %>
+
+            <% end %>
+
+            <ul>
+              <li><a href="/auth/facebook">Facebook</a></li>
+              <li><a href="/auth/google_oauth2">Google</a></li>
+              <li><a href="/auth/twitter">Twitter</a></li>
+              <li><a href="/auth/linkedin">LinkedIn</a></li>
+            </ul>
+
+            <%= link_to "Forgot password?", new_password_path %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </body>
 </html>
