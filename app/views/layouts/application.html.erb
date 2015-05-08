@@ -50,9 +50,9 @@
   </nav>
 
  <!-- About Modal -->
-  <%= render "/layouts/about" %>
-  <%= render "layouts/flash" %>
-  <%= yield %>
+ <%= render "/layouts/about" %>
+ <%= render "layouts/flash" %>
+ <%= yield %>
 
  <!-- User Modal – will need to solve DRY issue with AJAX -->
   <% if @current_user %>
@@ -75,7 +75,7 @@
               <%= bootstrap_form_for @current_user do |f| %>
 
               <% if @genres %>
-              <%= f.collection_check_boxes :genre_ids, @genres, :id, :name %>
+              <%= f.collection_check_boxes :genre_ids, @genres, :id, :name, hide_label: true %>
               <% end %>
 
               <%= f.text_field :first_name, placeholder: "Your first name", icon: "user" %>
