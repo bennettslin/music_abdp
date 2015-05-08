@@ -1,17 +1,23 @@
 class SongsController < ApplicationController
 
-  def related_artist
-    artist = RSpotify::Artist.search('Sam Smith')
+  attr_accessor :genre
+
+  def genre
+    genre = RSpotify::Artist.search('genre:Pop')
     #search term variable
-    artist.each do |x|
+    genre.each do |x|
       @id = x.id
-      return @related_artists unless @related_artists.nil?
+      return @genre unless @genre.nil?
       data = RSpotify.get("artists/#{@id}/related-artists")
-      @related_artists = data['artists'][0,2]
+      @genre = data['artists'][0,3]
 
       # pass id into related artist string
-      render :json => @related_artists
+      render :json => @genre
     end
+  end
+
+  def artist
+
   end
 
 end
