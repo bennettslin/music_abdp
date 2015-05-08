@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   get 'auth/:provider/callback' => 'auth#callback'
 
   # no edit page for user, because update form is in a modal accessed through nav bar
-  resources :users, except: [:edit]
+  resources :users, except: [:edit, :new]
 
   resources :passwords, except: [:index, :show]
 
@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   get 'about' => 'site#about'
   get 'test' => 'test#index'
 
-get 'song' => 'songs#artist'
+  get 'song' => 'songs#artist'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
