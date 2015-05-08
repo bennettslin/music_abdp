@@ -36,21 +36,21 @@
         <li><a href="/team">Meet the Team</a></li>
         <% if @current_user %>
         <li><a href="#" data-toggle="modal" data-target="#userModal"><%= @current_user.first_name %>'s Dashboard
-           <span class="badge">4</span><i class="glyphicon glyphicon-dashboard"></i></a>
-        </li>
-        <li><a href="/logout">Logout</a></li>
-        <% else %>
-        <li><a href="/signup">Signup</a></li>
-        <li><a href="/login">Login</a></li>
-        <% end %>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </nav>
+         <i class="glyphicon glyphicon-dashboard"></i></a>
+       </li>
+       <li><a href="/logout">Logout</a></li>
+       <% else %>
+       <li><a href="/signup">Signup</a></li>
+       <li><a href="/login">Login</a></li>
+       <% end %>
+     </ul>
+   </div><!-- /.navbar-collapse -->
+ </nav>
 
  <!-- About Modal -->
-  <%= render "/layouts/about" %>
-  <%= render "layouts/flash" %>
-  <%= yield %>
+ <%= render "/layouts/about" %>
+ <%= render "layouts/flash" %>
+ <%= yield %>
 
  <!-- User Modal – will need to solve DRY issue with AJAX -->
  <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -65,10 +65,18 @@
         <div class="modal-body">
           <h4><%= @current_user.email %></h4>
 
+
+          <script>
+            $("#checkAll").click(function () {
+              $(".checkbox").prop('checked', $(this).prop('checked'));
+            });
+          </script>
+
+
           <%= bootstrap_form_for @current_user do |f| %>
 
           <% if @genres %>
-          <%= f.collection_check_boxes :genre_ids, @genres, :id, :name %>
+          <%= f.collection_check_boxes :genre_ids, @genres, :id, :name, hide_label: true %>
           <% end %>
 
           <%= f.text_field :first_name, placeholder: "Your first name", icon: "user" %>
