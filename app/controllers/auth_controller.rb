@@ -16,7 +16,6 @@ class AuthController < ApplicationController
         u.first_name = provider_user['info']['first_name']
         u.last_name = provider_user['info']['last_name']
         u.email = provider_user['info']['email'] # with email permissions
-        # u.email = "logged in through Facebook" # without email permissions
         u.password = "123"
       end
 
@@ -25,11 +24,11 @@ class AuthController < ApplicationController
 
     elsif params[:provider] == "google_oauth2"
       user = User.find_or_create_by(provider_id:provider_user['uid'], provider: params[:provider]) do |u|
+        populate_genres u
         u.provider_hash = provider_user['credentials']['token']
         u.first_name = provider_user['info']['first_name']
         u.last_name = provider_user['info']['last_name']
         u.email = provider_user['info']['email'] # with email permissions
-        # u.email = "logged in through Google" # without email permissions
         u.password = "123"
       end
 
@@ -38,6 +37,7 @@ class AuthController < ApplicationController
 
     elsif params[:provider] == "twitter"
       user = User.find_or_create_by(provider_id:provider_user['uid'], provider: params[:provider]) do |u|
+        populate_genres u
         u.provider_hash = provider_user['credentials']['token']
         u.first_name = provider_user['info']["name"]
         u.last_name = provider_user['info']['nickname']
@@ -50,6 +50,7 @@ class AuthController < ApplicationController
 
     elsif params[:provider] == "linkedin"
       user = User.find_or_create_by(provider_id:provider_user['uid'], provider: params[:provider]) do |u|
+        populate_genres u
         u.provider_hash = provider_user['credentials']['token']
         u.first_name = provider_user['info']['first_name']
         u.last_name = provider_user['info']['last_name']
@@ -61,6 +62,9 @@ class AuthController < ApplicationController
       session[:user_id] = user.id
 
     end
+
+    # ensure that new user starts with all genres
+    populate_genres user
 
     # send them home
     redirect_to root_path
@@ -75,6 +79,15 @@ class AuthController < ApplicationController
   def failure
     flash[:danger] = "Failed to authenticate user."
     redirect_to root_path
+  end
+
+  private
+
+  def populate_genres user
+    if !user.genres || user.genres.empty?
+      user.genres << @genres
+      user.save
+    end
   end
 
 end

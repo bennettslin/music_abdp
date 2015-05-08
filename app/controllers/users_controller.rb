@@ -2,8 +2,6 @@
 class UsersController < ApplicationController
   require 'open-uri'
   require 'net/https'
-  # require 'google/api_client'
-  # require 'google/api_client/client_secrets'
 
   def index
     @users = User.all
@@ -11,13 +9,15 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @signup = true
   end
 
   def create
 
     @user = User.create(user_params)
+    @user.genres << @genres
     if @user.save
-      flash[:success] = "User created. Please sign up!"
+      flash[:success] = "User created. Please log in!"
       redirect_to login_path
     else
       flash[:danger] = "User was not created."
