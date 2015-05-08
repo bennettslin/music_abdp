@@ -47,40 +47,37 @@
     </div><!-- /.navbar-collapse -->
   </nav>
 
-  <!-- About Modal -->
+ <!-- About Modal -->
   <%= render "/layouts/about" %>
-
   <%= render "layouts/flash" %>
-
-
   <%= yield %>
 
-  <!-- User Modal – will need to solve DRY issue with AJAX -->
-  <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">
+ <!-- User Modal – will need to solve DRY issue with AJAX -->
+ <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">
           <% if @current_user %>
-            <%= @current_user.first_name %></h4>
-          </div>
-          <div class="modal-body">
-            <h4><%= @current_user.email %></h4>
+          <%= @current_user.first_name %></h4>
+        </div>
+        <div class="modal-body">
+          <h4><%= @current_user.email %></h4>
 
-            <%= bootstrap_form_for @current_user do |f| %>
+          <%= bootstrap_form_for @current_user do |f| %>
 
-              <% if @genres %>
-                <%= f.collection_check_boxes :genre_ids, @genres, :id, :name %>
-              <% end %>
+          <% if @genres %>
+          <%= f.collection_check_boxes :genre_ids, @genres, :id, :name %>
+          <% end %>
 
-              <%= f.text_field :first_name, placeholder: "Your first name", icon: "user" %>
-              <%= f.text_field :last_name, placeholder: "Your last name", icon: "user" %>
-              <%= f.text_field :email, placeholder: "Your email", icon: "envelope" %>
-              <%= f.password_field :password, placeholder: "Your password", icon: "lock" %>
+          <%= f.text_field :first_name, placeholder: "Your first name", icon: "user" %>
+          <%= f.text_field :last_name, placeholder: "Your last name", icon: "user" %>
+          <%= f.text_field :email, placeholder: "Your email", icon: "envelope" %>
+          <%= f.password_field :password, placeholder: "Your password", icon: "lock" %>
 
-              <%= f.primary %>
-            <% end %>
+          <%= f.primary %>
+          <% end %>
           <% end %>
         </div>
         <div class="modal-footer">
@@ -89,9 +86,5 @@
       </div>
     </div>
   </div>
-
-  </div>
-
-
 </body>
 </html>
