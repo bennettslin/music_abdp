@@ -16,6 +16,22 @@ ActiveRecord::Schema.define(version: 20150507180043) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "genres", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "genres_users", force: :cascade do |t|
+    t.integer  "genre_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "genres_users", ["genre_id"], name: "index_genres_users_on_genre_id", using: :btree
+  add_index "genres_users", ["user_id"], name: "index_genres_users_on_user_id", using: :btree
+
   create_table "quizzes", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "song_id"
@@ -63,6 +79,8 @@ ActiveRecord::Schema.define(version: 20150507180043) do
     t.datetime "expires_at"
   end
 
+  add_foreign_key "genres_users", "genres"
+  add_foreign_key "genres_users", "users"
   add_foreign_key "quizzes", "songs"
   add_foreign_key "quizzes", "users"
   add_foreign_key "songs_users", "songs"

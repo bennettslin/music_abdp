@@ -1,10 +1,7 @@
 class SiteController < ApplicationController
 
-  def index
+  def team
 
-  end
-
-  def about
   end
 
 end

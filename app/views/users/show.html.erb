@@ -1,32 +1,36 @@
-<h1>Show user</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
 
-<h2><%= @user.first_name %></h2>
+      <h1>Show user</h1>
 
-<% if @user == @current_user %>
+      <h2><%= @user.first_name %></h2>
 
-<<<<<<< HEAD
-<h3><%= @user.email %></h3>
-=======
-  <h3><%= @user.email %></h3>
-  <h4><%= @user.provider %></h4>
+      <% if @user == @current_user %>
 
-  <% if @friends_array.any? %>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Friend</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @friends_array.each do |friend| %>
+      <h3><%= @user.email %></h3>
+      <h4><%= @user.provider %></h4>
+
+      <% if @friends_array.any? %>
+      <table class="table table-hover">
+        <thead>
           <tr>
-            <td><%= friend.first_name %> <%= friend.last_name %></td>
+            <th>Friend</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @friends_array.each do |friend| %>
+            <tr>
+              <td><%= link_to friend.first_name, friend %></a></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <% end %>
 
   <% end %>
->>>>>>> 600c49bb7c63856618bfc6ee0282f3dc0ca7c330
 
-<% end %>
+    </div>
+  </div>
+</div>

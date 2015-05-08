@@ -5,6 +5,9 @@ class ApplicationController < ActionController::Base
 
   before_action :current_user
 
+  # this populates the genre checkboxes in the user dashboard modal
+  before_action :genres
+
   def is_authenticated?
     unless current_user
       flash[:danger] = "You are not logged in."
@@ -14,5 +17,9 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= User.find_by_id(session[:user_id])
+  end
+
+  def genres
+    @genres ||= Genre.all
   end
 end

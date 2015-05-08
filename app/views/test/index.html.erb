@@ -1,0 +1,25 @@
+<div class="background">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+
+
+        <script>
+          audiojs.events.ready(function() {
+            var as = audiojs.createAll();
+          });
+        </script>
+
+        <% imgUrl = "http://is5.mzstatic.com/image/pf/us/r30/Music/ed/a9/dd/mzi.sjokdaqw.jpg" %>
+        <% songUrl = "http://a897.phobos.apple.com/us/r30/Music/v4/ab/f2/99/abf29917-e0a3-0d6c-a59e-f3564b16ae99/mzaf_618333300129169864.plus.aac.p.m4a" %>
+
+        <div id="player" class="col-sm-8 col-sm-offset-2 text-center">
+          <img src="<%= imgUrl %>">
+          <audio src="<%= songUrl %>" preload="auto" />
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>

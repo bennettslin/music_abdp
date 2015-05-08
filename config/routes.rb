@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   root 'users#index'
 
+  get 'team' => 'site#team'
+
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   get 'logout' => 'sessions#destroy'
@@ -24,6 +26,7 @@ Rails.application.routes.draw do
   post 'signup' => 'users#create'
 
   get 'about' => 'site#about'
+  get 'test' => 'test#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
