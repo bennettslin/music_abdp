@@ -29,6 +29,8 @@ Rails.application.routes.draw do
   get 'about' => 'site#about'
   get 'test' => 'test#index'
 
+get 'song' => 'songs#artist'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
