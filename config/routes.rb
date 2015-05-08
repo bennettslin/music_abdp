@@ -23,6 +23,10 @@ Rails.application.routes.draw do
   get 'signup' => 'users#new'
   post 'signup' => 'users#create'
 
+# get 'artists' => 'songs#related_artists'
+
+get 'song' => 'songs#artist'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
