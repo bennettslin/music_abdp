@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
     :on => :create
 
   validates :genres,
-    length: { minimum: 1 },
+    presence: true,
     :on => :update
 
 

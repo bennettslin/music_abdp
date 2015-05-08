@@ -67,8 +67,15 @@ class UsersController < ApplicationController
     genres = params[:user][:genre_ids]
     genres.each do |g|
       @user.genres << Genre.find(g) unless g.blank?
-
     end
+
+    # FIXME: if user has no genres, user is given all the genres for now
+    # this should obviously be handled more gracefully
+    if @user.genres.empty?
+      @user.genres << @genres
+      @user.save
+    end
+
     flash[:success] = "Your preferences have been updated!"
     redirect_to @user
   end
