@@ -8,8 +8,12 @@
 
       <% if @user == @current_user %>
 
-      <h3><%= @user.email %></h3>
-      <h4><%= @user.provider %></h4>
+      <% if @current_user && @current_user.email == ENV['MY_FACEBOOK_EMAIL'] && @current_user.provider == 'facebook' %>
+        <ul>
+          <li class="admin-only">email: <%= @user.email %></li>
+          <li class="admin-only">provider: <%= @user.provider %></li>
+        </ul>
+      <% end %>
 
       <% if @friends_array.any? %>
       <table class="table table-hover">

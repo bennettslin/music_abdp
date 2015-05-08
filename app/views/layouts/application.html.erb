@@ -27,7 +27,9 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
       <ul class="nav navbar-nav">
-        <li><a href="/users">Users (dev only)</a></li>
+        <% if @current_user && @current_user.email == ENV['MY_FACEBOOK_EMAIL'] && @current_user.provider == 'facebook' %>
+          <li class="admin-only"><a href="/users">Users</a></li>
+        <% end %>
         <li><a href="#" data-toggle="modal" data-target="#aboutModal">How to Play</a></li>
         <li><a href="#">Leaderboards <i class="glyphicon glyphicon-stats"></i></a></li>
 
@@ -36,7 +38,7 @@
         <li><a href="/team">Meet the Team</a></li>
         <% if @current_user %>
         <li><a href="#" data-toggle="modal" data-target="#userModal"><%= @current_user.first_name %>'s Dashboard
-           <span class="badge">4</span><i class="glyphicon glyphicon-dashboard"></i></a>
+           <i class="glyphicon glyphicon-dashboard"></i></a>
         </li>
         <li><a href="/logout">Logout</a></li>
         <% else %>
@@ -60,24 +62,29 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">
           <% if @current_user %>
-          <%= @current_user.first_name %></h4>
-        </div>
-        <div class="modal-body">
-          <h4><%= @current_user.email %></h4>
+            <%= @current_user.first_name %></h4>
+          </div>
+          <div class="modal-body">
+            <% if @current_user && @current_user.email == ENV['MY_FACEBOOK_EMAIL'] && @current_user.provider == 'facebook' %>
+              <ul>
+                <li class="admin-only">email: <%= @user.email %></li>
+                <li class="admin-only">provider: <%= @user.provider %></li>
+              </ul>
+            <% end %>
 
-          <%= bootstrap_form_for @current_user do |f| %>
+            <%= bootstrap_form_for @current_user do |f| %>
 
-          <% if @genres %>
-          <%= f.collection_check_boxes :genre_ids, @genres, :id, :name %>
-          <% end %>
+            <% if @genres %>
+            <%= f.collection_check_boxes :genre_ids, @genres, :id, :name %>
+            <% end %>
 
-          <%= f.text_field :first_name, placeholder: "Your first name", icon: "user" %>
-          <%= f.text_field :last_name, placeholder: "Your last name", icon: "user" %>
-          <%= f.text_field :email, placeholder: "Your email", icon: "envelope" %>
-          <%= f.password_field :password, placeholder: "Your password", icon: "lock" %>
+            <%= f.text_field :first_name, placeholder: "Your first name", icon: "user" %>
+            <%= f.text_field :last_name, placeholder: "Your last name", icon: "user" %>
+            <%= f.text_field :email, placeholder: "Your email", icon: "envelope" %>
+            <%= f.password_field :password, placeholder: "Your password", icon: "lock" %>
 
-          <%= f.primary %>
-          <% end %>
+            <%= f.primary %>
+            <% end %>
           <% end %>
         </div>
         <div class="modal-footer">
