@@ -67,10 +67,24 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="myModalLabel">
           <% if @current_user %>
-          <%= @current_user.first_name %></h4>
-        </div>
-        <div class="modal-body">
-          <h4><%= @current_user.email %></h4>
+            <%= @current_user.first_name %></h4>
+          </div>
+          <div class="modal-body">
+            <h4><%= @current_user.email %></h4>
+
+            <%= bootstrap_form_for @current_user do |f| %>
+
+              <% if @genres %>
+                <%= f.collection_check_boxes :genre_ids, @genres, :id, :name %>
+              <% end %>
+
+              <%= f.text_field :first_name, placeholder: "Your first name", icon: "user" %>
+              <%= f.text_field :last_name, placeholder: "Your last name", icon: "user" %>
+              <%= f.text_field :email, placeholder: "Your email", icon: "envelope" %>
+              <%= f.password_field :password, placeholder: "Your password", icon: "lock" %>
+
+              <%= f.primary %>
+            <% end %>
           <% end %>
         </div>
         <div class="modal-footer">

@@ -57,10 +57,10 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
-    @user = User.find(params[:id])
-    @genres = Genre.all
-  end
+  # def edit
+  #   @user = User.find(params[:id])
+  #   @genres = Genre.all
+  # end
 
   def update
     @user = User.find(params[:id])
@@ -74,7 +74,7 @@ class UsersController < ApplicationController
 
 
     end
-    redirect_to @user
+    # redirect_to @user
   end
 
   private
