@@ -1,6 +1,10 @@
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <h4 class="modal-title" id="myModalLabel">Signup</h4>
+
+</div>
+<div class="modal-body">
+
   <ul>
     <li><a href="/auth/facebook">Facebook</a></li>
     <li><a href="/auth/google_oauth2">Google</a></li>
@@ -8,7 +12,7 @@
     <li><a href="/auth/linkedin">LinkedIn</a></li>
   </ul>
 
-  <!-- entire form must be in single div -->
+  <%# entire form must be in single div %>
   <%= bootstrap_form_for @user do |f| %>
     <%= f.text_field :first_name, placeholder: "Your first name", icon: "user", hide_label: true %>
     <%= f.text_field :last_name, placeholder: "Your last name", icon: "user", hide_label: true %>
@@ -16,7 +20,7 @@
     <%= f.password_field :password, placeholder: "Your password", icon: "lock", hide_label: true %>
     <%= f.primary %>
   <% end %>
-
 </div>
+
 <div class="modal-footer">
 </div>

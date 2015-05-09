@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
   def new
+    render layout: false
   end
 
   def create
@@ -8,10 +9,10 @@ class SessionsController < ApplicationController
     if @user
       session[:user_id] = @user.id
       flash[:success] = "Login successful."
-      redirect_to @user
+      redirect_to team_path
     else
       flash[:danger] = "Invalid credentials."
-      render :new
+      redirect_to team_path
     end
   end
 
