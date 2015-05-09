@@ -12,7 +12,7 @@
     <li><a href="/auth/linkedin">LinkedIn</a></li>
   </ul>
 
-  <%# entire form must be in single div %>
+  <%# entire form must be in same div %>
   <%= bootstrap_form_for @user do |f| %>
     <%= f.text_field :first_name, placeholder: "Your first name", icon: "user", hide_label: true %>
     <%= f.text_field :last_name, placeholder: "Your last name", icon: "user", hide_label: true %>

@@ -11,7 +11,7 @@
     <li><a href="/auth/linkedin">LinkedIn</a></li>
   </ul>
 
-  <%# entire form must be in single div %>
+  <%# entire form must be in same div %>
   <%= bootstrap_form_tag url: '/login' do |f| %>
     <%= f.text_field :email, placeholder: "Your email", icon: "user", hide_label: true %>
     <%= f.password_field :password, placeholder: "Your password", icon: "lock", hide_label: true %>

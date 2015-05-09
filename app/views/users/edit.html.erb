@@ -1,0 +1,47 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <h4 class="modal-title" id="myModalLabel">
+  <%= @user.first_name %></h4>
+</div>
+<div class="modal-body">
+  <% if @user && @user.email == ENV['MY_FACEBOOK_EMAIL'] && @user.provider == 'facebook' %>
+  <ul>
+    <li class="admin-only">email: <%= @user.email %></li>
+    <li class="admin-only">provider: <%= @user.provider %></li>
+  </ul>
+  <% end %>
+
+  <%# entire form must be in same div %>
+  <%= bootstrap_form_for @user do |f| %>
+
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseGenre" aria-expanded="false" aria-controls="collapseGenre">
+      Update Genres
+    </button>
+
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseUser" aria-expanded="false" aria-controls="collapseUser">
+      Update Profile
+    </button>
+
+    <div class="collapse" id="collapseGenre">
+      <div class="well">
+        <% if @genres %>
+          <%= f.collection_check_boxes :genre_ids, @genres, :id, :name, hide_label: true %>
+        <% end %>
+      </div>
+    </div>
+    <div class="collapse" id="collapseUser">
+      <div class="well">
+        <%= f.text_field :first_name, placeholder: "Your first name", icon: "user" %>
+        <%= f.text_field :last_name, placeholder: "Your last name", icon: "user" %>
+        <%= f.text_field :email, placeholder: "Your email", icon: "envelope" %>
+        <%= f.password_field :password, placeholder: "Your password", icon: "lock" %>
+
+      </div>
+    </div>
+    <%= f.primary %>
+  <% end %>
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>

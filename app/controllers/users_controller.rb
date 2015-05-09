@@ -63,10 +63,10 @@ class UsersController < ApplicationController
   end
 
   # used by modal
-  # def edit
-  #   @user = User.find(params[:id])
-  #   render layout: false
-  # end
+  def edit
+    @user = User.find(params[:id])
+    render layout: false
+  end
 
   def update
 

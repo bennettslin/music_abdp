@@ -34,90 +34,34 @@
         <li class="admin-only"><a href="/random_artists">Random artists</a></li>
         <% end %>
         <li><%= link_to 'How to Play'.html_safe, about_path, :data => {toggle:'modal', target:'#myModal' } %></li>
-        <li><a href="#"><i class="glyphicon glyphicon-stats"></i> Leaderboards</a></li>
+        <li><a href="#"><i class="glyphicon glyphicon-stats"></i> Leaderboard</a></li>
 
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/team">Meet the Team</a></li>
         <% if @current_user %>
-        <li><a href="#" data-toggle="modal" data-target="#userModal"><i class="glyphicon glyphicon-dashboard"></i> <%= @current_user.first_name %>'s Dashboard
-        </a>
-      </li>
-      <li><a href="/logout">Logout</a></li>
-      <% else %>
-      <li><%= link_to 'Login'.html_safe, login_path, :class => 'btn btn-info', :data => {toggle:'modal', target:'#myModal' } %></li>
-      <li><%= link_to 'Signup'.html_safe, signup_path, :class => 'btn btn-success', :data => {toggle:'modal', target:'#myModal' } %></li>
-      <% end %>
-    </ul>
-  </div><!-- /.navbar-collapse -->
-</nav>
 
-<!-- New Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-    </div>
-  </div>
-</div>
+        <li><%= link_to ("<i class='glyphicon glyphicon-dashboard'></i> " + @current_user.first_name + "'s Dashboard").html_safe, edit_user_path(@current_user), :class => 'btn btn-info', :data => {toggle:'modal', target:'#myModal' } %></li>
 
-<%= render "layouts/flash" %>
+        <li><a href="/logout">Logout</a></li>
+        <% else %>
+        <li><%= link_to 'Login'.html_safe, login_path, :class => 'btn btn-info', :data => {toggle:'modal', target:'#myModal' } %></li>
+        <li><%= link_to 'Signup'.html_safe, signup_path, :class => 'btn btn-success', :data => {toggle:'modal', target:'#myModal' } %></li>
+        <% end %>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </nav>
 
-<%= yield %>
-
-<% if @current_user %>
-<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">
-          <%= @current_user.first_name %></h4>
-        </div>
-        <div class="modal-body">
-          <% if @current_user && @current_user.email == ENV['MY_FACEBOOK_EMAIL'] && @current_user.provider == 'facebook' %>
-          <ul>
-            <li class="admin-only">email: <%= @current_user.email %></li>
-            <li class="admin-only">provider: <%= @current_user.provider %></li>
-          </ul>
-          <% end %>
-
-          <%= bootstrap_form_for @current_user do |f| %>
-
-          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseGenre" aria-expanded="false" aria-controls="collapseGenre">
-            Update Genres
-          </button>
-
-          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseUser" aria-expanded="false" aria-controls="collapseUser">
-            Update Profile
-          </button>
-
-          <div class="collapse" id="collapseGenre">
-            <div class="well">
-              <% if @genres %>
-              <%= f.collection_check_boxes :genre_ids, @genres, :id, :name, hide_label: true %>
-              <% end %>
-            </div>
-          </div>
-          <div class="collapse" id="collapseUser">
-            <div class="well">
-              <%= f.text_field :first_name, placeholder: "Your first name", icon: "user" %>
-              <%= f.text_field :last_name, placeholder: "Your last name", icon: "user" %>
-              <%= f.text_field :email, placeholder: "Your email", icon: "envelope" %>
-              <%= f.password_field :password, placeholder: "Your password", icon: "lock" %>
-
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= f.primary %>
-          <% end %>
-        </div>
+  <!-- the one and only modal! -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
       </div>
     </div>
   </div>
 
-<% end %>
+  <%= render "layouts/flash" %>
+  <%= yield %>
 
 </body>
 </html>

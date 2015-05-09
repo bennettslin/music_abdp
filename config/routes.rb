@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   get 'auth/:provider/callback' => 'auth#callback'
 
   # new and edit pages for user are in modals
-  resources :users, except: [:edit]
+  resources :users
   resources :passwords, except: [:index, :show]
 
   get 'signup' => 'users#new'
