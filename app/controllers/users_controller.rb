@@ -12,8 +12,10 @@ class UsersController < ApplicationController
     end
   end
 
+  # used by modal
   def new
     @user = User.new
+    render layout: false
   end
 
   def create
@@ -21,10 +23,10 @@ class UsersController < ApplicationController
     @user.genres << @genres
     if @user.save
       flash[:success] = "User created. Please log in!"
-      redirect_to team_path
+      redirect_to @user
     else
       flash[:danger] = "User was not created."
-      render :new
+      redirect_to team_path
     end
   end
 
@@ -58,6 +60,12 @@ class UsersController < ApplicationController
         puts "failure: #{event}"
       end
     end
+  end
+
+  # used by modal
+  def edit
+    @user = User.find(params[:id])
+    render layout: false
   end
 
   def update
