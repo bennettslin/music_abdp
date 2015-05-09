@@ -1,8 +1,6 @@
 class SongsController < ApplicationController
 
-  attr_accessor :genre
-
-  def genre
+  def random_artists
 
     # get list of artists by specified genre
     artists = RSpotify::Artist.search('genre:Pop')

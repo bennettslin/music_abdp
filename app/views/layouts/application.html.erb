@@ -30,6 +30,7 @@
         <% if @current_user && @current_user.email == ENV['MY_FACEBOOK_EMAIL'] && @current_user.provider == 'facebook' %>
         <li class="admin-only"><a href="/users">Users</a></li>
         <li class="admin-only"><a href="/test">Player</a></li>
+        <li class="admin-only"><a href="/random_artists">Random artists</a></li>
         <% end %>
         <li><a href="#" data-toggle="modal" data-target="#aboutModal">How to Play</a></li>
         <li><a href="#"><i class="glyphicon glyphicon-stats"></i> Leaderboards</a></li>
