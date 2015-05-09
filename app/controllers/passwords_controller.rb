@@ -17,7 +17,7 @@ class PasswordsController < ApplicationController
       flash[:danger] = "No user with that email was found."
     end
 
-    redirect_to login_path
+    redirect_to root_path
   end
 
   def edit
@@ -36,7 +36,7 @@ class PasswordsController < ApplicationController
     else
 
     end
-      redirect_to login_path
+      redirect_to root_path
 
   end
 

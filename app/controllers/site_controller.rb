@@ -5,7 +5,6 @@ class SiteController < ApplicationController
   end
 
   def team
-
   end
 
 end

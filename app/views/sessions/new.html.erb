@@ -15,9 +15,9 @@
   <%= bootstrap_form_tag url: '/login' do |f| %>
     <%= f.text_field :email, placeholder: "Your email", icon: "user", hide_label: true %>
     <%= f.password_field :password, placeholder: "Your password", icon: "lock", hide_label: true %>
-    <%= link_to "Forgot password?", new_password_path, class: "btn btn-danger forgot-password" %>
     <%= f.submit "Login", class: "btn btn-primary" %>
   <% end %>
+  <%= link_to "Forgot password?", new_password_path, class: "btn btn-danger forgot-password" %>
 </div>
 
 <div class="modal-footer">

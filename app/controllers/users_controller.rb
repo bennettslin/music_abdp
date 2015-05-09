@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     if @current_user && @current_user.email == ENV['MY_FACEBOOK_EMAIL'] && @current_user.provider == 'facebook'
     @users = User.all
     else
-      redirect_to login_path
+      redirect_to root_path
       return
     end
   end
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
       redirect_to @user
     else
       flash[:danger] = "User was not created."
-      redirect_to team_path
+      redirect_to root_path
     end
   end
 

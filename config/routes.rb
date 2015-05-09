@@ -5,9 +5,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
-  root 'site#team'
-
-  get 'team' => 'site#team'
+  root 'site#welcome'
 
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
@@ -26,6 +24,9 @@ Rails.application.routes.draw do
   post 'signup' => 'users#create'
 
   get 'about' => 'site#about'
+  get 'leaderboard' => 'site#leaderboard'
+  get 'team' => 'site#team'
+
   get 'test' => 'test#index'
 
   get 'random_artists' => 'songs#random_artists'
