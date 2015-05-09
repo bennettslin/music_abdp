@@ -33,7 +33,7 @@
         <li class="admin-only"><a href="/test">Player</a></li>
         <li class="admin-only"><a href="/random_artists">Random artists</a></li>
         <% end %>
-        <li><a href="#" data-toggle="modal" data-target="#aboutModal">How to Play</a></li>
+        <li><%= link_to 'How to Play'.html_safe, about_path, :data => {toggle:'modal', target:'#myModal' } %></li>
         <li><a href="#"><i class="glyphicon glyphicon-stats"></i> Leaderboards</a></li>
 
       </ul>
@@ -45,7 +45,6 @@
       </li>
       <li><a href="/logout">Logout</a></li>
       <% else %>
-<!--       <li><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li> -->
       <li><%= link_to 'Login'.html_safe, login_path, :class => 'btn btn-info', :data => {toggle:'modal', target:'#myModal' } %></li>
       <li><%= link_to 'Signup'.html_safe, signup_path, :class => 'btn btn-success', :data => {toggle:'modal', target:'#myModal' } %></li>
       <% end %>
@@ -61,8 +60,6 @@
   </div>
 </div>
 
-<!-- About Modal -->
-<%= render "/layouts/about" %>
 <%= render "layouts/flash" %>
 
 <%= yield %>
