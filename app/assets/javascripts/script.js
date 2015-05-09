@@ -16,7 +16,7 @@ $(function(){
 
     }).done(function(data){
       $('#myModal').modal('hide')
-      console.log(data);
+      // console.log(data);
 
     }).error(function(err){
       alert('something broke.');

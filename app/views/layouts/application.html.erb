@@ -45,7 +45,8 @@
       </li>
       <li><a href="/logout">Logout</a></li>
       <% else %>
-      <li><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
+<!--       <li><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li> -->
+      <li><%= link_to 'Login'.html_safe, login_path, :class => 'btn btn-info', :data => {toggle:'modal', target:'#myModal' } %></li>
       <li><%= link_to 'Signup'.html_safe, signup_path, :class => 'btn btn-success', :data => {toggle:'modal', target:'#myModal' } %></li>
       <% end %>
     </ul>
@@ -64,11 +65,8 @@
 <%= render "/layouts/about" %>
 <%= render "layouts/flash" %>
 
-<!-- Begin yield -->
 <%= yield %>
-<!-- End yield -->
 
-<!-- User Modal – will need to solve DRY issue with AJAX -->
 <% if @current_user %>
 <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -116,40 +114,6 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <%= f.primary %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <% else %>
-
-  <!-- login modal -->
-  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Login</h4>
-        </div>
-        <div class="modal-body">
-
-          <ul>
-            <li><a href="/auth/facebook">Facebook</a></li>
-            <li><a href="/auth/google_oauth2">Google</a></li>
-            <li><a href="/auth/twitter">Twitter</a></li>
-            <li><a href="/auth/linkedin">LinkedIn</a></li>
-          </ul>
-
-
-          <%= bootstrap_form_tag url: '/login' do |f| %>
-          <%= f.text_field :email, placeholder: "Your email", icon: "user", hide_label: true %>
-          <%= f.password_field :password, placeholder: "Your password", icon: "lock", hide_label: true %>
-
-        </div>
-        <div class="modal-footer">
-          <%= link_to "Forgot password?", new_password_path, class: "btn btn-danger forgot-password" %>
-          <%= f.submit "Login", class: "btn btn-primary" %>
           <% end %>
         </div>
       </div>
