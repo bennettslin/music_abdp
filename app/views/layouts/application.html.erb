@@ -31,6 +31,7 @@
         <% if @current_user && @current_user.email == ENV['MY_FACEBOOK_EMAIL'] && @current_user.provider == 'facebook' %>
         <li class="admin-only"><a href="/users">Users</a></li>
         <li class="admin-only"><a href="/test">Player</a></li>
+        <!-- <li class="admin-only"><a href="/all_artists">All artists</a></li> -->
         <li class="admin-only"><a href="/random_artists">Random artists</a></li>
         <% end %>
         <li><%= link_to 'How to Play'.html_safe, about_path, :data => {toggle:'modal', target:'#myModal' } %></li>
