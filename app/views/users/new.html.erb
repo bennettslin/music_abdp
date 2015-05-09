@@ -1,11 +1,22 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <h4 class="modal-title" id="myModalLabel">Signup</h4>
+  <ul>
+    <li><a href="/auth/facebook">Facebook</a></li>
+    <li><a href="/auth/google_oauth2">Google</a></li>
+    <li><a href="/auth/twitter">Twitter</a></li>
+    <li><a href="/auth/linkedin">LinkedIn</a></li>
+  </ul>
 
-      <h1>Signup</h1>
+  <!-- entire form must be in single div -->
+  <%= bootstrap_form_for @user do |f| %>
+    <%= f.text_field :first_name, placeholder: "Your first name", icon: "user", hide_label: true %>
+    <%= f.text_field :last_name, placeholder: "Your last name", icon: "user", hide_label: true %>
+    <%= f.text_field :email, placeholder: "Your email", icon: "envelope", hide_label: true %>
+    <%= f.password_field :password, placeholder: "Your password", icon: "lock", hide_label: true %>
+    <%= f.primary %>
+  <% end %>
 
-      <%= render "form" %>
-
-    </div>
-  </div>
+</div>
+<div class="modal-footer">
 </div>

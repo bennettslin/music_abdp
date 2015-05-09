@@ -3,12 +3,13 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aptitune</title>
-  <!-- Latest compiled and minified CSS & JS -->
-  <link rel="stylesheet" media="screen" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-  <script src="//code.jquery.com/jquery.js"></script>
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+  <link rel="stylesheet" media="screen" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -45,16 +46,27 @@
       <li><a href="/logout">Logout</a></li>
       <% else %>
       <li><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
-      <li><a href="#" data-toggle="modal" data-target="#signupModal">Signup</a></li>
+      <li><%= link_to 'Signup'.html_safe, signup_path, :class => 'btn btn-success', :data => {toggle:'modal', target:'#myModal' } %></li>
       <% end %>
     </ul>
   </div><!-- /.navbar-collapse -->
 </nav>
 
+<!-- New Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+
 <!-- About Modal -->
 <%= render "/layouts/about" %>
 <%= render "layouts/flash" %>
+
+<!-- Begin yield -->
 <%= yield %>
+<!-- End yield -->
 
 <!-- User Modal – will need to solve DRY issue with AJAX -->
 <% if @current_user %>
@@ -109,7 +121,9 @@
       </div>
     </div>
   </div>
+
   <% else %>
+
   <!-- login modal -->
   <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -142,36 +156,7 @@
     </div>
   </div>
 
-  <!-- signup modal -->
-  <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Signup</h4>
+<% end %>
 
-          <ul>
-            <li><a href="/auth/facebook">Facebook</a></li>
-            <li><a href="/auth/google_oauth2">Google</a></li>
-            <li><a href="/auth/twitter">Twitter</a></li>
-            <li><a href="/auth/linkedin">LinkedIn</a></li>
-          </ul>
-
-          <% @user = User.new %>
-          <%= bootstrap_form_for @user do |f| %>
-          <%= f.text_field :first_name, placeholder: "Your first name", icon: "user", hide_label: true %>
-          <%= f.text_field :last_name, placeholder: "Your last name", icon: "user", hide_label: true %>
-          <%= f.text_field :email, placeholder: "Your email", icon: "envelope", hide_label: true %>
-          <%= f.password_field :password, placeholder: "Your password", icon: "lock", hide_label: true %>
-
-        </div>
-        <div class="modal-footer">
-          <%= f.primary %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-  <% end %>
 </body>
 </html>
