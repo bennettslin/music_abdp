@@ -1,11 +1,48 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <h4 class="modal-title" id="myModalLabel">
+    <%= @current_user.first_name %>'s Dashboard</h4>
+  </div>
+  <%= bootstrap_form_for @current_user do |f| %>
+<div class="modal-body">
+  <% if @current_user && @current_user.email == ENV['MY_FACEBOOK_EMAIL'] && @current_user.provider == 'facebook' %>
+  <ul>
+    <li class="admin-only">email: <%= @current_user.email %></li>
+    <li class="admin-only">provider: <%= @current_user.provider %></li>
+  </ul>
+  <% end %>
 
-      <h1>Edit user</h1>
-
-      <%= render "form" %>
-
+  <div role="tabpanel">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs dashboard-tabs" role="tablist">
+      <li role="presentation" class="active">
+        <a href="#genres" aria-controls="genres" role="tab" data-toggle="tab">
+          <i class="fa fa-headphones">&nbsp;&nbsp;</i>Update Genres
+        </a>
+      </li>
+      <li role="presentation">
+        <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-user">&nbsp;&nbsp;</i>Update Profile
+        </a>
+      </li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane fade in active well well-lg" id="genres">
+        <% if @genres %>
+        <%= f.collection_check_boxes :genre_ids, @genres, :id, :name, hide_label: true %>
+        <% end %>
+      </div>
+      <div role="tabpanel" class="tab-pane fade well well-lg" id="profile">
+        <%= f.text_field :first_name, placeholder: "First name", icon: "user" %>
+        <%= f.text_field :last_name, placeholder: "Last name", icon: "user" %>
+        <%= f.text_field :email, placeholder: "Email", icon: "envelope" %>
+        <%= f.password_field :password, placeholder: "Password", icon: "lock" %>
+      </div>
     </div>
   </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  <%= f.primary %>
+  <% end %>
 </div>

@@ -5,9 +5,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
-  root 'site#team'
-
-  get 'team' => 'site#team'
+  root 'site#welcome'
 
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
@@ -18,18 +16,22 @@ Rails.application.routes.draw do
   get 'auth/failure' => 'auth#failure'
   get 'auth/:provider/callback' => 'auth#callback'
 
-  # no edit page for user, because update form is in a modal accessed through nav bar
-  resources :users, except: [:edit]
-
+  # new and edit pages for user are in modals
+  resources :users
   resources :passwords, except: [:index, :show]
 
   get 'signup' => 'users#new'
   post 'signup' => 'users#create'
 
   get 'about' => 'site#about'
+  get 'leaderboard' => 'site#leaderboard'
+  get 'team' => 'site#team'
+
   get 'test' => 'test#index'
 
-get 'song' => 'songs#artist'
+  # get 'all_artists' => 'songs#all_artists'
+  get 'random_artists' => 'test#index'
+  get 'validate_artists' => 'songs#validate_artists'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

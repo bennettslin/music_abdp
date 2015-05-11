@@ -5,28 +5,28 @@ class UsersController < ApplicationController
 
   def index
     if @current_user && @current_user.email == ENV['MY_FACEBOOK_EMAIL'] && @current_user.provider == 'facebook'
-    @users = User.all
+      @users = User.all
     else
-      redirect_to login_path
+      redirect_to root_path
       return
     end
   end
 
+  # used by modal
   def new
     @user = User.new
-    @signup = true
+    render layout: false
   end
 
   def create
-
     @user = User.create(user_params)
     @user.genres << @genres
     if @user.save
       flash[:success] = "User created. Please log in!"
-      redirect_to login_path
+      redirect_to @user
     else
       flash[:danger] = "User was not created."
-      render 'new'
+      redirect_to root_path
     end
   end
 
@@ -60,6 +60,12 @@ class UsersController < ApplicationController
         puts "failure: #{event}"
       end
     end
+  end
+
+  # used by modal
+  def edit
+    @user = User.find(params[:id])
+    render layout: false
   end
 
   def update

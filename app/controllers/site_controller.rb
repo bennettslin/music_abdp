@@ -1,7 +1,10 @@
 class SiteController < ApplicationController
 
-  def team
+  def about
+    render layout: false
+  end
 
+  def team
   end
 
 end

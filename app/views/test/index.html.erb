@@ -1,31 +1,109 @@
 <style>
   body {
     background: none;
+        background-color: black;
+  }
+
+  .background:before {
+    background: url(<%= @song0_cover %>);
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    display: block;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+
+    -webkit-filter: saturate(500%) blur(30px);
+    -moz-filter: saturate(500%) blur(30px);
+    -o-filter: saturate(500%) blur(30px);
+    -ms-filter: saturate(500%) blur(30px);
+    filter: saturate(500%) blur(30px);
+
+    /* IMPORTANT - FORCES HARDWARE ACCELERATION */
+    -webkit-transform: scale(1.2)  translate3d(0, 0, 0) ;
+    -moz-transform: scale(1.2)  translate3d(0, 0, 0) ;
+    -o-transform: scale(1.2)  translate3d(0, 0, 0) ;
+    -ms-transform: scale(1.2)  translate3d(0, 0, 0) ;
+    transform: scale(1.2)  translate3d(0, 0, 0) ;
+}
+
+  .background {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 0;
+
   }
 </style>
 
 <div class="background">
-
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
 
 
-        <script>
-          audiojs.events.ready(function() {
-            var as = audiojs.createAll();
-          });
-        </script>
+        <div id="player" class="col-sm-8 col-sm-offset-2">
 
-        <% imgUrl = "http://is5.mzstatic.com/image/pf/us/r30/Music/ed/a9/dd/mzi.sjokdaqw.jpg" %>
-        <% songUrl = "http://a897.phobos.apple.com/us/r30/Music/v4/ab/f2/99/abf29917-e0a3-0d6c-a59e-f3564b16ae99/mzaf_618333300129169864.plus.aac.p.m4a" %>
+          <div class="col-sm-10 col-sm-offset-1 questions text-center" id="question1">
+            <h2>Question 1/3</h2>
+            <h3>The <strong>artist</strong> of this track is _________________.</h3>
+            <br>
 
-        <div id="player" class="col-sm-8 col-sm-offset-2 text-center">
-          <img src="<%= imgUrl %>">
-          <audio src="<%= songUrl %>" preload="auto" />
+            <% array1 = ['<button class="btn btn-default incorrect1">' + @song2_artist + '</button>', '<button id="q1" class="btn btn-default reveal">' + @song0_artist + '</button>', '<button class="btn btn-default incorrect1">' + @song1_artist + '</button>'] %>
+            <% array1random = array1.shuffle %>
+            <% array1random.each do |a| %>
+            <%= a.html_safe %>
+            <% end %>
+
           </div>
+
+          <div class="col-sm-10 col-sm-offset-1 questions text-center" id="question2">
+            <h2>Question 2/3</h2>
+            <h3>The name of this <strong>album</strong> is _________________.</h3>
+            <br>
+
+            <% array2 = ['<button class="btn btn-default incorrect2">' + @song2_album_name + '</button>', '<button id="q2" class="btn btn-default reveal">' + @song0_album_name + '</button>', '<button class="btn btn-default incorrect2">' + @song1_album_name + '</button>'] %>
+            <% array2random = array2.shuffle %>
+            <% array2random.each do |a| %>
+            <%= a.html_safe %>
+            <% end %>
+
+          </div>
+
+          <div class="col-sm-10 col-sm-offset-1 questions text-center" id="question3">
+            <h2>Question 3/3</h2>
+            <h3>The name of this <strong>track</strong> is _________________.</h3>
+            <br>
+
+            <% array3 = ['<button class="btn btn-default incorrect3">' + @song2_track_name + '</button>', '<button id="q3" class="btn btn-default reveal">' + @song0_track_name + '</button>', '<button class="btn btn-default incorrect3">' + @song1_track_name + '</button>'] %>
+            <% array3random = array3.shuffle %>
+            <% array3random.each do |a| %>
+            <%= a.html_safe %>
+            <% end %>
+
+          </div>
+
+          <!-- PLAYER ALBUM COVER WILL BE INTIALLY HIDDEN W/ 0 (ZERO) OPACITY -->
+          <img src=<%= @song0_cover %> id="song-cover">
+          <audio src=<%= @song0_url %> preload="auto"></audio>
 
         </div>
       </div>
     </div>
   </div>
+</div>
+<script>
+  audiojs.events.ready(function() {
+    var as = audiojs.createAll({
+      autoplay: true
+    });
+  });
+</script>
+
+
+<!-- </div> -->

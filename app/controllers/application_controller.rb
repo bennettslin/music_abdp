@@ -25,4 +25,5 @@ class ApplicationController < ActionController::Base
   def genres
     @genres ||= Genre.all
   end
+
 end
