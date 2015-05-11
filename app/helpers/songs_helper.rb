@@ -2,7 +2,6 @@ module SongsHelper
 
   def genre_artists
     [
-
       {
         :genre => "country",
         :artists => [
@@ -109,6 +108,7 @@ module SongsHelper
         ]
       }
     ]
+
   end
 
 end

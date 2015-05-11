@@ -84,6 +84,7 @@ class SongsController < ApplicationController
   def validate_artists
     genre_objects = []
     genre_artists.each do |object|
+      genre_objects << object[:genre]
       artist_song_objects = [];
       artists = object[:artists]
       artists.each do |artist_string|
