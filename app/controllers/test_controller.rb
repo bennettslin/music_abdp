@@ -4,10 +4,10 @@ class TestController < ApplicationController
 
     # Randomly chooses genre from user preferences
     if @current_user
-        genres_max = @current_user.genres.count - 1
-        genre = @current_user.genres[rand(0..genres_max)]
+      genres_max = @current_user.genres.count - 1
+      genre = @current_user.genres[rand(0..genres_max)]
     else
-        genre = Genre.all[rand(0..(genres.count - 1))]
+      genre = Genre.all[rand(0..(genres.count - 1))]
     end
 
     # render :json => genre.name
@@ -56,6 +56,7 @@ class TestController < ApplicationController
     @song2_album_name = song2_random.album.name
 
     # render :json => @song2_album_name
+
   end
 
   def quiz
