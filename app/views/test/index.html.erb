@@ -1,35 +1,91 @@
-<% imgUrl = "http://is5.mzstatic.com/image/pf/us/r30/Music/ed/a9/dd/mzi.sjokdaqw.jpg" %>
-<% songUrl = "https://p.scdn.co/mp3-preview/4d87e14360013e3154679d43180714b73be10c9c" %>
-
 <style>
   body {
     background: none;
   }
   .background:before {
-    background: url(<%= imgUrl %>);
+    background: url(<%= @song0_cover %>);
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    display: block;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+    -webkit-filter: blur(30px);
+    -moz-filter: blur(30px);
+    -o-filter: blur(30px);
+    -ms-filter: blur(30px);
+    filter: blur(30px);
+
+    /* IMPORTANT - FORCES HARDWARE ACCELERATION */
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  .background {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 0;
   }
 </style>
 
 <div class="background">
-
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
 
 
-        <script>
-          audiojs.events.ready(function() {
-            var as = audiojs.createAll();
-          });
-        </script>
+        <div id="player" class="col-sm-8 col-sm-offset-2">
 
-
-        <div id="player" class="col-sm-8 col-sm-offset-2 text-center">
-          <img src="<%= imgUrl %>">
-          <audio src="<%= songUrl %>" preload="auto" />
+          <div class="col-sm-10 col-sm-offset-1 questions text-center" id="question1">
+            <h2>Question 1/3</h2>
+            <h3>The <strong>artist</strong> of this track is _________________.</h3>
+            <br>
+            <button class="btn btn-default"><%= @song2_artist %></button>
+            <button id="q1" class="btn btn-default reveal"><%= @song0_artist %></button>
+            <button class="btn btn-default"><%= @song1_artist %></button>
           </div>
+
+          <div class="col-sm-10 col-sm-offset-1 questions text-center" id="question2">
+            <h2>Question 2/3</h2>
+            <h3>The name of this <strong>album</strong> is _________________.</h3>
+            <br>
+            <button class="btn btn-default"><%= @song2_album_name %></button>
+            <button id="q2" class="btn btn-default reveal"><%= @song0_album_name %></button>
+            <button class="btn btn-default"><%= @song1_album_name %></button>
+          </div>
+
+          <div class="col-sm-10 col-sm-offset-1 questions text-center" id="question3">
+            <h2>Question 3/3</h2>
+            <h3>The name of this <strong>track</strong> is _________________.</h3>
+            <br>
+            <button class="btn btn-default"><%= @song2_track_name %></button>
+            <button id="q3" class="btn btn-default reveal"><%= @song0_track_name %></button>
+            <button class="btn btn-default"><%= @song1_track_name %></button>
+          </div>
+
+
+          <!-- PLAYER ALBUM COVER WILL BE INTIALLY HIDDEN W/ 0 (ZERO) OPACITY -->
+
+          <img src=<%= @song0_cover %> id="song-cover">
+          <audio src=<%= @song0_url %> preload="auto"></audio>
 
         </div>
       </div>
     </div>
   </div>
+</div>
+<script>
+  audiojs.events.ready(function() {
+    var as = audiojs.createAll({
+      autoplay: true
+    });
+  });
+</script>
