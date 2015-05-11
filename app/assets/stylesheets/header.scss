@@ -4,6 +4,7 @@ body {
   background-attachment: fixed;
   font-family: "Gotham Rounded A", "Gotham Rounded B", "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding-top: 70px;
+  background-color: black;
 }
 
 h1, h2, h3, th {
@@ -12,7 +13,7 @@ h1, h2, h3, th {
 }
 
 nav.navbar.navbar-default {
-  opacity: .85;
+  opacity: 1;
   border-radius: 0;
   background-color: #ffffff;
   border-color: #efefef;

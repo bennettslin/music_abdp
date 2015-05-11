@@ -1,7 +1,9 @@
 <style>
   body {
     background: none;
+        background-color: black;
   }
+
   .background:before {
     background: url(<%= @song0_cover %>);
     content: "";
@@ -15,24 +17,27 @@
     background-position: center;
     width: 100vw;
     height: 100vh;
-    -webkit-filter: blur(30px);
-    -moz-filter: blur(30px);
-    -o-filter: blur(30px);
-    -ms-filter: blur(30px);
-    filter: blur(30px);
+
+    -webkit-filter: saturate(500%) blur(30px);
+    -moz-filter: saturate(500%) blur(30px);
+    -o-filter: saturate(500%) blur(30px);
+    -ms-filter: saturate(500%) blur(30px);
+    filter: saturate(500%) blur(30px);
 
     /* IMPORTANT - FORCES HARDWARE ACCELERATION */
-    -webkit-transform: translate3d(0, 0, 0);
-    -moz-transform: translate3d(0, 0, 0);
-    -o-transform: translate3d(0, 0, 0);
-    -ms-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
+    -webkit-transform: scale(1.2)  translate3d(0, 0, 0) ;
+    -moz-transform: scale(1.2)  translate3d(0, 0, 0) ;
+    -o-transform: scale(1.2)  translate3d(0, 0, 0) ;
+    -ms-transform: scale(1.2)  translate3d(0, 0, 0) ;
+    transform: scale(1.2)  translate3d(0, 0, 0) ;
+}
+
   .background {
     position: fixed;
     left: 0;
     right: 0;
     z-index: 0;
+
   }
 </style>
 
