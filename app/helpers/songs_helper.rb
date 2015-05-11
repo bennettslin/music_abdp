@@ -2,7 +2,114 @@ module SongsHelper
 
   def genre_artists
     [
+      # alternative rock
+      {
+        :genre => "alternative rock",
+        :artists =>   [
+          'Alabama Shakes',
+          'All Time Low',
+          'The All American Rejects',
+          'alt-J',
+          'American Authors',
+          'Andrew McMahon in the Wilderness',
+          'Arctic Monkeys',
+          'AWOLNATION',
+          'Band of Horses',
+          'Banks',
+          'Bastille',
+          'Best Coast',
+          'Big Data',
+          'Birdy',
+          'The Black Keys',
+          'Bleachers',
+          'Brandon Flowers',
+          'Bring Me the Horizon',
+          'Cage the Elephant',
+          'Capital Cities',
+          'Cold War Kids',
+          'Coldplay',
+          'Death Cab for Cutie',
+          'Echosmith',
+          'Edward Sharpe & The Magnetic Zeros',
+          'Elle King',
+          'Evanescence',
+          'Fall Out Boy',
+          'Family of the Year',
+          'Florence + The Machine',
+          'Foster the People',
+          'Fun.',
+          'Glass Animals',
+          'Gorillaz',
+          'Gotye',
+          'The Head and the Heart',
+          'Houndmouth',
+          'Hozier',
+          'In The Valley Below',
+          'James Bay',
+          'Jeff Buckley',
+          'Jimmy Eat World',
+          'The Killers',
+          'Kodaline',
+          'KONGOS',
+          'Lana Del Rey',
+          'LINKIN PARK',
+          'Lord Huron',
+          'Lorde',
+          'The Lumineers',
+          'M.I.A.',
+          'Madisen Ward and the Mama Bear',
+          'Meg Myers',
+          'Melanie Martinez',
+          'Michael Franti & Spearhead',
+          'Milky Chance',
+          'MisterWives',
+          'Modest Mouse',
+          'The Moth & The Flame',
+          'The Mowglis',
+          'Mumford & Sons',
+          'Muse',
+          'My Chemical Romance',
+          'My Morning Jacket',
+          'Nate Ruess',
+          'The Neighbourhood',
+          'Neon Trees',
+          'Nirvana',
+          'Oasis',
+          'Of Monsters and Men',
+          'The Offspring',
+          'Panic! At the Disco',
+          'Paramore',
+          'Red Hot Chili Peppers',
+          'Sublime',
+          'Third Eye Blind',
+          'Tove Lo',
+          'twenty one pilots',
+          'Vance Joy',
+          'WALK THE MOON',
+          'Weezer',
+          'The White Stripes',
+          'X Ambassadors',
+          'The xx',
+          'Young Rising Sons',
+          'The 1975',
+          'Pvris',
+          'Halsey',
+          'Audioslave',
+          'blink-182',
+          'Bon Iver',
+          'Boys Like Girls',
+          'Broods',
+          'Tegan and Sara',
+          'Bad Suns',
+          'City and Colour',
+          'ZZ Ward',
+          'Sum 41',
+          'The Civil Wars',
+          'Green Day'
+        ]
+      }
 
+      # blues
       {
         :genre => "blues",
         :artists => [
@@ -107,6 +214,8 @@ module SongsHelper
           'Mance Lipscomb'
         ]
       },
+
+      # country
       {
         :genre => "country",
         :artists => [
@@ -213,6 +322,7 @@ module SongsHelper
         ]
       },
 
+      # hip hop
       {
         :genre => "hip hop",
         :artists => [
@@ -320,6 +430,7 @@ module SongsHelper
         ]
       },
 
+      # jazz
       {
         :genre => "jazz",
         :artists => [
@@ -424,6 +535,8 @@ module SongsHelper
           "Glenn Miller"
         ]
       },
+
+      # pop
       {
         :genre => "pop",
         :artists => [
@@ -537,6 +650,8 @@ module SongsHelper
           'Who Is Fancy'
         ]
       },
+
+      # r&b
       {
         :genre => "r&b",
         :artists => [
@@ -636,11 +751,11 @@ module SongsHelper
           'Whitney Houston'
         ]
       },
+
       # {
       #   :genre => "",
       #   :artists =>
       # }
-
     ]
 
   end

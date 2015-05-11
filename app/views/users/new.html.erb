@@ -1,3 +1,4 @@
+<%= bootstrap_form_for @user do |f| %>
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <h4 class="modal-title" id="myModalLabel">Signup</h4>
@@ -20,7 +21,6 @@
   </div>
 
   <% @user = User.new %>
-  <%= bootstrap_form_for @user do |f| %>
   <%= f.text_field :first_name, placeholder: "First name", icon: "user", hide_label: true %>
   <%= f.text_field :last_name, placeholder: "Last name", icon: "user", hide_label: true %>
   <%= f.text_field :email, placeholder: "Email", icon: "envelope", hide_label: true %>
@@ -28,5 +28,5 @@
 </div>
 <div class="modal-footer">
   <%= f.primary %>
-  <% end %>
 </div>
+<% end %>
