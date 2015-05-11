@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
   # get 'all_artists' => 'songs#all_artists'
   get 'random_artists' => 'test#index'
+  get 'validate_artists' => 'songs#validate_artists'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

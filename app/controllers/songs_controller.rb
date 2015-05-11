@@ -1,5 +1,7 @@
 class SongsController < ApplicationController
 
+  include SongsHelper
+
   # method to find all artists within a genre
   # offset did not work; just returns the same twenty artists
 
@@ -79,4 +81,27 @@ class SongsController < ApplicationController
 
   end
 
+  def validate_artists
+    genre_objects = []
+    genre_artists.each do |object|
+      artist_song_objects = [];
+      artists = object[:artists]
+      artists.each do |artist_string|
+        artist_objects = RSpotify::Artist.search(artist_string, limit: 1)
+        if artist_objects.any?
+          artist_object = artist_objects[0]
+          top_tracks = artist_object.top_tracks(:US)
+          if top_tracks.any?
+            artist_song_objects << artist_string + " = " + top_tracks[0].name
+          else
+            artist_song_objects << artist_string + " has no top tracks!!!!!!!!!!!!!!!!!!!!"
+          end
+        else
+          artist_song_objects << artist_string + " not found!!!!!!!!!!!!!!!!!!!!"
+        end
+      end
+      genre_objects << artist_song_objects
+    end
+    render :json => genre_objects
+  end
 end
