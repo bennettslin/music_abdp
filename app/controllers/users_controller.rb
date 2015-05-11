@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   def index
     if @current_user && @current_user.email == ENV['MY_FACEBOOK_EMAIL'] && @current_user.provider == 'facebook'
-    @users = User.all
+      @users = User.all
     else
       redirect_to login_path
       return

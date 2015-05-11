@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   get 'about' => 'site#about'
   get 'test' => 'test#index'
 
-  get 'random_artists' => 'songs#random_artists'
+  get 'random_artists' => 'test#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

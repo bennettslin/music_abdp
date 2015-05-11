@@ -1,49 +1,45 @@
 /*BACKGROUND WILL CHANGE FOR EACH SONG*/
-.background:before {
-  content: "";
-  position: fixed;
-  left: 0;
-  right: 0;
-  z-index: -1;
-  display: block;
-
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: center;
-  width: 100vw;
-  height: 100vh;
-  -webkit-filter: blur(30px);
-  -moz-filter: blur(30px);
-  -o-filter: blur(30px);
-  -ms-filter: blur(30px);
-  filter: blur(30px);
-}
-
-.background {
-  position: fixed;
-  left: 0;
-  right: 0;
-  z-index: 0;
-}
-
 
 /*PLAYER STYLING*/
 #player {
-  background-color: rgba(20,20,20,1);
+  background-color: rgba(40,40,40,.8);
   border: 1px solid #222222;
-  margin-top: 15px;
   padding: 0;
   color: #ffffff;
-  box-shadow: 0 0 40px #222222;
+  box-shadow: 0 0 30px #222222;
   overflow: hidden;
+  margin-top: 25px;
 }
 
 #player img {
   width: 100%;
+  height: 100%;
+  opacity: .0;
+}
+
+#question2, #question3 {
+  display: none;
+}
+
+.questions {
+  position: absolute;
+  top: 5vh;
+  z-index: 1;
+  color: #efefef;
+  font-shadow: 0 0 2px #666666;
+}
+
+.questions button {
+  width: 100%;
+  display: block;
+  padding: 10px 20px;
+  margin: 5px 0;
+  font-size: 1.5em;
+  opacity: .85;
 }
 
 .audiojs audio { position: absolute; left: -1px; }
-.audiojs { width: 100%; height: 36px; overflow: hidden; font-family: monospace; font-size: 12px;
+div.audiojs { width: 100%; height: 36px; overflow: hidden; font-family: monospace; font-size: 12px;
   -webkit-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3); -moz-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
   -o-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3); box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3); }
   .audiojs .play-pause { width: 40px; height: 40px; padding: 4px 6px; margin: 0px; float: left; overflow: hidden; border-right: 1px solid #222222; }

@@ -2,18 +2,23 @@ body {
   background-image: image-url("crowd.jpg");
   background-size: cover;
   background-attachment: fixed;
+  font-family: "Gotham Rounded A", "Gotham Rounded B", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding-top: 70px;
 }
 
 h1, h2, h3, th {
   color: white;
+  font-weight: 400;
 }
 
 nav.navbar.navbar-default {
-  opacity: .9;
+  opacity: .85;
   border-radius: 0;
   background-color: #ffffff;
   border-color: #efefef;
   border-width: 0 0 5px;
+  padding-right: 15px;
+  z-index: 1;
 }
 
 nav.navbar.navbar-default a {
@@ -30,10 +35,11 @@ nav.navbar.navbar-default a:active {
 }
 
 .admin-only {
-  background-color: #ffaaaa;
-  color: #aa0000;
+  background-color: #bbbbbb;
+  color: #000000;
 }
 
-.forgot-password {
-  float: left;
+.dashboard-tabs {
+  margin: 0px 5px;
+  border-bottom: 0px;
 }
