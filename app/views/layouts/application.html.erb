@@ -4,6 +4,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aptitune</title>
 
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" type="text/css" href="//cloud.typography.com/7055252/762022/css/fonts.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <script src="//code.jquery.com/jquery.js"></script>
+
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
@@ -13,7 +18,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <nav class="navbar navbar-default" role="navigation">
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -39,15 +44,15 @@
 
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/team">Meet the Team</a></li>
+        <li><a href="/team"><i class="fa fa-users"></i> Meet the Team</a></li>
         <% if @current_user %>
 
         <li><%= link_to ("<i class='glyphicon glyphicon-dashboard'></i> " + @current_user.first_name + "'s Dashboard").html_safe, edit_user_path(@current_user), :class => 'btn btn-info', :data => {toggle:'modal', target:'#myModal' } %></li>
 
-        <li><a href="/logout">Logout</a></li>
+        <li><a href="/logout"><i class="fa fa-sign-out"></i>Logout</a></li>
         <% else %>
-        <li><%= link_to 'Login'.html_safe, login_path, :class => 'btn btn-info', :data => {toggle:'modal', target:'#myModal' } %></li>
-        <li><%= link_to 'Signup'.html_safe, signup_path, :class => 'btn btn-success', :data => {toggle:'modal', target:'#myModal' } %></li>
+        <li><%= link_to ("<i class='fa fa-sign-in'></i> Login").html_safe, login_path, :data => {toggle:'modal', target:'#myModal' } %></li>
+        <li><%= link_to ("<i class='fa fa-user-plus'></i> Signup").html_safe, signup_path, :data => {toggle:'modal', target:'#myModal' } %></li>
         <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->
@@ -57,6 +62,7 @@
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
+
       </div>
     </div>
   </div>
