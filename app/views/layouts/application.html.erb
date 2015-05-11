@@ -48,7 +48,7 @@
         <li><a href="/team"><i class="fa fa-users"></i> Meet the Team</a></li>
         <% if @current_user %>
 
-        <li><%= link_to ("<i class='glyphicon glyphicon-dashboard'></i> " + @current_user.first_name + "'s Dashboard").html_safe, edit_user_path(@current_user), :class => 'btn btn-info', :data => {toggle:'modal', target:'#myModal' } %></li>
+        <li><%= link_to ("<i class='glyphicon glyphicon-dashboard'></i> " + @current_user.first_name + "'s Dashboard").html_safe, edit_user_path(@current_user), :data => {toggle:'modal', target:'#myModal' } %></li>
 
         <li><a href="/logout"><i class="fa fa-sign-out"></i>Logout</a></li>
         <% else %>
