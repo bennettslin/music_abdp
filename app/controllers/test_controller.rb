@@ -20,12 +20,12 @@ class TestController < ApplicationController
     random_indices = Set.new
     while random_indices.count < 3 do
       random_indices << rand(artists.count)
-  end
+    end
 
     # Gets three random artists based on index numbers
     random_artists = random_indices.map do |index|
       artists[index].name
-  end
+    end
 
     # Separates the three random artist names
     artist0 = random_artists[0]
@@ -55,9 +55,13 @@ class TestController < ApplicationController
     @song2_track_name = song2_random.name
     @song2_album_name = song2_random.album.name
 
-
     # render :json => @song2_album_name
+  end
 
-end
+  def quiz
+  respond_to do |format|
+    format.json
+    format.html
+  end
 
 end
