@@ -74,6 +74,7 @@ $(document).ready(function(){
       $(this).hide();
     });
     $("#song-cover").delay(800).animate({opacity: 1.0}, 800);
+    $("#score").text(count);
     $("#results").show()
   });
 
