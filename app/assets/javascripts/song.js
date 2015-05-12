@@ -12,12 +12,34 @@ var persistResults = function(score) {
   })
 }
 
+var trueScoreFromBinaryScore = function(binaryScore) {
+
+  var trueScore = 0;
+  var exponent = 2;
+
+  for (var i = 2; i >= 0; i--) {
+    if (binaryScore >= Math.pow(2, i)) {
+      binaryScore -= Math.pow(2, i);
+      trueScore += 1
+    }
+  }
+
+  return trueScore;
+}
+
 $(document).ready(function(){
 
-  var count = 0;
+  // for testing the trueScoreFromBinaryScore method
+  // for (var i = 0; i < 8; i++ ) {
+  //   var result = trueScoreFromBinaryScore(i);
+  //   console.log("result is " + result + " for " + i);
+  // }
+  // return;
+
+  var binaryScore = 0;
 
   $("#q1").click(function(){
-    count += 1;
+    binaryScore += 1;
     $(this).css("background-color", "#00b200").delay(1000);
     $(".incorrect1").css('opacity', '0').delay(1000);
     setTimeout(function() {
@@ -47,7 +69,7 @@ $(document).ready(function(){
   })
 
   $("#q2").click(function(){
-    count += 2;
+    binaryScore += 2;
     $(this).css("background-color", "#00b200").delay(1000);
     $(".incorrect2").css('opacity', '0').delay(1000);
     setTimeout(function() {
@@ -78,8 +100,8 @@ $(document).ready(function(){
 
 
   $("#q3").click(function(){
-    count += 4;
-    console.log(count);
+    binaryScore += 4;
+    console.log(binaryScore);
     $(this).css("background-color", "#00b200").delay(1000);
     $(".incorrect3").css('opacity', '0').delay(1000);
     setTimeout(function() {
@@ -88,21 +110,23 @@ $(document).ready(function(){
       $(this).hide();
     });
     $("#song-cover").delay(800).animate({opacity: 1.0}, 800);
-    if (count > 1) {
+
+    var trueScore = trueScoreFromBinaryScore(binaryScore);
+    if (trueScore > 1) {
       plural = "points";
-    } else if (count == 1) {
+    } else if (trueScore == 1) {
       plural = "point";
     }
-    $("#score").text(count);
 
+    $("#score").text(trueScore);
     $("#plural").text(plural);
-    $("#results").show()
-    persistResults(count);
+    $("#results").fadeIn()
+    persistResults(binaryScore);
   });
 
 
   $(".incorrect3").click(function(){
-    console.log(count);
+    console.log(binaryScore);
     $(this).css("background-color", "#ff0000").delay(1000);
     setTimeout(function() {
       $(".incorrect3").css('opacity', '0');
@@ -114,18 +138,19 @@ $(document).ready(function(){
       });
     }, 800);
     $("#song-cover").delay(1200).animate({opacity: 1.0}, 800);
-    if (count > 1) {
+    var trueScore = trueScoreFromBinaryScore(binaryScore);
+    if (trueScore > 1) {
       plural = "points";
-    } else if (count == 1) {
+    } else if (trueScore == 1) {
       plural = "point";
-    } else if (count == 0) {
+    } else if (trueScore == 0) {
       plural = "points";
     }
-    $("#score").text(count);
 
+    $("#score").text(trueScore);
     $("#plural").text(plural);
-    $("#results").show()
-    persistResults(count);
+    $("#results").fadeIn()
+    persistResults(binaryScore);
   });
 
 });

@@ -29,7 +29,7 @@ Rails.application.routes.draw do
 
   get 'quiz' => 'songs#quiz'
   get 'validate_artists' => 'songs#validate_artists'
-  get 'generate_results' => 'songs#generate_results'
+  # get 'generate_results' => 'songs#generate_results'
   post 'persist_results' => 'songs#persist_results'
 
   # Example of regular route:
