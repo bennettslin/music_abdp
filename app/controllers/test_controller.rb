@@ -2,8 +2,6 @@ include SongsHelper
 
 class TestController < ApplicationController
 
-  attr_accessor :quiz_song
-
   def index
 
     # Randomly chooses genre from user preferences
@@ -14,11 +12,7 @@ class TestController < ApplicationController
       genre = Genre.all[rand(0..(genres.count - 1))]
     end
 
-    # render :json => genre.name
-    # render :json => genre_artists[genre.value][:artists]
-
     # Get list of artists by specified genre
-    # artists = RSpotify::Artist.search('genre:' + genre.name)
     artists = genre_artists[genre.value][:artists]
 
     # Gets three unique index numbers
@@ -73,9 +67,6 @@ class TestController < ApplicationController
     @song2_artist = artist2
     @song2_track_name = song2_random.name
     @song2_album_name = song2_random.album.name
-
-    # render :json => @song2_album_name
-
   end
 
   def persist_results
