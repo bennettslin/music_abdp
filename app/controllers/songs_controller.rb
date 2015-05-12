@@ -55,8 +55,8 @@ class SongsController < ApplicationController
     # song1 info
     song1 = RSpotify::Track.search('artist:' + artist1, limit: 50)
     song1_random = song1[rand(0...song1.count)]
-    @song1_cover = song1_random.album.images[0]['url']
-    @song1_url = song1_random.preview_url
+    # @song1_cover = song1_random.album.images[0]['url']
+    # @song1_url = song1_random.preview_url
     @song1_artist = artist1
     @song1_track_name = song1_random.name
     @song1_album_name = song1_random.album.name
@@ -136,14 +136,14 @@ class SongsController < ApplicationController
   end
 
   # for development only
-  def generate_results
-    artist_objects = RSpotify::Artist.search("Kinks", limit: 1)
+  # def generate_results
+  #   artist_objects = RSpotify::Artist.search("Kinks", limit: 1)
 
-    top_tracks = artist_objects[0].top_tracks(:US)
-    render :json => top_tracks
-    return
-    render "/site/generate"
-  end
+  #   top_tracks = artist_objects[0].top_tracks(:US)
+  #   render :json => top_tracks
+  #   return
+  #   render "/site/generate"
+  # end
 
   private
 
