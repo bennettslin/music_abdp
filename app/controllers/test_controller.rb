@@ -15,9 +15,11 @@ class TestController < ApplicationController
     end
 
     # render :json => genre.name
+    # render :json => genre_artists[genre.value][:artists]
 
     # Get list of artists by specified genre
-    artists = RSpotify::Artist.search('genre:' + genre.name)
+    # artists = RSpotify::Artist.search('genre:' + genre.name)
+    artists = genre_artists[genre.value][:artists]
 
     # Gets three unique index numbers
     random_indices = Set.new
@@ -28,7 +30,7 @@ class TestController < ApplicationController
     # Gets three random artists based on index numbers
     random_artists = random_indices.map do |index|
 
-      artists[index].name
+      artists[index]
     end
 
     # Separates the three random artist names
