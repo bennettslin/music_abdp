@@ -47,6 +47,7 @@ gem 'rspotify'
 
 # for deploying to Heroku
 gem 'rails_12factor', group: :production
+gem 'responders'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -55,7 +56,6 @@ group :development, :test do
   # for unit testing
   gem 'rspec-rails'
   gem 'factory_girl_rails'
-  gem 'responders'
   gem 'awesome_print'
 
   # for mailers
