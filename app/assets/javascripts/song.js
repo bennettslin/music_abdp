@@ -94,9 +94,8 @@ $(document).ready(function(){
       plural = "point";
     }
     $("#score").text(count);
-
     $("#plural").text(plural);
-    $("#results").show()
+    $("#results").fadeIn()
     persistResults(count);
   });
 
@@ -122,9 +121,8 @@ $(document).ready(function(){
       plural = "points";
     }
     $("#score").text(count);
-
     $("#plural").text(plural);
-    $("#results").show()
+    $("#results").fadeIn()
     persistResults(count);
   });
 
