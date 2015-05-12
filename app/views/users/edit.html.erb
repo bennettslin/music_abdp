@@ -35,8 +35,12 @@
       <div role="tabpanel" class="tab-pane fade well well-lg" id="profile">
         <%= f.text_field :first_name, placeholder: "First name", icon: "user" %>
         <%= f.text_field :last_name, placeholder: "Last name", icon: "user" %>
-        <%= f.text_field :email, placeholder: "Email", icon: "envelope" %>
-        <%= f.password_field :password, placeholder: "Password", icon: "lock" %>
+
+        <% if !@current_user.provider %>
+          <%= f.text_field :email, placeholder: "Email", icon: "envelope" %>
+          <%= f.password_field :password, placeholder: "Password", icon: "lock" %>
+        <% end %>
+
       </div>
     </div>
   </div>

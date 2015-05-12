@@ -135,16 +135,6 @@ class SongsController < ApplicationController
     render :json => spotify_results
   end
 
-  # for development only
-  # def generate_results
-  #   artist_objects = RSpotify::Artist.search("Kinks", limit: 1)
-
-  #   top_tracks = artist_objects[0].top_tracks(:US)
-  #   render :json => top_tracks
-  #   return
-  #   render "/site/generate"
-  # end
-
   private
 
   def song_params
