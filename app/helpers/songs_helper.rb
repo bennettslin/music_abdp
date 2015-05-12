@@ -408,7 +408,6 @@ module SongsHelper
           "Mos Def",
           "Salt-N-Pepa",
           "Busta Rhymes",
-          "The Fugees",
           "DJ Jazzy Jeff & the Fresh Prince",
           "T.I.",
           "Queen Latifah",
