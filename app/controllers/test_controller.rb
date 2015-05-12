@@ -47,6 +47,8 @@ class TestController < ApplicationController
     # song1 info
     song1 = RSpotify::Track.search('artist:' + artist1, limit: 50)
     song1_random = song1[rand(0..40)]
+    @song1_cover = song1_random.album.images[0]['url']
+    @song1_url = song1_random.preview_url
     @song1_artist = artist1
     @song1_track_name = song1_random.name
     @song1_album_name = song1_random.album.name
