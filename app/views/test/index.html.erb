@@ -1,7 +1,7 @@
 <style>
   body {
     background: none;
-        background-color: black;
+    background-color: black;
   }
 
   .background:before {
@@ -18,11 +18,11 @@
     width: 100vw;
     height: 100vh;
 
-    -webkit-filter: saturate(500%) blur(30px);
-    -moz-filter: saturate(500%) blur(30px);
-    -o-filter: saturate(500%) blur(30px);
-    -ms-filter: saturate(500%) blur(30px);
-    filter: saturate(500%) blur(30px);
+    -webkit-filter: saturate(150%) blur(30px);
+    -moz-filter: saturate(150%) blur(30px);
+    -o-filter: saturate(150%) blur(30px);
+    -ms-filter: saturate(150%) blur(30px);
+    filter: saturate(150%) blur(30px);
 
     /* IMPORTANT - FORCES HARDWARE ACCELERATION */
     -webkit-transform: scale(1.2)  translate3d(0, 0, 0) ;
@@ -30,7 +30,7 @@
     -o-transform: scale(1.2)  translate3d(0, 0, 0) ;
     -ms-transform: scale(1.2)  translate3d(0, 0, 0) ;
     transform: scale(1.2)  translate3d(0, 0, 0) ;
-}
+  }
 
   .background {
     position: fixed;
@@ -85,6 +85,15 @@
             <% array3random.each do |a| %>
             <%= a.html_safe %>
             <% end %>
+
+          </div>
+
+          <div class="col-sm-10 col-sm-offset-1 questions text-center" id="results">
+            <h2>Results</h2>
+            <h3>You got <strong><span id="score">test</span> / 3</strong> correct!</h3>
+            <h3>Next track</h3>
+            <h3>Love this song?</h3>
+            <h3>Add to <strong>Listen Later</strong> list</h3>
 
           </div>
 

@@ -17,7 +17,7 @@
   opacity: .0;
 }
 
-#question2, #question3 {
+#question2, #question3, #results {
   display: none;
 }
 
@@ -47,6 +47,10 @@
   font-size: 1.2em;
   letter-spacing: -.5px;
   opacity: .85;
+}
+
+#results {
+  background-color: rgba(50,50,50,.5);
 }
 
 .audiojs audio { position: absolute; left: -1px; }
