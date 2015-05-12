@@ -88,9 +88,12 @@
 
           </div>
 
+
           <!-- PLAYER ALBUM COVER WILL BE INTIALLY HIDDEN W/ 0 (ZERO) OPACITY -->
           <img src=<%= @song0_cover %> id="song-cover">
           <audio src=<%= @song0_url %> preload="auto"></audio>
+
+
 
         </div>
       </div>
@@ -100,10 +103,12 @@
 <script>
   audiojs.events.ready(function() {
     var as = audiojs.createAll({
-      autoplay: true
+      autoplay: true,
+      // currentTime: 3000
+    trackEnded: function(e) {
+      location.reload();
+    }
     });
   });
 </script>
 
-
-<!-- </div> -->

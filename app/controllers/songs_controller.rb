@@ -71,6 +71,7 @@ end
     @song0_cover = song0_random.album.images[0]['url']
     @song0_url = song0_random.preview_url
 
+
     # render :json => song0_random.name
 
   end
