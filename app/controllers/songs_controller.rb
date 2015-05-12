@@ -34,7 +34,7 @@ class SongsController < ApplicationController
 
     # song0 info - correct answer
     song0 = RSpotify::Track.search('artist:' + artist0, limit: 50)
-    song0_random = song0[rand(0..40)]
+    song0_random = song0[rand(0...song0.count)]
     @song0_cover = song0_random.album.images[0]['url']
     @song0_url = song0_random.preview_url
     @song0_artist = artist0
@@ -54,7 +54,7 @@ class SongsController < ApplicationController
 
     # song1 info
     song1 = RSpotify::Track.search('artist:' + artist1, limit: 50)
-    song1_random = song1[rand(0..40)]
+    song1_random = song1[rand(0...song1.count)]
     @song1_cover = song1_random.album.images[0]['url']
     @song1_url = song1_random.preview_url
     @song1_artist = artist1
@@ -63,7 +63,7 @@ class SongsController < ApplicationController
 
     # song2 info
     song2 = RSpotify::Track.search('artist:' + artist2, limit: 50)
-    song2_random = song2[rand(0..40)]
+    song2_random = song2[rand(0...song2.count)]
     @song2_artist = artist2
     @song2_track_name = song2_random.name
     @song2_album_name = song2_random.album.name
@@ -139,9 +139,9 @@ class SongsController < ApplicationController
   def generate_results
     artist_objects = RSpotify::Artist.search("Kinks", limit: 1)
 
-          top_tracks = artist_objects[0].top_tracks(:US)
-          render :json => top_tracks
-          return
+    top_tracks = artist_objects[0].top_tracks(:US)
+    render :json => top_tracks
+    return
     render "/site/generate"
   end
 
