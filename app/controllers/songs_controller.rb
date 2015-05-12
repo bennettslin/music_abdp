@@ -2,7 +2,7 @@ include SongsHelper
 
 class SongsController < ApplicationController
 
-  def index
+  def quiz
 
     # Randomly chooses genre from user preferences
     if @current_user
