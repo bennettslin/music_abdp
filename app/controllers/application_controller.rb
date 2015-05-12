@@ -44,4 +44,19 @@ class ApplicationController < ActionController::Base
     @genres ||= Genre.all
   end
 
+  def quiz_song
+    @quiz_song
+  end
+
+  def set_quiz_song spotify_id, image_url, preview_url, artist, album, track
+    @quiz_song = {
+      spotify_id: spotify_id,
+      image_url: image_url,
+      preview_url: preview_url,
+      artist: artist,
+      album: album,
+      track: track
+    }
+  end
+
 end
