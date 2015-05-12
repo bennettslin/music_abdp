@@ -32,6 +32,11 @@ Rails.application.routes.draw do
   # get 'generate_results' => 'songs#generate_results'
   post 'persist_results' => 'songs#persist_results'
 
+  get '*path' => redirect('/404')
+  match '/404', to: 'errors#file_not_found', via: :all
+  match '/422', to: 'errors#unprocessable', via: :all
+  match '/500', to: 'errors#internal_server_error', via: :all
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
