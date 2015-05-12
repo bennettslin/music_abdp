@@ -146,7 +146,7 @@ module SongsHelper
           'Frankie Ford',
           'Freddie King',
           'Gary Moore',
-          'Geraldine Hunt',          
+          'Geraldine Hunt',
           'Gregg Allman',
           'Howlin Wolf',
           'Jwonn',
@@ -1017,11 +1017,6 @@ module SongsHelper
           'Cheap Trick',
         ]
       }
-
-      # {
-      #   :genre => "",
-      #   :artists =>
-      # }
     ]
 
   end
