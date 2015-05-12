@@ -43,8 +43,8 @@ class SongsController < ApplicationController
     render :json => spotify_results
   end
 
-  def generate_results do
-
+  def generate_results
+    render "/site/generate"
   end
 
 end
