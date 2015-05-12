@@ -1,26 +1,32 @@
-$(function(){
+var myModalSubmit = function (e, form) {
+  e.preventDefault();
+
+  $.ajax({
+    url:form.attr('action'),
+    method:form.attr('method'),
+    data:form.serialize()
+
+  }).done(function(data) {
+    $('#myModal').modal('hide');
+
+  }).error(function(err){
+    alert('Something broke.');
+    console.log(err);
+  })
+}
+
+$(function() {
 
   // clear modal when it's hidden
   $('#myModal').on('hidden.bs.modal', function() {
-      $(this).removeData('bs.modal');
+    console.log("my modal cleared");
+    $(this).removeData('bs.modal');
+
   });
 
-  $('#myModal').on('submit','form',function(e) {
-    e.preventDefault();
+  $('#myModal').on('submit','form', function(e) {
+    console.log("my modal submitted");
     var form = $(this);
-
-    $.ajax({
-      url:form.attr('action'),
-      method:form.attr('method'),
-      data:form.serialize()
-
-    }).done(function(data){
-      $('#myModal').modal('hide')
-      // console.log(data);
-
-    }).error(function(err){
-      alert('something broke.');
-      console.log(err);
-    })
+    myModalSubmit(e, form);
   })
 })

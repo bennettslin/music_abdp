@@ -45,8 +45,6 @@ class SongsController < ApplicationController
   end
 
   def validate_artists
-    redirect_to root_path
-    return
 
     spotify_results = []
 
