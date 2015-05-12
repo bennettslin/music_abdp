@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   # new and edit pages for user are in modals
   resources :users
   resources :passwords, except: [:index, :show]
+  get 'login_reset' => 'passwords#login_reset'
 
   get 'signup' => 'users#new'
   post 'signup' => 'users#create'

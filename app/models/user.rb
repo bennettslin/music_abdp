@@ -32,6 +32,5 @@ class User < ActiveRecord::Base
     self.code = SecureRandom.urlsafe_base64
     self.expires_at = 4.hours.from_now
     self.save
-
   end
 end

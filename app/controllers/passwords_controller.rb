@@ -1,5 +1,14 @@
 class PasswordsController < ApplicationController
 
+  def login_reset
+    if @current_user
+      @current_user.set_password_reset
+      redirect_to '/passwords/' + @current_user.code + '/edit'
+    else
+      redirect_to root_path
+    end
+  end
+
   def new
 
   end

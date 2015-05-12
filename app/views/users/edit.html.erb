@@ -38,7 +38,7 @@
 
         <% if !@current_user.provider %>
           <%= f.text_field :email, placeholder: "Email", icon: "envelope" %>
-          <%= f.password_field :password, placeholder: "Password", icon: "lock" %>
+          <%= link_to "Reset password?", login_reset_path, class: "btn btn-default" %>
         <% end %>
 
       </div>
