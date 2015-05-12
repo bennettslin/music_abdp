@@ -1,5 +1,4 @@
 var persistResults = function(score) {
-  console.log("Here are the results");
   $.ajax({
     url:'/persist_results',
     method: 'POST',
