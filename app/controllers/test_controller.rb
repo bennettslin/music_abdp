@@ -1,3 +1,5 @@
+include SongsHelper
+
 class TestController < ApplicationController
 
   def index
