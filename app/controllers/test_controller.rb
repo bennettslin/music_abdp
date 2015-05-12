@@ -14,10 +14,9 @@ class TestController < ApplicationController
 
     # render :json => genre.name
 
-
     # Get list of artists by specified genre
     artists = RSpotify::Artist.search('genre:' + genre.name)
-    
+
     # Gets three unique index numbers
     random_indices = Set.new
     while random_indices.count < 3 do
@@ -35,7 +34,7 @@ class TestController < ApplicationController
     artist1 = random_artists[1]
     artist2 = random_artists[2]
 
-    # song0 info
+    # song0 info - correct answer
     song0 = RSpotify::Track.search('artist:' + artist0, limit: 50)
     song0_random = song0[rand(0..40)]
     @song0_cover = song0_random.album.images[0]['url']
@@ -62,6 +61,14 @@ class TestController < ApplicationController
 
     # render :json => @song2_album_name
 
+  end
+
+  def persist_results
+    puts "The score is " + params["score"].to_s
+    if @current_user
+
+    end
+    redirect_to root_path
   end
 
   def quiz

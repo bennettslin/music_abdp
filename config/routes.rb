@@ -34,6 +34,8 @@ Rails.application.routes.draw do
   get 'validate_artists' => 'songs#validate_artists'
   get 'generate_results' => 'songs#generate_results'
 
+  post 'persist_results' => 'test#persist_results'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
