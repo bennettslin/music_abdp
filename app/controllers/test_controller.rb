@@ -77,7 +77,6 @@ class TestController < ApplicationController
   end
 
   def persist_results
-    puts "The score is " + params["score"].to_s
 
     # persist song, if not already present in database
     if @@quiz_song.present?
@@ -90,11 +89,12 @@ class TestController < ApplicationController
         song.title = @@quiz_song[:title]
         song.genre_id = @@quiz_song[:genre_id]
       end
+    end
 
-    # create quiz
+    # persist quiz
     if params["score"].present?
-      quiz =
-
+      user_id = @current_user ? @current_user.id : 0;
+      quiz = Quiz.create(user_id:user_id, song_id: song.id, result: params["score"])
     end
 
     redirect_to root_path
