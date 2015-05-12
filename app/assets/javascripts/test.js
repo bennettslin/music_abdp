@@ -16,7 +16,6 @@ var persistResults = function(score) {
 $(document).ready(function(){
 
   var count = 0;
-  var score = 0;
 
   $("#q1").click(function(){
     count += 1;
@@ -49,7 +48,7 @@ $(document).ready(function(){
   })
 
   $("#q2").click(function(){
-    count += 1;
+    count += 2;
     $(this).css("background-color", "#00b200").delay(1000);
     $(".incorrect2").css('opacity', '0').delay(1000);
     setTimeout(function() {
@@ -80,7 +79,7 @@ $(document).ready(function(){
 
 
   $("#q3").click(function(){
-    count += 1;
+    count += 4;
     console.log(count);
     $(this).css("background-color", "#00b200").delay(1000);
     $(".incorrect3").css('opacity', '0').delay(1000);

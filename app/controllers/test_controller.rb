@@ -2,6 +2,8 @@ include SongsHelper
 
 class TestController < ApplicationController
 
+  attr_accessor :quiz_song
+
   def index
 
     # Randomly chooses genre from user preferences
@@ -43,6 +45,17 @@ class TestController < ApplicationController
     @song0_track_name = song0_random.name
     @song0_album_name = song0_random.album.name
 
+    # store correct song in a class variable (!)
+    @@quiz_song = {
+      spotify_id: song0_random.id,
+      image_url: @song0_cover,
+      preview_url: @song0_url,
+      artist: @song0_artist,
+      album: @song0_album_name,
+      title: @song0_track_name,
+      genre_id: genre.id
+    }
+
     # song1 info
     song1 = RSpotify::Track.search('artist:' + artist1, limit: 50)
     song1_random = song1[rand(0..40)]
@@ -65,9 +78,25 @@ class TestController < ApplicationController
 
   def persist_results
     puts "The score is " + params["score"].to_s
-    if @current_user
+
+    # persist song, if not already present in database
+    if @@quiz_song.present?
+      song = Song.find_or_create_by(spotify_id: @@quiz_song[:spotify_id]) do |song|
+        song.spotify_id = @@quiz_song[:spotify_id]
+        song.image_url = @@quiz_song[:image_url]
+        song.preview_url = @@quiz_song[:preview_url]
+        song.artist = @@quiz_song[:artist]
+        song.album = @@quiz_song[:album]
+        song.title = @@quiz_song[:title]
+        song.genre_id = @@quiz_song[:genre_id]
+      end
+
+    # create quiz
+    if params["score"].present?
+      quiz =
 
     end
+
     redirect_to root_path
   end
 
@@ -76,6 +105,12 @@ class TestController < ApplicationController
       format.json
       format.html
     end
+  end
+
+  private
+
+  def song_params
+    params.require(:song).permit(:spotify_id, :image_url, :preview_url, :artist, :album, :title)
   end
 
 end
