@@ -1,5 +1,4 @@
 var persistResults = function(score) {
-  console.log("Here are the results");
   $.ajax({
     url:'/persist_results',
     method: 'POST',
@@ -16,7 +15,6 @@ var persistResults = function(score) {
 $(document).ready(function(){
 
   var count = 0;
-  var score = 0;
 
   $("#q1").click(function(){
     count += 1;
@@ -49,7 +47,7 @@ $(document).ready(function(){
   })
 
   $("#q2").click(function(){
-    count += 1;
+    count += 2;
     $(this).css("background-color", "#00b200").delay(1000);
     $(".incorrect2").css('opacity', '0').delay(1000);
     setTimeout(function() {
@@ -80,7 +78,7 @@ $(document).ready(function(){
 
 
   $("#q3").click(function(){
-    count += 1;
+    count += 4;
     console.log(count);
     $(this).css("background-color", "#00b200").delay(1000);
     $(".incorrect3").css('opacity', '0').delay(1000);
@@ -90,8 +88,15 @@ $(document).ready(function(){
       $(this).hide();
     });
     $("#song-cover").delay(800).animate({opacity: 1.0}, 800);
+    if (count > 1) {
+      plural = "points";
+    } else if (count == 1) {
+      plural = "point";
+    }
     $("#score").text(count);
-    $("#results").show();
+
+    $("#plural").text(plural);
+    $("#results").show()
     persistResults(count);
   });
 
@@ -109,8 +114,17 @@ $(document).ready(function(){
       });
     }, 800);
     $("#song-cover").delay(1200).animate({opacity: 1.0}, 800);
+    if (count > 1) {
+      plural = "points";
+    } else if (count == 1) {
+      plural = "point";
+    } else if (count == 0) {
+      plural = "points";
+    }
     $("#score").text(count);
-    $("#results").show();
+
+    $("#plural").text(plural);
+    $("#results").show()
     persistResults(count);
   });
 

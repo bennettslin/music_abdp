@@ -27,14 +27,10 @@ Rails.application.routes.draw do
   get 'leaderboard' => 'site#leaderboard'
   get 'team' => 'site#team'
 
-  get 'test' => 'test#index'
-
-  # get 'all_artists' => 'songs#all_artists'
-  get 'random_artists' => 'test#index'
+  get 'quiz' => 'songs#quiz'
   get 'validate_artists' => 'songs#validate_artists'
   get 'generate_results' => 'songs#generate_results'
-
-  post 'persist_results' => 'test#persist_results'
+  post 'persist_results' => 'songs#persist_results'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
