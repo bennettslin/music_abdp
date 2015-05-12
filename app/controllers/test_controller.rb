@@ -15,7 +15,7 @@ class TestController < ApplicationController
 
     # Get list of artists by specified genre
     artists = RSpotify::Artist.search('genre:' + genre.name)
-
+    
     # Gets three unique index numbers
     random_indices = Set.new
     while random_indices.count < 3 do
@@ -24,6 +24,7 @@ class TestController < ApplicationController
 
     # Gets three random artists based on index numbers
     random_artists = random_indices.map do |index|
+
       artists[index].name
     end
 
