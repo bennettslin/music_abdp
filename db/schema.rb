@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150507180043) do
+ActiveRecord::Schema.define(version: 20150512185126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,11 +48,15 @@ ActiveRecord::Schema.define(version: 20150507180043) do
     t.string   "title"
     t.string   "artist"
     t.string   "album"
-    t.integer  "year"
-    t.string   "primary_genre"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "spotify_id"
+    t.string   "image_url"
+    t.string   "preview_url"
+    t.integer  "genre_id"
   end
+
+  add_index "songs", ["genre_id"], name: "index_songs_on_genre_id", using: :btree
 
   create_table "songs_users", force: :cascade do |t|
     t.integer  "song_id"
@@ -83,6 +87,7 @@ ActiveRecord::Schema.define(version: 20150507180043) do
   add_foreign_key "genres_users", "users"
   add_foreign_key "quizzes", "songs"
   add_foreign_key "quizzes", "users"
+  add_foreign_key "songs", "genres"
   add_foreign_key "songs_users", "songs"
   add_foreign_key "songs_users", "users"
 end

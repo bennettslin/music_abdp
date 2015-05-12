@@ -44,6 +44,11 @@ class SongsController < ApplicationController
   end
 
   def generate_results
+    artist_objects = RSpotify::Artist.search("Kinks", limit: 1)
+
+          top_tracks = artist_objects[0].top_tracks(:US)
+          render :json => top_tracks
+          return
     render "/site/generate"
   end
 
