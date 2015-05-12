@@ -117,10 +117,10 @@ $(document).ready(function(){
     } else if (trueScore == 1) {
       plural = "point";
     }
+
     $("#score").text(trueScore);
     $("#plural").text(plural);
-    $("#results").show()
-
+    $("#results").fadeIn()
     persistResults(binaryScore);
   });
 
@@ -146,10 +146,10 @@ $(document).ready(function(){
     } else if (trueScore == 0) {
       plural = "points";
     }
+
     $("#score").text(trueScore);
     $("#plural").text(plural);
-    $("#results").show()
-
+    $("#results").fadeIn()
     persistResults(binaryScore);
   });
 
