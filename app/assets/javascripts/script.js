@@ -1,19 +1,19 @@
-var myModalSubmit = function (e, form) {
-  e.preventDefault();
+// var myModalSubmit = function (e, form) {
+//   e.preventDefault();
 
-  $.ajax({
-    url:form.attr('action'),
-    method:form.attr('method'),
-    data:form.serialize()
+//   $.ajax({
+//     url:form.attr('action'),
+//     method:form.attr('method'),
+//     data:form.serialize()
 
-  }).done(function(data) {
-    $('#myModal').modal('hide');
+//   }).done(function(data) {
+//     $('#myModal').modal('hide');
 
-  }).error(function(err){
-    alert('Something broke.');
-    console.log(err);
-  })
-}
+//   }).error(function(err){
+//     alert('Something broke.');
+//     console.log(err);
+//   })
+// }
 
 $(function() {
 
@@ -24,9 +24,9 @@ $(function() {
 
   });
 
-  $('#myModal').on('submit','form', function(e) {
-    console.log("my modal submitted");
-    var form = $(this);
-    myModalSubmit(e, form);
-  })
+  // $('#myModal').on('submit','form', function(e) {
+  //   console.log("my modal submitted");
+  //   var form = $(this);
+  //   myModalSubmit(e, form);
+  // })
 })

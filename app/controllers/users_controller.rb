@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   require 'net/https'
   respond_to :html, :json
 
-
   def index
     if @current_user && @current_user.email == ENV['MY_FACEBOOK_EMAIL'] && @current_user.provider == 'facebook'
       @users = User.all
@@ -28,8 +27,6 @@ class UsersController < ApplicationController
       redirect_to @user
     else
       flash[:danger] = "User was not created."
-      # flash[:notice] = 'User was successfully created.'
-      # respond_with(@user)
       redirect_to root_path
     end
   end
