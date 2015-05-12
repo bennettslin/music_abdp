@@ -7,9 +7,9 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # Genre.create(name: 'Hip-hop/Rap')
-Genre.create(name: 'Hip Hop')
+Genre.create(name: 'Hip+Hop')
 # Genre.create(name: 'Alternative')
-Genre.create(name: 'Alternative Rock')
+Genre.create(name: 'Alternative+Rock')
 Genre.create(name: 'Blues')
 Genre.create(name: 'Classical')
 Genre.create(name: 'Country')
