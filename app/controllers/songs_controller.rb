@@ -1,4 +1,3 @@
-require 'typhoeus'
 include SongsHelper
 
 class SongsController < ApplicationController
@@ -32,62 +31,38 @@ class SongsController < ApplicationController
     artist1 = random_artists[1]
     artist2 = random_artists[2]
 
-    # song0 info - correct answer
-    request = Typhoeus::Request.new(
-      "itunes.apple.com/search",
-      method: :get,
-      params: { term: artist0, attribute: "allArtistTerm", entity: "song", limit: 50 }
-      )
-    response = request.run
-    data = JSON.parse(response.body)
-    song0 = data["results"]
-    song0_random = song0[rand(0...song0.count)]
-    song0_cover_long = song0_random['artworkUrl100']
-    @song0_cover = song0_cover_long[0...-14] + "jpg"
-    @song0_url = song0_random['previewUrl']
-    @song0_artist = song0_random['artistName']
-    @song0_track_name = song0_random['trackName']
-    @song0_album_name = song0_random['collectionName']
+    # get all songs
+    song0 = get_random_song artist0, genre.id
+    song1 = get_random_song artist1, genre.id
+    song2 = get_random_song artist2, genre.id
 
-    # store correct song in a class variable (!)
-    @@quiz_song = {
-      itunes_id: song0_random['trackId'],
-      image_url: @song0_cover,
-      preview_url: @song0_url,
-      artist: @song0_artist,
-      album: @song0_album_name,
-      title: @song0_track_name,
-      genre_id: genre.id
-    }
+    # fail gracefully if any song failed to retrieve
+    # FIXME: eventually redirect to an error path
+    if !song0 || !song1 || !song2
+      redirect_to root_path
+      return
+    end
+
+    # song0 info - correct answer
+    @song0_cover = song0[:image_url]
+    @song0_url = song0[:preview_url]
+    @song0_artist = song0[:artist]
+    @song0_album_name = song0[:album]
+    @song0_track_name = song0[:title]
 
     # song1 info
-    request = Typhoeus::Request.new(
-      "itunes.apple.com/search",
-      method: :get,
-      params: { term: artist1, attribute: "allArtistTerm", entity: "song", limit: 50 }
-      )
-    response = request.run
-    data = JSON.parse(response.body)
-    song1 = data["results"]
-    song1_random = song1[rand(0...song1.count)]
-    @song1_artist = song1_random['artistName']
-    @song1_track_name = song1_random['trackName']
-    @song1_album_name = song1_random['collectionName']
+    @song1_artist = song1[:artist]
+    @song1_album_name = song1[:album]
+    @song1_track_name = song1[:title]
 
     # song2 info
-    request = Typhoeus::Request.new(
-      "itunes.apple.com/search",
-      method: :get,
-      params: { term: artist2, attribute: "allArtistTerm", entity: "song", limit: 50 }
-      )
-    response = request.run
-    data = JSON.parse(response.body)
-    song2 = data["results"]
-    song2_random = song2[rand(0...song2.count)]
-    @song2_artist = song2_random['artistName']
-    @song2_track_name = song2_random['trackName']
-    @song2_album_name = song2_random['collectionName']
-    # render :json => @song2_album_name
+    @song2_artist = song2[:artist]
+    @song2_album_name = song2[:album]
+    @song2_track_name = song2[:title]
+
+    # store correct song in a class variable (!)
+    # this is bad practise, don't do what I'm doing here, haha...
+    @@quiz_song = song0
   end
 
   def persist_results

@@ -1020,3 +1020,52 @@ module SongsHelper
 end
 
 end
+
+def get_random_song artist_string, genre_id
+
+  song_object = nil
+  counter = 0
+
+  # try five times before failing
+  while !song_object && counter < 5 do
+
+    request = Typhoeus::Request.new(
+      "itunes.apple.com/search",
+      method: :get,
+      params: {
+        term: artist_string,
+        attribute: "allArtistTerm",
+        entity: "song",
+        limit: 50
+      }
+    )
+    response = request.run
+
+    if response
+      data = JSON.parse(response.body)
+      songs = data["results"]
+
+      if songs.any?
+        song = songs[rand(0...songs.count)]
+        song_cover_long = song['artworkUrl100']
+
+        song_object = {
+          itunes_id: song['trackId'],
+          image_url: song_cover_long[0...-14] + "jpg",
+          preview_url: song['previewUrl'],
+          artist: song['artistName'],
+          title: song['trackName'],
+          album: song['collectionName'],
+          genre_id: genre_id
+        }
+      end
+
+    end
+
+    counter += 1
+
+  end
+
+  song_object
+
+end
