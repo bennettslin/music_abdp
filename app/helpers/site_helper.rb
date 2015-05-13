@@ -21,7 +21,13 @@ module SiteHelper
       total_quizzes = genre_hash[:total_quizzes]
       percentages_array = [0, 0, 0]
       (0... genre_hash[:total_scores_array].count).each do |j|
-        percentages_array[j] = genre_hash[:total_scores_array][j].to_f / total_quizzes.to_f
+
+        # do not divide by zero
+        if total_quizzes > 0
+          percentages_array[j] = genre_hash[:total_scores_array][j].to_f / total_quizzes.to_f
+        else
+          percentages_array[j] = 0;
+        end
       end
       genre_hash[:percentages_array] = percentages_array
     end
