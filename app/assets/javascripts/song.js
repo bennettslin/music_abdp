@@ -29,6 +29,8 @@ var trueScoreFromBinaryScore = function(binaryScore) {
 
 $(document).ready(function(){
 
+  $("#question1").fadeIn("slow");
+
   // for testing the trueScoreFromBinaryScore method
   // for (var i = 0; i < 8; i++ ) {
   //   var result = trueScoreFromBinaryScore(i);
@@ -47,7 +49,7 @@ $(document).ready(function(){
     $("#question1").delay(1000).fadeOut("fast", function() {
       $(this).delay(1000).hide();
     });
-    $("#question2").delay(400).fadeIn(1000, function() {
+    $("#question2").delay(1000).fadeIn(1000, function() {
       $(this).show();
     });
   });
@@ -57,12 +59,12 @@ $(document).ready(function(){
     setTimeout(function() {
       $(".incorrect1").css('opacity', '0');
     }, 1000);
-    $("#q1").css("background-color", "#00b200").delay(1000);
+    $("#q1").css("background-color", "#00b200").delay(500);
     setTimeout(function() {
-      $("#question1").delay(1000).fadeOut("fast", function() {
+      $("#question1").delay(500).fadeOut("fast", function() {
         $(this).hide();
       });
-      $("#question2").delay(1000).fadeIn(1000, function() {
+      $("#question2").delay(700).fadeIn(1000, function() {
         $(this).show();
       });
     }, 1000);
@@ -75,9 +77,9 @@ $(document).ready(function(){
     setTimeout(function() {
     }, 1000);
     $("#question2").delay(1000).fadeOut("fast", function() {
-      $(this).hide();
+      $(this).delay(1000).hide();
     });
-    $("#question3").delay(400).fadeIn(1000, function() {
+    $("#question3").delay(1000).fadeIn(1000, function() {
       $(this).show();
     });
   });
@@ -87,12 +89,12 @@ $(document).ready(function(){
     setTimeout(function() {
       $(".incorrect2").css('opacity', '0');
     }, 1000);
-    $("#q2").css("background-color", "#00b200").delay(1000);
+    $("#q2").css("background-color", "#00b200").delay(500);
     setTimeout(function() {
-      $("#question2").delay(1000).fadeOut("fast", function() {
+      $("#question2").delay(500).fadeOut("fast", function() {
         $(this).hide();
       });
-      $("#question3").delay(1000).fadeIn(1000, function() {
+      $("#question3").delay(700).fadeIn(1000, function() {
         $(this).show();
       });
     }, 1000);
@@ -106,10 +108,10 @@ $(document).ready(function(){
     $(".incorrect3").css('opacity', '0').delay(1000);
     setTimeout(function() {
     }, 1000);
-    $("#question3").delay(700).fadeOut("fast", function() {
+    $("#question3").delay(1000).fadeOut("fast", function() {
       $(this).hide();
     });
-    $("#song-cover").delay(800).animate({opacity: 1.0}, 800);
+    $("#song-cover").delay(1200).animate({opacity: 1.0}, 800);
 
     var trueScore = trueScoreFromBinaryScore(binaryScore);
     if (trueScore > 1) {
@@ -120,7 +122,7 @@ $(document).ready(function(){
 
     $("#score").text(trueScore);
     $("#plural").text(plural);
-    $("#results").fadeIn()
+    $("#results").delay(3000).fadeIn()
     persistResults(binaryScore);
   });
 
@@ -131,13 +133,13 @@ $(document).ready(function(){
     setTimeout(function() {
       $(".incorrect3").css('opacity', '0');
     }, 1000);
-    $("#q3").css("background-color", "#00b200").delay(1000);
+    $("#q3").css("background-color", "#00b200").delay(500);
     setTimeout(function() {
       $("#question3").delay(500).fadeOut("fast", function() {
         $(this).hide();
       });
     }, 800);
-    $("#song-cover").delay(1200).animate({opacity: 1.0}, 800);
+    $("#song-cover").delay(1300).animate({opacity: 1.0}, 800);
     var trueScore = trueScoreFromBinaryScore(binaryScore);
     if (trueScore > 1) {
       plural = "points";
@@ -149,7 +151,7 @@ $(document).ready(function(){
 
     $("#score").text(trueScore);
     $("#plural").text(plural);
-    $("#results").fadeIn()
+    $("#results").delay(3000).fadeIn()
     persistResults(binaryScore);
   });
 
