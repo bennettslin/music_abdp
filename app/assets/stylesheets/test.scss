@@ -2,11 +2,11 @@
 
 /*PLAYER STYLING*/
 #player {
-  background-color: rgba(40,40,40,.8);
+  background-color: rgba(0,0,0,.5);
   border: 1px solid #222222;
   padding: 0;
   color: #ffffff;
-  box-shadow: 0 0 30px #222222;
+  box-shadow: 0 0 40px #111111;
   overflow: hidden;
   margin-top: 25px;
 }
@@ -51,6 +51,8 @@
 
 #results {
   background-color: rgba(50,50,50,.5);
+  border-radius: 10px;
+  padding-bottom: 20px;
 }
 
 .audiojs audio { position: absolute; left: -1px; }
