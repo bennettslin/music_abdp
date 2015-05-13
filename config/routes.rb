@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get 'quiz' => 'songs#quiz'
   get 'validate_artists' => 'songs#validate_artists'
   post 'persist_results' => 'songs#persist_results'
+  post 'listen_later' => 'songs#listen_later'
   get 'persist_new_random_quiz' => 'songs#persist_new_random_quiz'
 
   get '*path' => redirect('/404')

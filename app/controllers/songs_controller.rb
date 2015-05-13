@@ -176,6 +176,19 @@ class SongsController < ApplicationController
 
   end
 
+  def listen_later
+
+    user = @current_user
+    song = Song.find_by(itunes_id: @@quiz_song[:itunes_id])
+
+    puts song
+
+    user.songs << song
+
+    redirect_to quiz_path
+
+  end
+
   private
 
   def song_params
