@@ -127,35 +127,28 @@ class SongsController < ApplicationController
         request = Typhoeus::Request.new(
           "itunes.apple.com/search",
           method: :get,
-          params: { term: artist2, attribute: "allArtistTerm", entity: "song", limit: 50 }
-          )
+          params: { term: artist_string, attribute: "allArtistTerm", entity: "song", limit: 5 }
+        )
+
         response = request.run
         data = JSON.parse(response.body)
-        artist_objects = RSpotify::Artist.search(artist_string, limit: 1)
+        track_objects = data["results"]
 
         itunes_artist_object = {}
-        if artist_objects.any?
 
-          itunes_artist_object[:artist_name] = artist_string
-          top_tracks = artist_objects[0].top_tracks(:US)
+        # there are some tracks
+        if track_objects.any?
 
-          if top_tracks.any?
-            spotify_top_tracks = []
-
-            # get top three tracks, or however many in the array
-            max = [top_tracks.count, 3].min
-            (0...max).each do |i|
-              itunes_top_tracks << top_tracks[i].name
-            end
-
-            itunes_artist_object[:top_tracks] = itunes_top_tracks
-          else
-            itunes_artist_object[:top_tracks] = "no top tracks!!!!!!!!!!!!!!!!!!!!"
+          itunes_top_tracks = track_objects.map do |track|
+            track["trackName"]
           end
+          itunes_artist_object[:top_tracks] = itunes_top_tracks
 
+          # no tracks for this artist
         else
-          itunes_artist_object[:artist_name] = artist_string + " not found!!!!!!!!!!!!!!!!!!!!"
+          itunes_artist_object[:top_tracks] = artist_string + " has no top tracks!!!!!!!!!!!!!!!!!!!!"
         end
+
         itunes_artist_objects << itunes_artist_object
       end
       itunes_results << {:genre => object[:genre], :artists => itunes_artist_objects}
