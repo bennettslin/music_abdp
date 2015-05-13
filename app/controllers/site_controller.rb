@@ -41,6 +41,8 @@ class SiteController < ApplicationController
         genre_hash[:total_scores_array][i] += quiz_score_array[i]
       end
 
+      add_percentages_to_genre_hashes @genre_hashes
+
       genre_hash[:total_quizzes] += 1
     end
 
