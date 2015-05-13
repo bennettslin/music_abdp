@@ -1,9 +1,9 @@
 class QuizzesController < ApplicationController
-end
+# end
 
-def quiz
-  respond_to do |format|
-    format.json
-    format.html
-  end
+# def quiz
+#   respond_to do |format|
+#     format.json
+#     format.html
+#   end
 end

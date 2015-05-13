@@ -254,7 +254,7 @@ module SongsHelper
           "Edward Elgar",
           "Sergei Rachmaninoff",
           "Camille Saint-Saëns",
-          "Josquin Des Prez -",
+          "Josquin Des Prez",
           "Nikolai Rimsky-Korsakov",
           "Carl Maria von Weber",
           "Jean-Philippe Rameau",

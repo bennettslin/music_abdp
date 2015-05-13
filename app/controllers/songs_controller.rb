@@ -60,7 +60,7 @@ class SongsController < ApplicationController
     @song2_album_name = song2[:album]
     @song2_track_name = song2[:title]
 
-    # so that view says "composer" instead of "artist"
+    # so that view says "composer" instead of "artist" for classical
     @classical = genre.name == "Classical"
 
     # store correct song in a class variable (!)
