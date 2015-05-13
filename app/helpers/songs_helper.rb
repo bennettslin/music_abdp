@@ -1048,7 +1048,9 @@ def get_random_song artist_string, genre_id
           itunes_id: song['trackId'],
           image_url: song_cover_long[0...-14] + "jpg",
           preview_url: song['previewUrl'],
-          artist: song['artistName'],
+
+          # for classical, store composer name rather than artist name
+          artist: genre_id == 3 ? artist_string : song['artistName'],
           title: song['trackName'],
           album: song['collectionName'],
           genre_id: genre_id
