@@ -26,7 +26,7 @@
             <tr>
               <td><%= genre_hash[:genre_name] %></td>
               <% (0...genre_hash[:percentages_array].count).each do |j| # j is number of questions %>
-                <td><%= "%.2f" % genre_hash[:percentages_array][j] %></td>
+                <td><%= "%.0f" % genre_hash[:percentages_array][j] %>%</td>
               <% end %>
               <td><%= genre_hash[:total_quizzes].to_s %></td>
             </tr>
@@ -39,7 +39,7 @@
             <tr>
               <td></td>
               <% (0...@highest_percentages[i].count).each do |j| %>
-                <td><%= @highest_percentages[i][j][:percentage] %></td>
+                <td><%= "%.0f" % @highest_percentages[i][j][:percentage] %>%</td>
               <% end %>
             </tr>
           </tbody>

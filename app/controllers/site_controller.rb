@@ -66,15 +66,16 @@ class SiteController < ApplicationController
 
       end
 
-      add_percentages_to_genre_hashes @genre_hashes
-
-      user_hashes.each do |user_hash|
-        add_percentages_to_genre_hashes user_hash[:genre_hashes]
-      end
 
       genre_hash[:total_quizzes] += 1
       user_genre_hash[:total_quizzes] += 1
 
+    end
+
+    add_percentages_to_genre_hashes @genre_hashes
+
+    user_hashes.each do |user_hash|
+      add_percentages_to_genre_hashes user_hash[:genre_hashes]
     end
 
     @highest_percentages = []
