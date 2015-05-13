@@ -15,12 +15,19 @@
           <thead>
             <tr>
               <th>genre</th>
+              <th>artist %</th>
+              <th>album %</th>
+              <th>track %</th>
+              <th>total quizzes</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td><%= genre_hash[:genre_name] %></td>
-              <td></td>
+              <% (0...genre_hash[:total_percentages]).each do |i| %>
+                <th><%= genre_hash %></th>
+              <% end %>
+
             </tr>
           </tbody>
         </table>
