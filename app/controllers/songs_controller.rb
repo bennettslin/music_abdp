@@ -157,6 +157,46 @@ class SongsController < ApplicationController
     render :json => itunes_results
   end
 
+  def persist_new_random_quiz
+    user_count = User.count
+    user = User.offset(rand(0...user_count)).first
+    genre_index = rand(0...genre_artists.count)
+    artist_index = rand(0...genre_artists[genre_index][:artists].count)
+    artist_string = genre_artists[genre_index][:artists][artist_index]
+
+    request = Typhoeus::Request.new(
+      "itunes.apple.com/search",
+      method: :get,
+      params: { term: artist_string, attribute: "allArtistTerm", entity: "song", limit: 5 }
+    )
+    response = request.run
+    data = JSON.parse(response.body)
+    song = data["results"]
+    song_random = song[rand(0...song.count)]
+
+    itunes_id = song_random['trackId']
+    song_cover_long = song_random['artworkUrl100']
+    image_url = song_cover_long[0...-14] + "jpg"
+    preview_url = song_random['previewUrl']
+    artist_name = song_random['artistName']
+    album_name = song_random['collectionName']
+    track_name = song_random['trackName']
+
+    song = Song.find_or_create_by(itunes_id: itunes_id) do |song|
+      song.image_url = image_url
+      song.preview_url = preview_url
+      song.artist = artist_name
+      song.album = album_name
+      song.title = track_name
+      song.genre_id = genre_index + 1 # will break if genre_ids are not 0 through 9
+    end
+
+    result = rand(0...8)
+    quiz = Quiz.create(user_id:user.id, song_id: song.id, result: result)
+    redirect_to root_path
+
+  end
+
   private
 
   def song_params

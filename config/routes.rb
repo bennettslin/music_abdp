@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get 'quiz' => 'songs#quiz'
   get 'validate_artists' => 'songs#validate_artists'
   post 'persist_results' => 'songs#persist_results'
+  get 'persist_new_random_quiz' => 'songs#persist_new_random_quiz'
 
   get '*path' => redirect('/404')
   match '/404', to: 'errors#file_not_found', via: :all

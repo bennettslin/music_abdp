@@ -38,7 +38,9 @@
         <li class="admin-only"><a href="/users">Users</a></li>
         <li class="admin-only"><a href="/quiz">Start Quiz</a></li>
         <li class="admin-only"><a href="/validate_artists">Valid</a></li>
+
         <% end %>
+        <li class="admin-only"><a href="/persist_new_random_quiz">New Rand</a></li>
         <li><%= link_to 'How to Play'.html_safe, about_path, :data => {toggle:'modal', target:'#myModal' } %></li>
 
 
@@ -50,10 +52,10 @@
 
         <li><%= link_to ("<i class='fa fa-headphones'></i> Listen Later").html_safe, favorite_path, :data => {toggle:'modal', target:'#myModal' } %>
 
-      <li><%= link_to ("<i class='glyphicon glyphicon-dashboard'></i> " + @current_user.first_name + "'s Dashboard").html_safe, edit_user_path(@current_user), :data => {toggle:'modal', target:'#myModal' } %></li>
 
       <% if @current_user %>
 
+      <li><%= link_to ("<i class='glyphicon glyphicon-dashboard'></i> " + @current_user.first_name + "'s Dashboard").html_safe, edit_user_path(@current_user), :data => {toggle:'modal', target:'#myModal' } %></li>
 
       <li><a href="/logout"><i class="fa fa-sign-out"></i>Logout</a></li>
       <% else %>
