@@ -10,8 +10,8 @@
   <div class="row">
 
     <% @genre_hashes.each do |genre_hash| %>
-      <div class="col-sm-2">
-        <table class="table table-hover">
+      <div class="col-sm-6">
+        <table class="table table-hover table-striped">
           <thead>
             <tr>
               <th>genre</th>
@@ -24,8 +24,8 @@
           <tbody>
             <tr>
               <td><%= genre_hash[:genre_name] %></td>
-              <% (0...genre_hash[:total_percentages]).each do |i| %>
-                <td><%= genre_hash[:total_percentages][i] %></td>
+              <% (0...genre_hash[:percentages_array].count).each do |i| %>
+                <td><%= "%.2f" % genre_hash[:percentages_array][i] %></td>
               <% end %>
               <td><%= genre_hash[:total_quizzes].to_s %></td>
             </tr>
