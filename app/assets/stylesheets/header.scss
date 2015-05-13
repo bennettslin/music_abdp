@@ -8,7 +8,7 @@ body {
 }
 
 h1, h2, h3, th {
-  color: white;
+  color: black;
   font-weight: 400;
 }
 
@@ -103,5 +103,31 @@ nav.navbar.navbar-default a.navbar-brand:hover {
   color: #c60b15;
 
 }
+
+// .Modal-body3
+// {
+//     width: 900px;
+
+// }
+
+// .Modal-body3 .modal-body {
+//     height: 700px;
+// }
+
+.modal-body
+{
+   max-height:80%;
+}
+.modal
+{
+   height:80%;
+   width:70%;
+   margin-left: -35%;
+}
+   .modal
+   {
+    width:90%;
+        margin-left: 2%;
+   }
 
 
