@@ -4,7 +4,13 @@
 
 
 input[type='checkbox'] {
- width: 15px;
- height: 15px;
+  width: 15px;
+  height: 15px;
+}
 
+div.modal-body a {
+  color: #c60b15;
+}
+div.modal-body a:hover {
+  color: #B20912;
 }

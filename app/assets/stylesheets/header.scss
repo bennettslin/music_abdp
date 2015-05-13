@@ -28,6 +28,13 @@ nav.navbar.navbar-default a {
   margin-top: 6px;
 }
 
+.btn.btn-primary {
+  background-color: #c60b15;
+}
+.btn.btn-primary:hover {
+  background-color: #B20912;
+}
+
 // LEFT DROPDOWN
 div.navbar-header.dropdown.open ul.dropdown-menu {
   margin-top: 5px;
@@ -96,3 +103,5 @@ nav.navbar.navbar-default a.navbar-brand:hover {
   color: #c60b15;
 
 }
+
+
