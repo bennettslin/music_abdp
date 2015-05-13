@@ -2,7 +2,7 @@ body {
   background-image: image-url("crowd.jpg");
   background-size: cover;
   background-attachment: fixed;
-  font-family: "Gotham Rounded A", "Gotham Rounded B", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Questrial', sans-serif;
   padding-top: 70px;
   background-color: black;
 }
@@ -46,19 +46,21 @@ nav.navbar.navbar-default a:active {
 }
 
 #logo {
-  width: 105px;
-  margin-right: 8px;
+  width: 106px;
+  margin-right: 5px;
+  margin-top: 0px;
 }
 
 #logotext {
-  font-weight: 300;
-  font-size: 13.5em;
-  color: #171d20;
-  text-shadow: 0 0 5px #aaaaaa;
+  font-weight: normal;
+  font-size: 14em;
+  color: #030303;
+  text-shadow: 0 0 30px #efefef;
+  margin-top: 30px;
 }
 
 nav.navbar.navbar-default a.navbar-brand {
   font-size: 2.4em;
-  color: #171d20;
+  color: #030303;
   font-weight: 400;
 }
