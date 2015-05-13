@@ -25,9 +25,9 @@
             <tr>
               <td><%= genre_hash[:genre_name] %></td>
               <% (0...genre_hash[:total_percentages]).each do |i| %>
-                <th><%= genre_hash %></th>
+                <td><%= genre_hash[:total_percentages][i] %></td>
               <% end %>
-
+              <td><%= genre_hash[:total_quizzes].to_s %></td>
             </tr>
           </tbody>
         </table>

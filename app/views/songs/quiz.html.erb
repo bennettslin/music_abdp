@@ -86,15 +86,9 @@
             <h3>You got <strong><span id="score"></span></strong> <span id="plural"></span></h3><br />
 
             <% if @current_user %>
-<<<<<<< HEAD
-            <%= link_to ("<i class='glyphicon glyphicon-headphones'></i>&nbsp; Add to Listen List").html_safe, favorite_path, class: 'btn btn-default ListenList', :data => {toggle:'modal', target:'#myModal' } %>
-=======
-
 
            <%= link_to ("<i class='glyphicon glyphicon-headphones'></i>&nbsp; Add to Listen List").html_safe, listen_later_path, class: 'btn btn-default', method: "post" %>
 
-
->>>>>>> d192340c0aff29f438a29eb42148bfcda3114d41
             <% else %>
             <%= link_to ("<i class='glyphicon glyphicon-headphones'></i>&nbsp; Add to Listen List").html_safe, signup_path, class: 'btn btn-default', :data => {toggle:'modal', target:'#myModal' } %>
             <% end %>
