@@ -16,12 +16,13 @@ class SiteController < ApplicationController
 
   def leaderboard
 
-    quizzes = Quiz.all
-    # quiz knows song, user, result
+
+    # quizzes = User.find(quiz.user_id)
+    # # quiz knows song, user, result
 
 
-    render :json => quizzes
-    return
+    # render :json => quizzes
+    # return
 
   end
 
