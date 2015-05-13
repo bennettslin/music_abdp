@@ -94,8 +94,8 @@ class SongsController < ApplicationController
 
     # persist song, if not already present in database
     if @@quiz_song.present?
-      song = Song.find_or_create_by(spotify_id: @@quiz_song[:spotify_id]) do |song|
-        song.spotify_id = @@quiz_song[:spotify_id]
+      song = Song.find_or_create_by(itunes_id: @@quiz_song[:itunes_id]) do |song|
+        song.itunes_id = @@quiz_song[:itunes_id]
         song.image_url = @@quiz_song[:image_url]
         song.preview_url = @@quiz_song[:preview_url]
         song.artist = @@quiz_song[:artist]
@@ -117,18 +117,26 @@ class SongsController < ApplicationController
   # for development only
   def validate_artists
 
-    spotify_results = []
+    itunes_results = []
 
     genre_artists.each do |object|
-      spotify_artist_objects = [];
+      itunes_artist_objects = [];
 
       object[:artists].each do |artist_string|
+
+        request = Typhoeus::Request.new(
+          "itunes.apple.com/search",
+          method: :get,
+          params: { term: artist2, attribute: "allArtistTerm", entity: "song", limit: 50 }
+          )
+        response = request.run
+        data = JSON.parse(response.body)
         artist_objects = RSpotify::Artist.search(artist_string, limit: 1)
 
-        spotify_artist_object = {}
+        itunes_artist_object = {}
         if artist_objects.any?
 
-          spotify_artist_object[:artist_name] = artist_string
+          itunes_artist_object[:artist_name] = artist_string
           top_tracks = artist_objects[0].top_tracks(:US)
 
           if top_tracks.any?
@@ -137,29 +145,29 @@ class SongsController < ApplicationController
             # get top three tracks, or however many in the array
             max = [top_tracks.count, 3].min
             (0...max).each do |i|
-              spotify_top_tracks << top_tracks[i].name
+              itunes_top_tracks << top_tracks[i].name
             end
 
-            spotify_artist_object[:top_tracks] = spotify_top_tracks
+            itunes_artist_object[:top_tracks] = itunes_top_tracks
           else
-            spotify_artist_object[:top_tracks] = "no top tracks!!!!!!!!!!!!!!!!!!!!"
+            itunes_artist_object[:top_tracks] = "no top tracks!!!!!!!!!!!!!!!!!!!!"
           end
 
         else
-          spotify_artist_object[:artist_name] = artist_string + " not found!!!!!!!!!!!!!!!!!!!!"
+          itunes_artist_object[:artist_name] = artist_string + " not found!!!!!!!!!!!!!!!!!!!!"
         end
-        spotify_artist_objects << spotify_artist_object
+        itunes_artist_objects << itunes_artist_object
       end
-      spotify_results << {:genre => object[:genre], :artists => spotify_artist_objects}
+      itunes_results << {:genre => object[:genre], :artists => itunes_artist_objects}
     end
 
-    render :json => spotify_results
+    render :json => itunes_results
   end
 
   private
 
   def song_params
-    params.require(:song).permit(:spotify_id, :image_url, :preview_url, :artist, :album, :title)
+    params.require(:song).permit(:itunes_id, :image_url, :preview_url, :artist, :album, :title)
   end
 
 end
