@@ -32,11 +32,10 @@
       <ul class="nav navbar-nav">
         <% if @current_user && @current_user.email == ENV['MY_FACEBOOK_EMAIL'] && @current_user.provider == 'facebook' %>
         <li class="admin-only"><a href="/users">Users</a></li>
-        <li class="admin-only"><a href="/quiz">Start Quiz</a></li>
         <li class="admin-only"><a href="/validate_artists">Valid</a></li>
-
-        <% end %>
         <li class="admin-only"><a href="/persist_new_random_quiz">New Rand</a></li>
+        <% end %>
+        <li class=""><a href="/quiz">Start Quiz</a></li>
         <li><%= link_to 'How to Play'.html_safe, about_path, :data => {toggle:'modal', target:'#myModal' } %></li>
         <li><a href="/leaderboard"><i class="glyphicon glyphicon-stats"></i> Leaderboard</a></li>
 

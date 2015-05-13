@@ -82,6 +82,7 @@ class SongsController < ApplicationController
 
     # persist quiz
     if params["score"].present?
+      # set user id to 0 if no current user
       user_id = @current_user ? @current_user.id : 0;
       quiz = Quiz.create(user_id:user_id, song_id: song.id, result: params["score"])
     end
