@@ -1,3 +1,4 @@
+require 'typhoeus'
 include SongsHelper
 
 class SongsController < ApplicationController
@@ -9,7 +10,7 @@ class SongsController < ApplicationController
       genres_max = @current_user.genres.count - 1
       genre = @current_user.genres[rand(0..genres_max)]
     else
-      genre = Genre.all[rand(0..(genres.count - 1))]
+      genre = Genre.all[rand(0...genres.count)]
     end
 
     # Get list of artists by specified genre
@@ -23,7 +24,6 @@ class SongsController < ApplicationController
 
     # Gets three random artists based on index numbers
     random_artists = random_indices.map do |index|
-
       artists[index]
     end
 
@@ -33,17 +33,25 @@ class SongsController < ApplicationController
     artist2 = random_artists[2]
 
     # song0 info - correct answer
-    song0 = RSpotify::Track.search('artist:' + artist0, limit: 50)
+    request = Typhoeus::Request.new(
+      "itunes.apple.com/search",
+      method: :get,
+      params: { term: artist0, attribute: "allArtistTerm", entity: "song", limit: 50 }
+      )
+    response = request.run
+    data = JSON.parse(response.body)
+    song0 = data["results"]
     song0_random = song0[rand(0...song0.count)]
-    @song0_cover = song0_random.album.images[0]['url']
-    @song0_url = song0_random.preview_url
-    @song0_artist = artist0
-    @song0_track_name = song0_random.name
-    @song0_album_name = song0_random.album.name
+    song0_cover_long = song0_random['artworkUrl100']
+    @song0_cover = song0_cover_long[0...-14] + "jpg"
+    @song0_url = song0_random['previewUrl']
+    @song0_artist = song0_random['artistName']
+    @song0_track_name = song0_random['trackName']
+    @song0_album_name = song0_random['collectionName']
 
     # store correct song in a class variable (!)
     @@quiz_song = {
-      spotify_id: song0_random.id,
+      itunes_id: song0_random['trackId'],
       image_url: @song0_cover,
       preview_url: @song0_url,
       artist: @song0_artist,
@@ -53,20 +61,33 @@ class SongsController < ApplicationController
     }
 
     # song1 info
-    song1 = RSpotify::Track.search('artist:' + artist1, limit: 50)
+    request = Typhoeus::Request.new(
+      "itunes.apple.com/search",
+      method: :get,
+      params: { term: artist1, attribute: "allArtistTerm", entity: "song", limit: 50 }
+      )
+    response = request.run
+    data = JSON.parse(response.body)
+    song1 = data["results"]
     song1_random = song1[rand(0...song1.count)]
-    # @song1_cover = song1_random.album.images[0]['url']
-    # @song1_url = song1_random.preview_url
-    @song1_artist = artist1
-    @song1_track_name = song1_random.name
-    @song1_album_name = song1_random.album.name
+    @song1_artist = song1_random['artistName']
+    @song1_track_name = song1_random['trackName']
+    @song1_album_name = song1_random['collectionName']
 
     # song2 info
-    song2 = RSpotify::Track.search('artist:' + artist2, limit: 50)
+    request = Typhoeus::Request.new(
+      "itunes.apple.com/search",
+      method: :get,
+      params: { term: artist2, attribute: "allArtistTerm", entity: "song", limit: 50 }
+      )
+    response = request.run
+    data = JSON.parse(response.body)
+    song2 = data["results"]
     song2_random = song2[rand(0...song2.count)]
-    @song2_artist = artist2
-    @song2_track_name = song2_random.name
-    @song2_album_name = song2_random.album.name
+    @song2_artist = song2_random['artistName']
+    @song2_track_name = song2_random['trackName']
+    @song2_album_name = song2_random['collectionName']
+    # render :json => @song2_album_name
   end
 
   def persist_results

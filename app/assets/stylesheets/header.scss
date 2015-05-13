@@ -46,13 +46,24 @@ nav.navbar.navbar-default a:active {
 }
 
 #logo {
-  width: 110px;
+  width: 105px;
   margin-right: 8px;
 }
 
 #logotext {
   font-weight: 300;
   font-size: 13.5em;
-  color: white;
-  text-shadow: 0 0 5px #555555;
+  color: #171d20;
+  text-shadow: 0 0 5px #aaaaaa;
+}
+
+#logosmall {
+  width: 19px;
+  margin-right: 1px;
+}
+
+nav.navbar.navbar-default a.navbar-brand {
+  font-size: 2.4em;
+  color: #171d20;
+  font-weight: 300;
 }
