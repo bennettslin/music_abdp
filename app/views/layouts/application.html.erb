@@ -41,35 +41,41 @@
         <li class="admin-only"><a href="/generate_results">Gener</a></li>
         <% end %>
         <li><%= link_to 'How to Play'.html_safe, about_path, :data => {toggle:'modal', target:'#myModal' } %></li>
+
+
         <li><a href="/leaderboard"><i class="glyphicon glyphicon-stats"></i> Leaderboard</a></li>
 
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/team"><i class="fa fa-users"></i> Meet the Team</a></li>
-        <% if @current_user %>
 
-        <li><%= link_to ("<i class='glyphicon glyphicon-dashboard'></i> " + @current_user.first_name + "'s Dashboard").html_safe, edit_user_path(@current_user), :data => {toggle:'modal', target:'#myModal' } %></li>
+        <li><%= link_to ("<i class='fa fa-headphones'></i> Listen Later").html_safe, favorite_path, :data => {toggle:'modal', target:'#myModal' } %>
 
-        <li><a href="/logout"><i class="fa fa-sign-out"></i>Logout</a></li>
-        <% else %>
-        <li><%= link_to ("<i class='fa fa-sign-in'></i> Login").html_safe, login_path, :data => {toggle:'modal', target:'#myModal' } %></li>
-        <li><%= link_to ("<i class='fa fa-user-plus'></i> Signup").html_safe, signup_path, :data => {toggle:'modal', target:'#myModal' } %></li>
-        <% end %>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </nav>
+      <li><%= link_to ("<i class='glyphicon glyphicon-dashboard'></i> " + @current_user.first_name + "'s Dashboard").html_safe, edit_user_path(@current_user), :data => {toggle:'modal', target:'#myModal' } %></li>
 
-  <!-- the one and only modal! -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
+      <% if @current_user %>
 
-      </div>
+
+      <li><a href="/logout"><i class="fa fa-sign-out"></i>Logout</a></li>
+      <% else %>
+      <li><%= link_to ("<i class='fa fa-sign-in'></i> Login").html_safe, login_path, :data => {toggle:'modal', target:'#myModal' } %></li>
+      <li><%= link_to ("<i class='fa fa-user-plus'></i> Signup").html_safe, signup_path, :data => {toggle:'modal', target:'#myModal' } %></li>
+      <% end %>
+    </ul>
+  </div><!-- /.navbar-collapse -->
+</nav>
+
+<!-- the one and only modal! -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
     </div>
   </div>
+</div>
 
-  <%= render "layouts/flash" %>
-  <%= yield %>
+<%= render "layouts/flash" %>
+<%= yield %>
 
 </body>
 </html>

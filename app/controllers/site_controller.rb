@@ -7,4 +7,8 @@ class SiteController < ApplicationController
   def team
   end
 
+def favorite
+  render layout: false
+end
+
 end
