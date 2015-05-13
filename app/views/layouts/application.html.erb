@@ -30,11 +30,9 @@
       </a>
 
       <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" class="list-group">
-
         <li><a href="/"><i class="fa fa-home fa-fw"></i> Home</a></li>
         <li><%= link_to ("<i class='fa fa-puzzle-piece fa-fw'></i> How to Play").html_safe, about_path, :data => {toggle:'modal', target:'#myModal' } %></li>
         <li><a href="/team"><i class="fa fa-users fa-fw"></i> Meet the Team</a></li>
-
       </ul>
     </div>
 
@@ -48,7 +46,6 @@
         <li class="admin-only"><a href="/persist_new_random_quiz">New Rand</a></li>
         <% end %>
 
-        <li><%= link_to 'How to Play'.html_safe, about_path, :data => {toggle:'modal', target:'#myModal' } %></li>
         <li><a href="/leaderboard"><i class="glyphicon glyphicon-stats"></i> Leaderboard</a></li>
       </ul>
 
@@ -68,7 +65,7 @@
             <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
           </ul>
         </li>
-          <li><%= link_to ("<i class='glyphicon glyphicon-dashboard'></i> " + @current_user.first_name + "'s Dashboard").html_safe, edit_user_path(@current_user), :data => {toggle:'modal', target:'#myModal' } %></li>
+
         <% else %>
 
         <li><%= link_to ("<i class='fa fa-sign-in'></i> Login").html_safe, login_path, :data => {toggle:'modal', target:'#myModal' } %></li>
