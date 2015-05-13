@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   get 'about' => 'site#about'
   get 'leaderboard' => 'site#leaderboard'
   get 'team' => 'site#team'
+  get 'favorite' => 'site#favorite'
 
   get 'quiz' => 'songs#quiz'
   get 'validate_artists' => 'songs#validate_artists'
