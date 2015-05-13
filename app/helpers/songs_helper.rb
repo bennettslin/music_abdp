@@ -1,11 +1,11 @@
 module SongsHelper
 
-  def genre_artists
-    [
+   def genre_artists
+      [
       # alternative rock
       {
-        :genre => "alternative rock",
-        :artists => [
+       :genre => "alternative rock",
+       :artists => [
           'Alabama Shakes',
           'All Time Low',
           'The All American Rejects',
@@ -106,13 +106,13 @@ module SongsHelper
           'Sum 41',
           'The Civil Wars',
           'Green Day'
-        ]
-      },
+     ]
+     },
 
       # blues
       {
-        :genre => "blues",
-        :artists => [
+       :genre => "blues",
+       :artists => [
           'Aaron Neville',
           'Albert King',
           'B.B. King',
@@ -210,13 +210,13 @@ module SongsHelper
           'Guitar Shorty',
           'Seasick Steve',
           'Mance Lipscomb'
-        ]
-      },
+     ]
+     },
 
       # classical
       {
-        :genre => "classical",
-        :artists => [
+       :genre => "classical",
+       :artists => [
           "Ludwig van Beethoven",
           "Wolfgang Amadeus Mozart",
           "Johann Sebastian Bach",
@@ -267,13 +267,13 @@ module SongsHelper
           "Paul Hindemith",
           "Olivier Messiaen",
           "Aaron Copland"
-        ]
-      },
+     ]
+     },
 
       # country
       {
-        :genre => "country",
-        :artists => [
+       :genre => "country",
+       :artists => [
           'Little Big Town',
           'Blake Shelton',
           'Sam Hunt',
@@ -374,13 +374,13 @@ module SongsHelper
           'Tanya Tucker',
           'Scotty McCreery',
           'Rhett Akins'
-        ]
-      },
+     ]
+     },
 
       # hip hop
       {
-        :genre => "hip hop",
-        :artists => [
+       :genre => "hip hop",
+       :artists => [
           "Run-DMC",
           "Public Enemy",
           "2Pac",
@@ -481,13 +481,13 @@ module SongsHelper
           "Chamillionaire",
           "Slaughterhouse",
           "Run the Jewels"
-        ]
-      },
+     ]
+     },
 
       # jazz
       {
-        :genre => "jazz",
-        :artists => [
+       :genre => "jazz",
+       :artists => [
           "Louis Armstrong",
           "Duke Ellington",
           "Miles Davis",
@@ -586,13 +586,13 @@ module SongsHelper
           "Donald Byrd",
           "Johnny Dodds",
           "Glenn Miller"
-        ]
-      },
+     ]
+     },
 
       # pop
       {
-        :genre => "pop",
-        :artists => [
+       :genre => "pop",
+       :artists => [
           'Adam Lambert',
           'Adele',
           'Alessia Cara',
@@ -699,13 +699,13 @@ module SongsHelper
           'Walk The Moon',
           'Whitney Houston',
           'Who Is Fancy'
-        ]
-      },
+     ]
+     },
 
       # r&b
       {
-        :genre => "r&b",
-        :artists => [
+       :genre => "r&b",
+       :artists => [
           'Adrian Marcel',
           'Akon',
           'Al Green',
@@ -785,7 +785,6 @@ module SongsHelper
           'Roberta Flack',
           'Robin S.',
           'Sade',
-          'Sam Cooke',
           'Sevyn Streeter',
           'SoMo',
           'Stevie Wonder',
@@ -799,13 +798,13 @@ module SongsHelper
           'Usher',
           'The Weeknd',
           'Whitney Houston'
-        ]
-      },
+     ]
+     },
 
       # singer/songwriter
       {
-        :genre => "singer/songwriter",
-        :artists => [
+       :genre => "singer/songwriter",
+       :artists => [
           'Agnes Obel',
           'Alexander Cardinale',
           'Ali Brustofski',
@@ -907,13 +906,13 @@ module SongsHelper
           'Patty Griffin',
           'Odessa',
           'Jamie Scott'
-        ]
-      },
+     ]
+     },
 
       # rock
       {
-        :genre => "rock",
-        :artists => [
+       :genre => "rock",
+       :artists => [
           'Talking Heads',
           'Carl Perkins',
           'Curtis Mayfield',
@@ -1014,10 +1013,10 @@ module SongsHelper
           'MC5',
           'Bad Company',
           'Cheap Trick',
-        ]
-      }
-    ]
+     ]
+}
+]
 
-  end
+end
 
 end
