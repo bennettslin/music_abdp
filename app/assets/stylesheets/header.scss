@@ -16,26 +16,54 @@ nav.navbar.navbar-default {
   opacity: 1;
   border-radius: 0;
   background-color: #ffffff;
-  border-color: #efefef;
-  border-width: 0 0 5px;
-  padding-right: 15px;
+  border-color: #111111;
+  border-width: 0 0 1px;
   z-index: 1;
+  box-shadow: 0 0 40px rgba(17,17,17,.5);
+  padding: 0 17px 5px 0;
 }
 
 nav.navbar.navbar-default a {
   color: #555555;
-  padding-top: 18px;
+  margin-top: 6px;
 }
 
+// LEFT DROPDOWN
+div.navbar-header.dropdown.open ul.dropdown-menu {
+  margin-top: 5px;
+  padding-top: 0;
+  border-radius: 0 0 4px 4px
+}
+div.navbar-header.dropdown.open ul.dropdown-menu li a {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+// RIGHT DROPDOWN
+li.dropdown.open ul.dropdown-menu {
+  margin-top: 5px;
+  padding-top: 0;
+}
+li.dropdown ul.dropdown-menu li a {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+///////////////
+
 nav.navbar.navbar-default a:hover {
-  color: #000000;
+  color: #c60b15;
 }
 
 nav.navbar.navbar-default a:active {
   color: #333333;
 }
 
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
+  background-color: #ffffff;
+}
+
+
 .admin-only {
+  // visibility: hidden;
   background-color: #bbbbbb;
   color: #000000;
 }
@@ -60,7 +88,11 @@ nav.navbar.navbar-default a:active {
 }
 
 nav.navbar.navbar-default a.navbar-brand {
-  font-size: 2.4em;
+  font-size: 2.5em;
   color: #030303;
-  font-weight: 400;
+  font-weight: 600;
+}
+nav.navbar.navbar-default a.navbar-brand:hover {
+  color: #c60b15;
+
 }

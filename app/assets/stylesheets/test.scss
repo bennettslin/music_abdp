@@ -26,33 +26,38 @@
   top: 5vh;
   z-index: 1;
   color: #efefef;
-  font-shadow: 0 0 2px #666666;
 }
 
 .questions h2 {
   font-size: 2em;
   font-weight: 400;
+  text-shadow: 0 0 4px #555555;
 }
 
 .questions h3 {
   font-weight: 400;
   font-size: 1.4em;
+  text-shadow: 0 0 4px #555555;
 }
 
-.questions button {
+.questions button, .questions a {
   width: 100%;
   display: block;
   padding: 10px 5px;
   margin: 5px 0;
   font-size: 1.2em;
   letter-spacing: -.5px;
-  opacity: .85;
+  opacity: .9;
 }
 
 #results {
   background-color: rgba(50,50,50,.5);
   border-radius: 10px;
-  padding-bottom: 20px;
+  padding-bottom: 16px;
+}
+
+.underscore {
+  font-family: helvetica, sans-serif;
 }
 
 .audiojs audio { position: absolute; left: -1px; }
