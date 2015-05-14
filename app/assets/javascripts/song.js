@@ -42,7 +42,7 @@ $(document).ready(function(){
 
   $("#q1").click(function(){
     binaryScore += 1;
-    $(this).css("background-color", "#00b200").delay(1000);
+    $(this).css({"background-color": "#00b200", "color": "#ffffff"}).delay(1000);
     $(".incorrect1").css('opacity', '0').delay(1000);
     setTimeout(function() {
     }, 1000);
@@ -55,11 +55,12 @@ $(document).ready(function(){
   });
 
   $(".incorrect1").click(function(){
-    $(this).css("background-color", "#ff0000").delay(1000);
+    $(".incorrect1").css("opacity", "0");
+    $(this).css({"opacity": ".9", "background-color": "#B20912"}).delay(1000);
     setTimeout(function() {
       $(".incorrect1").css('opacity', '0');
     }, 1000);
-    $("#q1").css("background-color", "#00b200").delay(500);
+    $("#q1").css({"background-color": "#00b200", "color": "#ffffff"}).delay(500);
     setTimeout(function() {
       $("#question1").delay(500).fadeOut("fast", function() {
         $(this).hide();
@@ -72,7 +73,7 @@ $(document).ready(function(){
 
   $("#q2").click(function(){
     binaryScore += 2;
-    $(this).css("background-color", "#00b200").delay(1000);
+    $(this).css({"background-color": "#00b200", "color": "#ffffff"}).delay(1000);
     $(".incorrect2").css('opacity', '0').delay(1000);
     setTimeout(function() {
     }, 1000);
@@ -85,11 +86,12 @@ $(document).ready(function(){
   });
 
   $(".incorrect2").click(function(){
-    $(this).css("background-color", "#ff0000").delay(1000);
+    $(".incorrect2").css("opacity", "0");
+    $(this).css({"opacity": ".9", "background-color": "#B20912"}).delay(1000);
     setTimeout(function() {
       $(".incorrect2").css('opacity', '0');
     }, 1000);
-    $("#q2").css("background-color", "#00b200").delay(500);
+    $("#q2").css({"background-color": "#00b200", "color": "#ffffff"}).delay(500);
     setTimeout(function() {
       $("#question2").delay(500).fadeOut("fast", function() {
         $(this).hide();
@@ -104,7 +106,7 @@ $(document).ready(function(){
   $("#q3").click(function(){
     binaryScore += 4;
     console.log(binaryScore);
-    $(this).css("background-color", "#00b200").delay(1000);
+    $(this).css({"background-color": "#00b200", "color": "#ffffff"}).delay(1000);
     $(".incorrect3").css('opacity', '0').delay(1000);
     setTimeout(function() {
     }, 1000);
@@ -129,11 +131,12 @@ $(document).ready(function(){
 
   $(".incorrect3").click(function(){
     console.log(binaryScore);
-    $(this).css("background-color", "#ff0000").delay(1000);
+    $(".incorrect3").css("opacity", "0");
+    $(this).css({"opacity": ".9", "background-color": "#B20912"}).delay(1000);
     setTimeout(function() {
       $(".incorrect3").css('opacity', '0');
     }, 1000);
-    $("#q3").css("background-color", "#00b200").delay(500);
+    $("#q3").css({"background-color": "#00b200", "color": "#ffffff"}).delay(500);
     setTimeout(function() {
       $("#question3").delay(500).fadeOut("fast", function() {
         $(this).hide();
@@ -154,5 +157,11 @@ $(document).ready(function(){
     $("#results").delay(3000).fadeIn()
     persistResults(binaryScore);
   });
+
+
+  $("#AddedtoListenList").click(function(){
+    $(this).html("<i class='fa fa-check'></i>&nbsp; Added to Listen List")
+  })
+
 
 });

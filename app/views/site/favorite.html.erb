@@ -1,37 +1,110 @@
-<div class="modal-header">
-  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <h4 class="modal-title" id="myModalLabel"><%= @current_user.first_name %>'s Listen List</h4>
-</div>
-<div class="modal-body3">
+<style>
+  .audiojsZ audio { position: absolute; left: -1px; }
+  .audiojsZ { margin-top: -2px; width: 25px; height: 25px; background-color: #4c4c4c; overflow: hidden; font-family: monospace; font-size: 12px; border-radius: 50%;
+    -webkit-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3); -moz-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
+    -o-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3); box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3); }
+    .audiojsZ .play-pause { width: 25px; height: 25px; padding: 0px 0px; margin: 0px; margin-top: -1px; margin-left: 0px; float: left; overflow: hidden; background-color: #4c4c4c; border: none; }
+    .audiojsZ p { display: none; width: 25px; height: 25px; margin: 0px; cursor: pointer; }
+    .audiojsZ .playZ { display: block; }
+    .audiojsZ .playZ { background: url('../audiojs/player-graphics.gif') -2px -1px no-repeat; }
+    .audiojsZ .loadingZ { background: url('../audiojs/player-graphics.gif') -2px -31px no-repeat; }
+    .audiojsZ .errorZ { background: url('../audiojs/player-graphics.gif') -2px -61px no-repeat; }
+    .audiojsZ .pauseZ { background: url('../audiojs/player-graphics.gif') -2px -91px no-repeat; }
+    .playingZ .playZ, .playingZ .loadingZ, .playingZ .errorZ { display: none; }
+    .playingZ .pauseZ { display: block; }
+    .loadingZ .playZ, .loadingZ .pauseZ, .loadingZ .errorZ { display: none; }
+    .loadingZ .loadingZ { display: block; }
+    .errorZ .timeZ, .errorZ .playZ, .errorZ .pauseZ, .errorZ .scrubberZ, .errorZ .loadingZ { display: none; }
+    .errorZ .errorZ { display: block; }
+    .errorZ .play-pauseZ p { cursor: auto; }
+    .errorZ .error-messageZ { display: block; }
+  </style>
 
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Song</th>
-        <th>Artist</th>
-        <th>Album</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>No Control</td>
-        <td>One Direction</td>
-        <td>Four</td>
-      </tr>
-      <tr>
-        <td>Breezeblocks</td>
-        <td>alt-J</td>
-        <td>An Awesome Wave</td>
-      </tr>
-      <tr>
-        <td>Tear In My Heart</td>
-        <td>twenty one pilots</td>
-        <td>Tear In My Heart</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <div class="modal-header text-center">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title" id="myModalLabel"><%= @current_user.first_name %>'s Listen List</h4>
+  </div>
+  <div class="modal-body">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th></th>
+          <th><strong>Track</strong></th>
+          <th><strong>Artist</strong></th>
+          <th><strong>Album</strong></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @favs_info.each do |t| %>
+        <tr>
+          <td>
+            <div class="audiojsZ">
+              <audio src=<%= t.preview_url %>></audio>
+              <div class="play-pauseZ">
+                <p class="playZ"></p>
+                <p class="pauseZ"></p>
+                <p class="loadingZ"></p>
+                <p class="errorZ"></p>
+              </div>
+            </div>
+          </td>
 
-<div class="modal-footer">
-  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-</div>
+          <td class="track-info"><%= t.title %></td>
+          <td class="track-info"><%= t.artist %></td>
+          <td class="track-info"><%= t.album %></td>
+          <td class="track-info"><%= link_to ("<button class='btn btn-default itunes'><i class='fa fa-apple'></i> Download on iTunes</button>").html_safe, t.buy_url, target: "itunes_store" %></td>
+          <td class="track-info"><button class="btn btn-primary x"><i class="fa fa-trash-o"></i></button></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  </div>
+
+  <script>
+    audiojs.events.ready(function() {
+      // var as = audiojs.createAll({
+        //   autoplay: false,
+        //   preload: false
+        // });
+var audios = document.getElementsByTagName('audio');
+
+var a3 = audiojs.create(audios, {
+  autoplay: false,
+  preload: false,
+  createPlayer: {
+    markup: '\
+    <div class="play-pause"> \
+      <p class="play"></p> \
+      <p class="pause"></p> \
+      <p class="loading"></p> \
+      <p class="error"></p> \
+    </div> \
+    <div class="scrubber"> \
+      <div class="progress"></div> \
+      <div class="loaded"></div> \
+    </div> \
+    <div class="time"> \
+      <em class="played">00:00</em>/<strong class="duration">00:00</strong> \
+    </div> \
+    <div class="error-message"></div>',
+    playPauseClass: 'play-pause',
+    scrubberClass: 'scrubber',
+    progressClass: 'progress',
+    loaderClass: 'loaded',
+    timeClass: 'time',
+    durationClass: 'duration',
+    playedClass: 'played',
+    errorMessageClass: 'error-message',
+    playingClass: 'playing',
+    loadingClass: 'loading',
+    errorClass: 'error'
+  }
+});
+});
+
+</script>
