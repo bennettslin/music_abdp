@@ -66,7 +66,6 @@ class SiteController < ApplicationController
 
       end
 
-
       genre_hash[:total_quizzes] += 1
       user_genre_hash[:total_quizzes] += 1
 
@@ -76,6 +75,7 @@ class SiteController < ApplicationController
 
     user_hashes.each do |user_hash|
       add_percentages_to_genre_hashes user_hash[:genre_hashes]
+      add_ratings_to_genre_hashes user_hash[:genre_hashes]
     end
 
     @highest_percentages = []
@@ -104,6 +104,36 @@ class SiteController < ApplicationController
           question_percentage[:user_name] = user.first_name
         else
           question_percentage[:user_name] = "No leader"
+        end
+      end
+    end
+
+    @highest_ratings = []
+    (0...@genre_hashes.count).each do |i|
+      @highest_ratings << [{user_id:0, rating:0},{user_id:0, rating:0},{user_id:0, rating:0}]
+    end
+
+    (0...user_hashes.count).each do |i| # i is number of users
+      user_hash = user_hashes[i]
+      (0...@genre_hashes.count).each do |j| # j is number of genres
+        user_genre_hash = user_hash[:genre_hashes][j]
+        (0...user_genre_hash[:ratings_array].count).each do |k| # k is number of questions
+          if user_genre_hash[:ratings_array][k] > @highest_ratings[j][k][:rating]
+            @highest_ratings[j][k][:user_id] = user_hash[:user_id]
+            @highest_ratings[j][k][:rating] = user_genre_hash[:ratings_array][k]
+          end
+        end
+      end
+    end
+
+    @highest_ratings.each do |genre_ratings|
+      genre_ratings.each do |question_ratings|
+        user_id = question_ratings[:user_id]
+        if user_id != 0
+          user = User.find(user_id)
+          question_ratings[:user_name] = user.first_name
+        else
+          question_ratings[:user_name] = "No leader"
         end
       end
     end

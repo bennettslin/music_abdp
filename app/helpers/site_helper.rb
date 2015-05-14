@@ -31,5 +31,23 @@ module SiteHelper
       genre_hash[:percentages_array] = percentages_array
     end
   end
+
+  def add_ratings_to_genre_hashes genre_hashes
+
+    (0...genre_hashes.count).each do |i| # i is number of genres
+      genre_hash = genre_hashes[i]
+
+      total_quizzes = genre_hash[:total_quizzes]
+      ratings_array = [0, 0, 0]
+      (0... genre_hash[:total_scores_array].count).each do |j| # j is number of questions
+        total_score = genre_hash[:total_scores_array][j]
+
+        # rating is 3 point for each correct answer, minus 1 point for each incorrect answer
+        ratings_array[j] = 3 * total_score - (total_quizzes - total_score)
+      end
+      genre_hash[:ratings_array] = ratings_array
+    end
+  end
+
 end
 

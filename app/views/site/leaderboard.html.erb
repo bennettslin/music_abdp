@@ -12,10 +12,10 @@
     <% (0...@genre_hashes.count).each do |i| # i is number of genres %>
     <% genre_hash = @genre_hashes[i] %>
       <div class="col-sm-6">
-        <table class="table table-hover table-striped">
+        <table class="table table-hover leaderboard-table">
           <thead>
             <tr>
-              <th>genre</th>
+              <th><%= genre_hash[:genre_name] %></th>
               <th>artist %</th>
               <th>album %</th>
               <th>track %</th>
@@ -24,22 +24,38 @@
           </thead>
           <tbody>
             <tr>
-              <td><%= genre_hash[:genre_name] %></td>
+              <td>Total percentage</td>
               <% (0...genre_hash[:percentages_array].count).each do |j| # j is number of questions %>
                 <td><%= "%.0f" % genre_hash[:percentages_array][j] %>%</td>
               <% end %>
               <td><%= genre_hash[:total_quizzes].to_s %></td>
             </tr>
+
             <tr>
-              <td></td>
+              <td>Percentage leader</td>
               <% (0...@highest_percentages[i].count).each do |j| %>
                 <td><%= @highest_percentages[i][j][:user_name] %></td>
               <% end %>
             </tr>
             <tr>
-              <td></td>
+
+              <td>Percentage</td>
               <% (0...@highest_percentages[i].count).each do |j| %>
                 <td><%= "%.0f" % @highest_percentages[i][j][:percentage] %>%</td>
+              <% end %>
+            </tr>
+
+            <tr>
+              <td>Trophy leader</td>
+              <% (0...@highest_ratings[i].count).each do |j| %>
+                <td><%= @highest_ratings[i][j][:user_name] %></td>
+              <% end %>
+            </tr>
+            <tr>
+
+              <td>Number of trophies</td>
+              <% (0...@highest_ratings[i].count).each do |j| %>
+                <td></i><%= @highest_ratings[i][j][:rating] %><i class='fa fa-trophy fa-fw'></i></td>
               <% end %>
             </tr>
           </tbody>

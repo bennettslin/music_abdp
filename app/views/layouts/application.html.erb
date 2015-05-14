@@ -61,7 +61,11 @@
 
             <li><%= link_to ("<i class='fa fa-music fa-fw'></i> " + "Genres / Profile").html_safe, edit_user_path(@current_user), :data => {toggle:'modal', target:'#myModal' } %></li>
             <li><%= link_to ("<i class='glyphicon glyphicon-headphones fa-fw'></i> Listen List").html_safe, favorite_path, class: 'ListenList', :data => {toggle:'modal', target:'#myModal' } %></li>
-            <li><a href="/leaderboard"><i class="glyphicon glyphicon-stats fa-fw"></i> Leaderboard</a></li>
+
+            <% if @current_user.provider == 'facebook' %>
+              <li><a href="/friends"><i class="fa fa-facebook fa-fw"></i> Friends</a></li>
+            <% end %>
+
             <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
           </ul>
         </li>
