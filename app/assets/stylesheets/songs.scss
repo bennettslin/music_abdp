@@ -2,20 +2,16 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.leaderboard-header {
-  background-color: green;
-}
-
 .leaderboard-me {
-  background-color: magenta;
+  background-color: #ccc;
 }
 
 .leaderboard-leaders {
-  background-color: yellow;
+  background-color: #eee;
 }
 
 .leaderboard-average {
-  background-color: orange;
+  background-color: #aaa;
 }
 
 .div-balls {
@@ -23,42 +19,86 @@
   font-size: 1.25em;
 }
 
-.colour-alternative {
+.colour-key ul li {
+  display: inline;
+}
+
+li.colour-alternative {
   color: rgb(214, 39, 40);
 }
 
-.colour-blues {
+li.colour-blues {
   color: rgb(255, 127, 14);
 }
 
-.colour-classical {
+li.colour-classical {
   color: rgb(188, 189, 34);
 }
 
-.colour-country {
+li.colour-country {
   color: rgb(44, 160, 44);
 }
 
-.colour-hip-hop {
+li.colour-hip-hop {
   color: rgb(23, 190, 207);
 }
 
-.colour-jazz {
+li.colour-jazz {
   color: rgb(31, 119, 180);
 }
 
-.colour-pop {
+li.colour-pop {
   color: rgb(148, 103, 189);
 }
 
-.colour-rb {
+li.colour-rb {
   color: rgb(127, 127, 127);
 }
 
-.colour-singer-songwriter {
+li.colour-singer-songwriter {
   color: rgb(227, 119, 194);
 }
 
-.colour-rock {
+li.colour-rock {
   color: rgb(140, 86, 75);
+}
+
+tr.colour-alternative {
+  background-color: rgb(214, 39, 40);
+}
+
+tr.colour-blues {
+  background-color: rgb(255, 127, 14);
+}
+
+tr.colour-classical {
+  background-color: rgb(188, 189, 34);
+}
+
+tr.colour-country {
+  background-color: rgb(44, 160, 44);
+}
+
+tr.colour-hip-hop {
+  background-color: rgb(23, 190, 207);
+}
+
+tr.colour-jazz {
+  background-color: rgb(31, 119, 180);
+}
+
+tr.colour-pop {
+  background-color: rgb(148, 103, 189);
+}
+
+tr.colour-rb {
+  background-color: rgb(127, 127, 127);
+}
+
+tr.colour-singer-songwriter {
+  background-color: rgb(227, 119, 194);
+}
+
+tr.colour-rock {
+  background-color: rgb(140, 86, 75);
 }

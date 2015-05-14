@@ -13,13 +13,27 @@
   <div class="tab-content">
     <div role="tabpanel" class="div-balls tab-pane fade in active well well-lg" id="balls">
 
-      Colour keys: Alternative Blues Classical Country Hip Hop Jazz Pop R&B Singer/Songwriter Rock
+    <div class="colour-key">
+      <ul>
+        <li class="colour-alternative">Alternative</li>
+        <li class="colour-blues">Blues</li>
+        <li class="colour-classical">Classical</li>
+        <li class="colour-country">Country</li>
+        <li class="colour-hip-hop">Hip Hop</li>
+        <li class="colour-jazz">Jazz</li>
+        <li class="colour-pop">Pop</li>
+        <li class="colour-rb">R&B</li>
+        <li class="colour-singer-songwriter">Singer/Songwriter</li>
+        <li class="colour-rock">Rock</li>
+      </ul>
+
+    </div>
 
       <script>
-      $(".div-balls").height($(window).height() * 0.65);
+      $(".div-balls").height(450);
 
         var width = $(".div-balls").width(),
-            height = 500,
+            height = $(".div-balls").height() - 20,
             padding = 1.5, // separation between same-color nodes
             clusterPadding = 6, // separation between different-color nodes
             maxRadius = 12;
@@ -143,7 +157,8 @@
           <div class="col-md-8 col-md-offset-2">
             <table class="table leaderboard-table">
               <thead>
-                <tr class="leaderboard-header">
+                <% colour_array = ["alternative", "blues", "classical", "country", "hip-hop", "jazz", "pop", "rb", "singer-songwriter", "rock"] %>
+                <tr class= '<%= "colour-" + colour_array[i] %>' >
                   <th><%= genre_hash[:genre_name] %></th>
                   <th>artist</th>
                   <th>album</th>
