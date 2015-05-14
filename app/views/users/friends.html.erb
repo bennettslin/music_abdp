@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+
+      <h1 class="leaderboard-head">Friends Leaderboard</h1>
+
+    </div>
+  </div>
+
+  <div class="row">
+
+    <% (0...@genre_hashes.count).each do |i| # i is number of genres %>
+    <% genre_hash = @genre_hashes[i] %>
+    <div class="col-md-8 col-md-offset-2">
+      <table class="table leaderboard-table">
+        <thead>
+          <tr>
+            <th><%= genre_hash[:genre_name] %></th>
+            <th>artist</th>
+            <th>album</th>
+            <th>track</th>
+            <th>total quizzes</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <% if @current_user && @user_hash %>
+          <tr>
+            <td>My trophies</td>
+            <% (0...@all_highest_ratings[i].count).each do |j| %>
+            <td></i><%= @user_hash[:genre_hashes][i][:ratings_array][j] %><i class='fa fa-trophy fa-fw'></i></td>
+            <% end %>
+            <td><%= @user_hash[:genre_hashes][i][:total_quizzes] %></td>
+          </tr>
+          <% end %>
+
+          <% (0...5).each do |k| # k is number of leaders %>
+          <tr>
+            <% if k == 0 %>
+            <td>Trophy leaders</td>
+            <% else %>
+            <td></td>
+            <% end %>
+            <% (0...@all_highest_ratings[i].count).each do |j| # j is number of questions %>
+            <% rating = @all_highest_ratings[i][j][k][:rating] %>
+            <% if rating > 0 %>
+            <% user_name = @all_highest_ratings[i][j][k][:user_name] %>
+            <% user = @all_highest_ratings[i][j][k][:user] %>
+            <td><%= rating %><i class='fa fa-trophy fa-fw'></i> <%= link_to user_name, user %></td>
+            <% else %>
+            <td></td>
+            <% end %>
+            <% end %>
+            <td></td>
+          </tr>
+          <% end %>
+
+          <tr>
+            <td>Friends average</td>
+            <% (0...genre_hash[:percentages_array].count).each do |j| # j is number of questions %>
+            <td><%= "%.0f" % genre_hash[:percentages_array][j] %>%</td>
+            <% end %>
+            <td><%= genre_hash[:total_quizzes].to_s %></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+    <% end %>
+  </div>
+</div>

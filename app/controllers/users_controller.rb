@@ -142,19 +142,19 @@ class UsersController < ApplicationController
       @genre_hashes = genre_hashes
       @all_highest_ratings = all_highest_ratings
 
-    else
-      redirect_to root_path
-    end
+  else
+    redirect_to root_path
   end
+end
 
-  def index
-    if @current_user && @current_user.email == ENV['MY_FACEBOOK_EMAIL'] && @current_user.provider == 'facebook'
-      @users = User.all
-    else
-      redirect_to root_path
-      return
-    end
+def index
+  if @current_user && @current_user.email == ENV['MY_FACEBOOK_EMAIL'] && @current_user.provider == 'facebook'
+    @users = User.all
+  else
+    redirect_to root_path
+    return
   end
+end
 
   # used by modal
   def new
