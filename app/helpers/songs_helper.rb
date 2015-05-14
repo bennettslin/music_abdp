@@ -1,11 +1,11 @@
 module SongsHelper
 
-   def genre_artists
-      [
+  def genre_artists
+    [
       # alternative rock
       {
-       :genre => "alternative rock",
-       :artists => [
+        :genre => "alternative rock",
+        :artists => [
           'Alabama Shakes',
           'All Time Low',
           'The All American Rejects',
@@ -111,8 +111,8 @@ module SongsHelper
 
       # blues
       {
-       :genre => "blues",
-       :artists => [
+        :genre => "blues",
+        :artists => [
           'Aaron Neville',
           'Albert King',
           'B.B. King',
@@ -215,8 +215,8 @@ module SongsHelper
 
       # classical
       {
-       :genre => "classical",
-       :artists => [
+        :genre => "classical",
+        :artists => [
           "Ludwig van Beethoven",
           "Wolfgang Amadeus Mozart",
           "Johann Sebastian Bach",
@@ -272,8 +272,8 @@ module SongsHelper
 
       # country
       {
-       :genre => "country",
-       :artists => [
+        :genre => "country",
+        :artists => [
           'Little Big Town',
           'Blake Shelton',
           'Sam Hunt',
@@ -379,8 +379,8 @@ module SongsHelper
 
       # hip hop
       {
-       :genre => "hip hop",
-       :artists => [
+        :genre => "hip hop",
+        :artists => [
           "Run-DMC",
           "Public Enemy",
           "2Pac",
@@ -486,8 +486,8 @@ module SongsHelper
 
       # jazz
       {
-       :genre => "jazz",
-       :artists => [
+        :genre => "jazz",
+        :artists => [
           "Louis Armstrong",
           "Duke Ellington",
           "Miles Davis",
@@ -591,8 +591,8 @@ module SongsHelper
 
       # pop
       {
-       :genre => "pop",
-       :artists => [
+        :genre => "pop",
+        :artists => [
           'Adam Lambert',
           'Adele',
           'Alessia Cara',
@@ -703,8 +703,8 @@ module SongsHelper
 
       # r&b
       {
-       :genre => "r&b",
-       :artists => [
+        :genre => "r&b",
+        :artists => [
           'Adrian Marcel',
           'Akon',
           'Al Green',
@@ -798,8 +798,8 @@ module SongsHelper
 
       # singer/songwriter
       {
-       :genre => "singer/songwriter",
-       :artists => [
+        :genre => "singer/songwriter",
+        :artists => [
           'Agnes Obel',
           'Alexander Cardinale',
           'Ali Brustofski',
@@ -906,8 +906,8 @@ module SongsHelper
 
       # rock
       {
-       :genre => "rock",
-       :artists => [
+        :genre => "rock",
+        :artists => [
           'Talking Heads',
           'Carl Perkins',
           'Curtis Mayfield',
@@ -1018,51 +1018,52 @@ end
 
 def get_random_song artist_string, genre_id
 
-  song_object = nil
-  counter = 0
+   song_object = nil
+   counter = 0
 
   # try five times before failing
   while !song_object && counter < 5 do
 
-    request = Typhoeus::Request.new(
-      "itunes.apple.com/search",
-      method: :get,
-      params: {
-        term: artist_string,
-        attribute: "allArtistTerm",
-        entity: "song",
-        limit: 50
-      }
-    )
-    response = request.run
+      request = Typhoeus::Request.new(
+         "itunes.apple.com/search",
+         method: :get,
+         params: {
+            term: artist_string,
+            attribute: "allArtistTerm",
+            entity: "song",
+            limit: 50
+       }
+       )
+      response = request.run
 
-    if response
-      data = JSON.parse(response.body)
-      songs = data["results"]
+      if response
+         data = JSON.parse(response.body)
+         songs = data["results"]
 
-      if songs.any?
-        song = songs[rand(0...songs.count)]
-        song_cover_long = song['artworkUrl100']
+         if songs.any?
+            song = songs[rand(0...songs.count)]
+            song_cover_long = song['artworkUrl100']
 
-        song_object = {
-          itunes_id: song['trackId'],
-          image_url: song_cover_long[0...-14] + "jpg",
-          preview_url: song['previewUrl'],
+            song_object = {
+               itunes_id: song['trackId'],
+               image_url: song_cover_long[0...-14] + "jpg",
+               preview_url: song['previewUrl'],
 
           # for classical, store composer name rather than artist name
           artist: genre_id == 3 ? artist_string : song['artistName'],
           title: song['trackName'],
           album: song['collectionName'],
-          genre_id: genre_id
-        }
-      end
+          genre_id: genre_id,
+          buy_url: song['trackViewUrl']
+     }
+end
 
-    end
+end
 
-    counter += 1
+counter += 1
 
-  end
+end
 
-  song_object
+song_object
 
 end

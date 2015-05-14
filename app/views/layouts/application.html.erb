@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aptitune</title>
+  <title>aptitune</title>
 
   <!-- Latest compiled and minified CSS & JS -->
   <link rel="stylesheet" media="screen" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -40,13 +40,12 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse">
 
       <ul class="nav navbar-nav">
+        <li><a href="/leaderboard"><i class="glyphicon glyphicon-stats"></i> Leaderboard</a></li>
         <% if @current_user && @current_user.email == ENV['MY_FACEBOOK_EMAIL'] && @current_user.provider == 'facebook' %>
         <li class="admin-only"><a href="/users">Users</a></li>
         <li class="admin-only"><a href="/validate_artists">Valid</a></li>
         <li class="admin-only"><a href="/persist_new_random_quiz">New Rand</a></li>
         <% end %>
-
-        <li><a href="/leaderboard"><i class="glyphicon glyphicon-stats"></i> Leaderboard</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">

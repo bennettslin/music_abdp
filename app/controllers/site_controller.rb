@@ -11,7 +11,23 @@ class SiteController < ApplicationController
   end
 
   def favorite
+
+    user = @current_user.id
+
+    # gets current user's fav song IDs
+    favorite_entries = SongsUsers.where(user_id: user)
+    favs_ids = favorite_entries.map do |x|
+      x['song_id']
+    end
+
+    # gets user's favorites details
+    @favs_info = favs_ids.map do |x|
+      Song.find_by_id(x)
+    end
+
     render layout: false
+    # render :json => @favs_info_itunes_ids
+
   end
 
   def leaderboard

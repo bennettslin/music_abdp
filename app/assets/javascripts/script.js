@@ -6,12 +6,13 @@ $(function() {
     $(this).removeData('bs.modal');
 
     // removes modal large class
-    $('#modal-sizing').removeClass('modal-lg');
+    // $('#modal-sizing').width('default');
+    $('#modal-sizing').removeClass('modal-xl');
   });
 
   // change favorites modal to large
   $('.ListenList').click(function(){
-    $('#modal-sizing').addClass('modal-lg');
+    $('#modal-sizing').addClass('modal-xl');
   })
 
 })
