@@ -17,7 +17,7 @@ class SiteController < ApplicationController
   def leaderboard
 
     # create genre hashes
-    @genre_hashes = empty_genre_hashes
+    genre_hashes = empty_genre_hashes
 
     # create user hashes
     user_hashes = User.all.map do |user|
@@ -33,7 +33,7 @@ class SiteController < ApplicationController
       # get genre from quiz song
       song = Song.find(quiz.song_id)
       genre = Genre.find(song.genre_id)
-      genre_hash = @genre_hashes[genre.id - 1]
+      genre_hash = genre_hashes[genre.id - 1]
 
       # get user_hash of quiz's user
       user = User.find(quiz.user_id)
@@ -55,15 +55,15 @@ class SiteController < ApplicationController
     end
 
     # remember percentage for each genre
-    add_percentages_to_genre_hashes @genre_hashes
+    add_percentages_to_genre_hashes genre_hashes
 
     # remember ratings for each user
     user_hashes.each do |user_hash|
       add_ratings_to_genre_hashes user_hash[:genre_hashes]
     end
 
-    @all_highest_ratings = []
-    (0...@genre_hashes.count).each do |i| # i is number of genres
+    all_highest_ratings = []
+    (0...genre_hashes.count).each do |i| # i is number of genres
       genre_highest_ratings = []
 
       (0...3).each do |j| # j is number of questions
@@ -74,12 +74,12 @@ class SiteController < ApplicationController
         end
         genre_highest_ratings << question_highest_ratings
       end
-      @all_highest_ratings << genre_highest_ratings
+      all_highest_ratings << genre_highest_ratings
     end
 
     (0...user_hashes.count).each do |i| # i is number of users
       user_hash = user_hashes[i]
-      (0...@genre_hashes.count).each do |j| # j is number of genres
+      (0...genre_hashes.count).each do |j| # j is number of genres
         user_genre_hash = user_hash[:genre_hashes][j]
         (0...user_genre_hash[:ratings_array].count).each do |k| # k is number of questions
 
@@ -87,13 +87,13 @@ class SiteController < ApplicationController
           compared_rating = user_genre_hash[:ratings_array][k]
 
           (0...5).each do |l| # l is number of leaders
-            if compared_rating > @all_highest_ratings[j][k][l][:rating]
+            if compared_rating > all_highest_ratings[j][k][l][:rating]
 
-              next_compared_id = @all_highest_ratings[j][k][l][:user_id]
-              next_compared_rating = @all_highest_ratings[j][k][l][:rating]
+              next_compared_id = all_highest_ratings[j][k][l][:user_id]
+              next_compared_rating = all_highest_ratings[j][k][l][:rating]
 
-              @all_highest_ratings[j][k][l][:user_id] = compared_id
-              @all_highest_ratings[j][k][l][:rating] = compared_rating
+              all_highest_ratings[j][k][l][:user_id] = compared_id
+              all_highest_ratings[j][k][l][:rating] = compared_rating
 
               compared_id = next_compared_id
               compared_rating = next_compared_rating
@@ -103,13 +103,14 @@ class SiteController < ApplicationController
       end
     end
 
-    @all_highest_ratings.each do |highest_ratings|
+    all_highest_ratings.each do |highest_ratings|
       highest_ratings.each do |genre_ratings|
         genre_ratings.each do |question_ratings|
           user_id = question_ratings[:user_id]
           if user_id != 0
             user = User.find(user_id)
             question_ratings[:user_name] = user.first_name + " " + user.last_name[0, 1] + "."
+            question_ratings[:user] = user
           else
             question_ratings[:user_name] = "No leader"
           end
@@ -125,6 +126,9 @@ class SiteController < ApplicationController
         end
       end
     end
+
+    @genre_hashes = genre_hashes
+    @all_highest_ratings = all_highest_ratings
 
   end
 

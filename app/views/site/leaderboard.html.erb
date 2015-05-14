@@ -44,7 +44,9 @@
                 <% (0...@all_highest_ratings[i].count).each do |j| # j is number of questions %>
                   <% rating = @all_highest_ratings[i][j][k][:rating] %>
                   <% if rating > 0 %>
-                    <td><%= rating %><i class='fa fa-trophy fa-fw'></i> <%= @all_highest_ratings[i][j][k][:user_name] %></td>
+                    <% user_name = @all_highest_ratings[i][j][k][:user_name] %>
+                    <% user = @all_highest_ratings[i][j][k][:user] %>
+                    <td><%= rating %><i class='fa fa-trophy fa-fw'></i> <%= link_to user_name, user %></td>
                   <% else %>
                     <td></td>
                   <% end %>
