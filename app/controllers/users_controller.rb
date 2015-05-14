@@ -4,6 +4,14 @@ class UsersController < ApplicationController
   require 'net/https'
   respond_to :html, :json
 
+  def friends
+    if @current_user && @current_user.provider == 'facebook'
+
+    else
+      redirect_to root_path
+    end
+  end
+
   def index
     if @current_user && @current_user.email == ENV['MY_FACEBOOK_EMAIL'] && @current_user.provider == 'facebook'
       @users = User.all
@@ -40,13 +48,6 @@ class UsersController < ApplicationController
 
       if @user.provider == "facebook"
         friends_list = "https://graph.facebook.com/" + @user.provider_id + "/friends?access_token=" + @user.provider_hash
-
-      elsif @user.provider == 'google_oauth2'
-
-      elsif @user.provider == "linkedin"
-
-      elsif @user.provider == "twitter"
-
       end
 
       begin
@@ -60,6 +61,7 @@ class UsersController < ApplicationController
       rescue => event
         puts "failure: #{event}"
       end
+
     end
   end
 

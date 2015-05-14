@@ -138,6 +138,15 @@ class SiteController < ApplicationController
       end
     end
 
+    if @current_user
+      user_hashes.each do |user_hash|
+        if @current_user.id == user_hash[:user_id]
+          @user_hash = user_hash
+
+        end
+      end
+    end
+
   end
 
 end

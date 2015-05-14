@@ -39,7 +39,7 @@
             </tr>
             <tr>
 
-              <td>Percentage</td>
+              <td>Percentages</td>
               <% (0...@highest_percentages[i].count).each do |j| %>
                 <td><%= "%.0f" % @highest_percentages[i][j][:percentage] %>%</td>
               <% end %>
@@ -51,13 +51,34 @@
                 <td><%= @highest_ratings[i][j][:user_name] %></td>
               <% end %>
             </tr>
-            <tr>
 
+            <tr>
               <td>Number of trophies</td>
               <% (0...@highest_ratings[i].count).each do |j| %>
                 <td></i><%= @highest_ratings[i][j][:rating] %><i class='fa fa-trophy fa-fw'></i></td>
               <% end %>
             </tr>
+
+            <% if @current_user && @user_hash %>
+
+            <tr>
+              <td>My percentages</td>
+              <% (0...@highest_percentages[i].count).each do |j| %>
+                <td><%= "%.0f" % @user_hash[:genre_hashes][i][:percentages_array][j] %>%</td>
+              <% end %>
+              <td><%= @user_hash[:genre_hashes][i][:total_quizzes] %></td>
+            </tr>
+
+            <tr>
+              <td>My trophies</td>
+              <% (0...@highest_ratings[i].count).each do |j| %>
+                <td></i><%= @user_hash[:genre_hashes][i][:ratings_array][j] %><i class='fa fa-trophy fa-fw'></i></td>
+              <% end %>
+              <td><%= @user_hash[:genre_hashes][i][:total_quizzes] %></td>
+            </tr>
+
+            <% end %>
+
           </tbody>
         </table>
       </div>
