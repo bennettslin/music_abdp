@@ -71,40 +71,40 @@
         //   autoplay: false,
         //   preload: false
         // });
-var audios = document.getElementsByTagName('audio');
+    var audios = document.getElementsByTagName('audio');
 
-var a3 = audiojs.create(audios, {
-  autoplay: false,
-  preload: false,
-  createPlayer: {
-    markup: '\
-    <div class="play-pause"> \
-      <p class="play"></p> \
-      <p class="pause"></p> \
-      <p class="loading"></p> \
-      <p class="error"></p> \
-    </div> \
-    <div class="scrubber"> \
-      <div class="progress"></div> \
-      <div class="loaded"></div> \
-    </div> \
-    <div class="time"> \
-      <em class="played">00:00</em>/<strong class="duration">00:00</strong> \
-    </div> \
-    <div class="error-message"></div>',
-    playPauseClass: 'play-pause',
-    scrubberClass: 'scrubber',
-    progressClass: 'progress',
-    loaderClass: 'loaded',
-    timeClass: 'time',
-    durationClass: 'duration',
-    playedClass: 'played',
-    errorMessageClass: 'error-message',
-    playingClass: 'playing',
-    loadingClass: 'loading',
-    errorClass: 'error'
-  }
-});
-});
+    var a3 = audiojs.create(audios, {
+      autoplay: false,
+      preload: false,
+      createPlayer: {
+        markup: '\
+        <div class="play-pause"> \
+          <p class="play"></p> \
+          <p class="pause"></p> \
+          <p class="loading"></p> \
+          <p class="error"></p> \
+        </div> \
+        <div class="scrubber"> \
+          <div class="progress"></div> \
+          <div class="loaded"></div> \
+        </div> \
+        <div class="time"> \
+          <em class="played">00:00</em>/<strong class="duration">00:00</strong> \
+        </div> \
+        <div class="error-message"></div>',
+        playPauseClass: 'play-pause',
+        scrubberClass: 'scrubber',
+        progressClass: 'progress',
+        loaderClass: 'loaded',
+        timeClass: 'time',
+        durationClass: 'duration',
+        playedClass: 'played',
+        errorMessageClass: 'error-message',
+        playingClass: 'playing',
+        loadingClass: 'loading',
+        errorClass: 'error'
+      }
+    });
+  });
 
 </script>
