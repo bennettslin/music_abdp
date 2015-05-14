@@ -80,6 +80,8 @@ class SongsController < ApplicationController
         song.album = @@quiz_song[:album]
         song.title = @@quiz_song[:title]
         song.genre_id = @@quiz_song[:genre_id]
+        song.buy_url = @@quiz_song[:buy_url]
+        print song.buy_url
       end
     end
 
@@ -107,7 +109,7 @@ class SongsController < ApplicationController
           "itunes.apple.com/search",
           method: :get,
           params: { term: artist_string, attribute: "allArtistTerm", entity: "song", limit: 5 }
-        )
+          )
 
         response = request.run
         data = JSON.parse(response.body)
@@ -147,7 +149,7 @@ class SongsController < ApplicationController
       "itunes.apple.com/search",
       method: :get,
       params: { term: artist_string, attribute: "allArtistTerm", entity: "song", limit: 5 }
-    )
+      )
     response = request.run
     data = JSON.parse(response.body)
     song = data["results"]
@@ -160,6 +162,7 @@ class SongsController < ApplicationController
     artist_name = song_random['artistName']
     album_name = song_random['collectionName']
     track_name = song_random['trackName']
+    buy_url = song_random['trackViewUrl']
 
     song = Song.find_or_create_by(itunes_id: itunes_id) do |song|
       song.image_url = image_url
@@ -167,6 +170,7 @@ class SongsController < ApplicationController
       song.artist = artist_name
       song.album = album_name
       song.title = track_name
+      song.buy_url = buy_url
       song.genre_id = genre_index + 1 # will break if genre_ids are not 0 through 9
     end
 
@@ -192,7 +196,7 @@ class SongsController < ApplicationController
   private
 
   def song_params
-    params.require(:song).permit(:itunes_id, :image_url, :preview_url, :artist, :album, :title)
+    params.require(:song).permit(:itunes_id, :image_url, :preview_url, :artist, :album, :title, :buy_url)
   end
 
 end

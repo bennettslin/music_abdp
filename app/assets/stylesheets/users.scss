@@ -14,3 +14,31 @@ div.modal-body a {
 div.modal-body a:hover {
   color: #B20912;
 }
+
+// LISTEN LIST
+@media (min-width: 768px) {
+  .modal-xl {
+    width: 90%;
+    max-width:1200px;
+  }
+}
+
+.itunes {
+  background-color: #3381d4;
+  color: white;
+  padding: 1px 6px;
+  border: 1px solid #cccccc;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.itunes:hover {
+  color: white;
+  background-color: #2867A9;
+  border: 1px solid #cccccc;
+}
+
+.x {
+  padding: 1px 6px;
+  margin-left: 0px;
+  margin-right: 0px;
+}

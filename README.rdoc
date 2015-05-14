@@ -1,28 +1,9 @@
-== README
+Aptitune
+========
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Test your knowledge of music artists by listening to brief audio clips.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...Patrick was here....
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+* one-week project, four-person team using Agile methodology
+* fetches JSON data and streaming audio from iTunes API
+* authentication with bcrypt or OAuth (Facebook, Google, LinkedIn, and Twitter)
+* aggregates and visualizes data from quiz results using D3.js library

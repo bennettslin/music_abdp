@@ -37,7 +37,6 @@
     left: 0;
     right: 0;
     z-index: 0;
-
   }
 </style>
 
@@ -87,8 +86,7 @@
 
             <% if @current_user %>
 
-           <%= link_to ("<i class='glyphicon glyphicon-headphones'></i>&nbsp; Add to Listen List").html_safe, listen_later_path, class: 'btn btn-default', method: "post" %>
-
+            <%= link_to ("<i class='glyphicon glyphicon-headphones'></i>&nbsp; Add to Listen List").html_safe, listen_later_path, id: 'AddedtoListenList', class: 'btn btn-default', method: "post" %>
             <% else %>
             <%= link_to ("<i class='glyphicon glyphicon-headphones'></i>&nbsp; Add to Listen List").html_safe, signup_path, class: 'btn btn-default', :data => {toggle:'modal', target:'#myModal' } %>
             <% end %>
@@ -98,7 +96,7 @@
 
           <!-- PLAYER ALBUM COVER WILL BE INTIALLY HIDDEN W/ 0 (ZERO) OPACITY -->
           <img src=<%= @song0_cover %> id="song-cover">
-          <audio src=<%= @song0_url %> preload="auto"></audio>
+          <audio src=<%= @song0_url %>></audio>
 
         </div>
       </div>
@@ -108,14 +106,8 @@
 <script>
   audiojs.events.ready(function() {
     var as = audiojs.createAll({
-      autoplay: true,
-      // currentTime: 3000
-
-      // trackEnded: function(e) {
-      //   setTimeout(function(){
-      //     location.reload();
-      //   }, 10000);
-      }
+      preload: true,
+      autoplay: true
     });
   });
 
