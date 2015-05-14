@@ -1,5 +1,26 @@
 module SiteHelper
 
+  def empty_genre_hashes
+    Genre.all.map do |genre|
+      {
+        genre_name: genre.name,
+        total_scores_array: [0, 0, 0],
+        total_quizzes: 0
+      }
+    end
+  end
+
+  def user_hash_from_user_hashes user_hashes, user
+    user_hash = nil
+    (0...user_hashes.count).each do |i|
+      if user_hashes[i][:user_id] == user.id
+         user_hash = user_hashes[i]
+        break
+      end
+    end
+    user_hash
+  end
+
   def score_array_from_binary_score binary_score
     score_array = [0, 0, 0]
     exponent = 2

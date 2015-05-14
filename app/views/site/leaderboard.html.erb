@@ -11,8 +11,8 @@
 
     <% (0...@genre_hashes.count).each do |i| # i is number of genres %>
     <% genre_hash = @genre_hashes[i] %>
-      <div class="col-sm-6">
-        <table class="table table-hover leaderboard-table">
+      <div class="col-md-8 col-md-offset-2">
+        <table class="table leaderboard-table">
           <thead>
             <tr>
               <th><%= genre_hash[:genre_name] %></th>
@@ -32,42 +32,19 @@
             </tr>
 
             <tr>
-              <td>Percentage leader</td>
-              <% (0...@highest_percentages[i].count).each do |j| %>
-                <td><%= @highest_percentages[i][j][:user_name] %></td>
-              <% end %>
-            </tr>
-            <tr>
-
-              <td>Percentages</td>
-              <% (0...@highest_percentages[i].count).each do |j| %>
-                <td><%= "%.0f" % @highest_percentages[i][j][:percentage] %>%</td>
-              <% end %>
-            </tr>
-
-            <tr>
-              <td>Trophy leader</td>
+              <td>Trophy leaders</td>
               <% (0...@highest_ratings[i].count).each do |j| %>
-                <td><%= @highest_ratings[i][j][:user_name] %></td>
+                <% rating = @highest_ratings[i][j][:rating] %>
+                <% if rating > 0 %>
+                  <td><%= rating %><i class='fa fa-trophy fa-fw'></i> <%= @highest_ratings[i][j][:user_name] %></td>
+                <% else %>
+                  <td></td>
+                <% end %>
               <% end %>
-            </tr>
-
-            <tr>
-              <td>Number of trophies</td>
-              <% (0...@highest_ratings[i].count).each do |j| %>
-                <td></i><%= @highest_ratings[i][j][:rating] %><i class='fa fa-trophy fa-fw'></i></td>
-              <% end %>
+              <td></td>
             </tr>
 
             <% if @current_user && @user_hash %>
-
-            <tr>
-              <td>My percentages</td>
-              <% (0...@highest_percentages[i].count).each do |j| %>
-                <td><%= "%.0f" % @user_hash[:genre_hashes][i][:percentages_array][j] %>%</td>
-              <% end %>
-              <td><%= @user_hash[:genre_hashes][i][:total_quizzes] %></td>
-            </tr>
 
             <tr>
               <td>My trophies</td>

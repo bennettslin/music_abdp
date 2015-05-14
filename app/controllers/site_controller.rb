@@ -17,95 +17,49 @@ class SiteController < ApplicationController
   def leaderboard
 
     # create genre hashes
-    @genre_hashes = Genre.all.map do |genre|
-      {
-        genre_name: genre.name,
-        total_scores_array: [0, 0, 0],
-        total_quizzes: 0
-      }
-    end
+    @genre_hashes = empty_genre_hashes
 
     # create user hashes
     user_hashes = User.all.map do |user|
-      genre_hashes = Genre.all.map do |genre|
-        {
-          genre_name: genre.name,
-          total_scores_array: [0, 0, 0],
-          total_quizzes: 0
-        }
-      end
       {
         user_id: user.id,
-        genre_hashes: genre_hashes
+        genre_hashes: empty_genre_hashes
       }
     end
 
+    # add quiz data (genre, user, id) to hashes
     Quiz.all.map do |quiz|
 
+      # get genre from quiz song
       song = Song.find(quiz.song_id)
       genre = Genre.find(song.genre_id)
       genre_hash = @genre_hashes[genre.id - 1]
 
+      # get user_hash of quiz's user
       user = User.find(quiz.user_id)
-
-      user_hash = nil
-      (0...user_hashes.count).each do |i|
-        if user_hashes[i][:user_id] == user.id
-          user_hash = user_hashes[i]
-          break
-        end
-      end
-
+      user_hash = user_hash_from_user_hashes user_hashes, user
       user_genre_hash = user_hash[:genre_hashes][genre.id - 1]
 
+      # get true scores for each question from binary score
       quiz_score_array = score_array_from_binary_score quiz.result
-      (0...quiz_score_array.count).each do |i|
 
+      # add true scores to genre and user hashes
+      (0...quiz_score_array.count).each do |i|
         genre_hash[:total_scores_array][i] += quiz_score_array[i]
         user_genre_hash[:total_scores_array][i] += quiz_score_array[i]
-
       end
 
+      # add quiz to total
       genre_hash[:total_quizzes] += 1
       user_genre_hash[:total_quizzes] += 1
-
     end
 
+    # remember percentage for each genre
     add_percentages_to_genre_hashes @genre_hashes
 
+    # remember ratings for each user
     user_hashes.each do |user_hash|
-      add_percentages_to_genre_hashes user_hash[:genre_hashes]
       add_ratings_to_genre_hashes user_hash[:genre_hashes]
-    end
-
-    @highest_percentages = []
-    (0...@genre_hashes.count).each do |i|
-      @highest_percentages << [{user_id:0, percentage:0},{user_id:0, percentage:0},{user_id:0, percentage:0}]
-    end
-
-    (0...user_hashes.count).each do |i| # i is number of users
-      user_hash = user_hashes[i]
-      (0...@genre_hashes.count).each do |j| # j is number of genres
-        user_genre_hash = user_hash[:genre_hashes][j]
-        (0...user_genre_hash[:percentages_array].count).each do |k| # k is number of questions
-          if user_genre_hash[:percentages_array][k] > @highest_percentages[j][k][:percentage]
-            @highest_percentages[j][k][:user_id] = user_hash[:user_id]
-            @highest_percentages[j][k][:percentage] = user_genre_hash[:percentages_array][k]
-          end
-        end
-      end
-    end
-
-    @highest_percentages.each do |genre_percentages|
-      genre_percentages.each do |question_percentage|
-        user_id = question_percentage[:user_id]
-        if user_id != 0
-          user = User.find(user_id)
-          question_percentage[:user_name] = user.first_name
-        else
-          question_percentage[:user_name] = "No leader"
-        end
-      end
     end
 
     @highest_ratings = []
@@ -131,18 +85,18 @@ class SiteController < ApplicationController
         user_id = question_ratings[:user_id]
         if user_id != 0
           user = User.find(user_id)
-          question_ratings[:user_name] = user.first_name
+          question_ratings[:user_name] = user.first_name + " " + user.last_name[0, 1] + "."
         else
           question_ratings[:user_name] = "No leader"
         end
       end
     end
 
+    # if current user, include data for current user in view
     if @current_user
       user_hashes.each do |user_hash|
         if @current_user.id == user_hash[:user_id]
           @user_hash = user_hash
-
         end
       end
     end
