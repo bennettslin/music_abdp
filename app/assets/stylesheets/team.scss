@@ -65,6 +65,13 @@ p.about {
 .leaderboard-table tr:hover, th:hover {
   background-color: rgba(20,20,20,.7);
 }
+
+p.about {
+  font-size: 1em;
+  // text-align: justify;
+  // text-align: center;
+}
+
 .leaderboard-head {
   color: #030303;
   text-shadow: 0 0 30px #efefef;
