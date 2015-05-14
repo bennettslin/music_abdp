@@ -5,7 +5,7 @@
       <div class="col-md-8 col-md-offset-2">
         <table class="table leaderboard-table">
           <thead>
-            <tr>
+            <tr class="leaderboard-header">
               <th><%= genre_hash[:genre_name] %></th>
               <th>artist</th>
               <th>album</th>
@@ -16,7 +16,7 @@
           <tbody>
 
             <% if @current_user && @user_hash %>
-              <tr>
+              <tr class="leaderboard-me">
                 <td>My trophies</td>
                 <% (0...@all_highest_ratings[i].count).each do |j| %>
                   <td></i><%= @user_hash[:genre_hashes][i][:ratings_array][j] %><i class='fa fa-trophy fa-fw'></i></td>
@@ -26,27 +26,30 @@
             <% end %>
 
             <% (0...5).each do |k| # k is number of leaders %>
-              <tr>
-                <% if k == 0 %>
-                  <td>Trophy leaders</td>
-                <% else %>
-                  <td></td>
-                <% end %>
-                <% (0...@all_highest_ratings[i].count).each do |j| # j is number of questions %>
-                  <% rating = @all_highest_ratings[i][j][k][:rating] %>
-                  <% if rating > 0 %>
-                    <% user_name = @all_highest_ratings[i][j][k][:user_name] %>
-                    <% user = @all_highest_ratings[i][j][k][:user] %>
-                    <td><%= rating %><i class='fa fa-trophy fa-fw'></i> <%= link_to user_name, user %></td>
+              <% if @all_highest_ratings[i][0][k][:rating] > 0 || @all_highest_ratings[i][1][k][:rating] > 0 || @all_highest_ratings[i][2][k][:rating] > 0 %>
+                <tr class="leaderboard-leaders">
+                  <% if k == 0 %>
+                    <td>Trophy leaders</td>
                   <% else %>
                     <td></td>
                   <% end %>
-                <% end %>
-                <td></td>
-              </tr>
+
+                  <% (0...@all_highest_ratings[i].count).each do |j| # j is number of questions %>
+                    <% rating = @all_highest_ratings[i][j][k][:rating] %>
+                    <% if rating > 0 %>
+                      <% user_name = @all_highest_ratings[i][j][k][:user_name] %>
+                      <% user = @all_highest_ratings[i][j][k][:user] %>
+                      <td><%= rating %><i class='fa fa-trophy fa-fw'></i> <%= link_to user_name, user %></td>
+                    <% else %>
+                      <td></td>
+                    <% end %>
+                  <% end %>
+                  <td></td>
+                </tr>
+              <% end %>
             <% end %>
 
-            <tr>
+            <tr class="leaderboard-average">
               <td>Total average</td>
               <% (0...genre_hash[:percentages_array].count).each do |j| # j is number of questions %>
                 <td><%= "%.0f" % genre_hash[:percentages_array][j] %>%</td>

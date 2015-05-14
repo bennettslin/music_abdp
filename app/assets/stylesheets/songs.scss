@@ -1,3 +1,19 @@
 // Place all the styles related to the songs controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.leaderboard-header {
+  background-color: green;
+}
+
+.leaderboard-me {
+  background-color: magenta;
+}
+
+.leaderboard-leaders {
+  background-color: yellow;
+}
+
+.leaderboard-average {
+  background-color: orange;
+}
