@@ -7,8 +7,12 @@ body {
   background-color: black;
 }
 
-h1, h2, h3, th {
+th {
   color: black;
+}
+
+h1, h2, h3, {
+  color: white;
   font-weight: 400;
 }
 
@@ -102,7 +106,10 @@ nav.navbar.navbar-default a.navbar-brand {
 }
 nav.navbar.navbar-default a.navbar-brand:hover {
   color: #c60b15;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8e175f99c4e76542412b8cc87aa5b4aff8cb9e72
 }
 
 
