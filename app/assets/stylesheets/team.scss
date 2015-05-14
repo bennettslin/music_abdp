@@ -10,14 +10,6 @@ h1.team {
   // margin: 15px;
 }
 
-div.about {
-  color: #efefef;
-  overflow: hidden;
-  background-color: rgba(198, 11, 21, 0.7);
-  padding: 30px;
-  height: 450px;
-}
-
 h2.about {
   font-size: 1.8em;
   margin-bottom: 1.3px;
@@ -32,8 +24,9 @@ h3.about {
 
 p.about {
   font-size: 1em;
-  text-align: justify;
+  // text-align: justify;
 }
+
 
 
 .leaderboard-table {
@@ -45,3 +38,16 @@ p.about {
     width: 200px;
     border-radius: 50%;
   }
+
+div.about {
+  color: #efefef;
+  overflow: hidden;
+  background-color: rgba(198, 11, 21, 0.7);
+  padding: 30px;
+  height: 450px;
+
+}
+
+
+
+
