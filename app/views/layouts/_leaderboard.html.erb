@@ -11,10 +11,14 @@
   </ul>
   <!-- Tab panes -->
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane fade in active well well-lg" id="balls">
+    <div role="tabpanel" class="div-balls tab-pane fade in active well well-lg" id="balls">
+
+      Colour keys: Alternative Blues Classical Country Hip Hop Jazz Pop R&B Singer/Songwriter Rock
 
       <script>
-        var width = 960,
+      $(".div-balls").height($(window).height() * 0.65);
+
+        var width = $(".div-balls").width(),
             height = 500,
             padding = 1.5, // separation between same-color nodes
             clusterPadding = 6, // separation between different-color nodes
@@ -55,7 +59,7 @@
             .on("tick", tick)
             .start();
 
-        var svg = d3.select("body").append("svg")
+        var svg = d3.select(".div-balls").append("svg")
             .attr("width", width)
             .attr("height", height);
 
