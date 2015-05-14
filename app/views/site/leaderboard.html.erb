@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
 
-      <h1>Leaderboard</h1>
+      <h1>Leaderboards</h1>
 
     </div>
   </div>
@@ -24,36 +24,40 @@
           </thead>
           <tbody>
             <tr>
-              <td>Total percentage</td>
+              <td>World average</td>
               <% (0...genre_hash[:percentages_array].count).each do |j| # j is number of questions %>
                 <td><%= "%.0f" % genre_hash[:percentages_array][j] %>%</td>
               <% end %>
               <td><%= genre_hash[:total_quizzes].to_s %></td>
             </tr>
 
-            <tr>
-              <td>Trophy leaders</td>
-              <% (0...@highest_ratings[i].count).each do |j| %>
-                <% rating = @highest_ratings[i][j][:rating] %>
-                <% if rating > 0 %>
-                  <td><%= rating %><i class='fa fa-trophy fa-fw'></i> <%= @highest_ratings[i][j][:user_name] %></td>
+            <% (0...5).each do |k| # k is number of leaders %>
+              <tr>
+                <% if k == 0 %>
+                  <td>Trophy leaders</td>
                 <% else %>
                   <td></td>
                 <% end %>
-              <% end %>
-              <td></td>
-            </tr>
+                <% (0...@all_highest_ratings[i].count).each do |j| # j is number of questions %>
+                  <% rating = @all_highest_ratings[i][j][k][:rating] %>
+                  <% if rating > 0 %>
+                    <td><%= rating %><i class='fa fa-trophy fa-fw'></i> <%= @all_highest_ratings[i][j][k][:user_name] %></td>
+                  <% else %>
+                    <td></td>
+                  <% end %>
+                <% end %>
+                <td></td>
+              </tr>
+            <% end %>
 
             <% if @current_user && @user_hash %>
-
-            <tr>
-              <td>My trophies</td>
-              <% (0...@highest_ratings[i].count).each do |j| %>
-                <td></i><%= @user_hash[:genre_hashes][i][:ratings_array][j] %><i class='fa fa-trophy fa-fw'></i></td>
-              <% end %>
-              <td><%= @user_hash[:genre_hashes][i][:total_quizzes] %></td>
-            </tr>
-
+              <tr>
+                <td>My trophies</td>
+                <% (0...@all_highest_ratings[i].count).each do |j| %>
+                  <td></i><%= @user_hash[:genre_hashes][i][:ratings_array][j] %><i class='fa fa-trophy fa-fw'></i></td>
+                <% end %>
+                <td><%= @user_hash[:genre_hashes][i][:total_quizzes] %></td>
+              </tr>
             <% end %>
 
           </tbody>

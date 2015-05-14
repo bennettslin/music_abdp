@@ -62,9 +62,19 @@ class SiteController < ApplicationController
       add_ratings_to_genre_hashes user_hash[:genre_hashes]
     end
 
-    @highest_ratings = []
-    (0...@genre_hashes.count).each do |i|
-      @highest_ratings << [{user_id:0, rating:0},{user_id:0, rating:0},{user_id:0, rating:0}]
+    @all_highest_ratings = []
+    (0...@genre_hashes.count).each do |i| # i is number of genres
+      genre_highest_ratings = []
+
+      (0...3).each do |j| # j is number of questions
+        question_highest_ratings = []
+
+        (0...5).each do |k| # k is number of leaders
+          question_highest_ratings << {user_id:0, rating:0}
+        end
+        genre_highest_ratings << question_highest_ratings
+      end
+      @all_highest_ratings << genre_highest_ratings
     end
 
     (0...user_hashes.count).each do |i| # i is number of users
@@ -72,22 +82,37 @@ class SiteController < ApplicationController
       (0...@genre_hashes.count).each do |j| # j is number of genres
         user_genre_hash = user_hash[:genre_hashes][j]
         (0...user_genre_hash[:ratings_array].count).each do |k| # k is number of questions
-          if user_genre_hash[:ratings_array][k] > @highest_ratings[j][k][:rating]
-            @highest_ratings[j][k][:user_id] = user_hash[:user_id]
-            @highest_ratings[j][k][:rating] = user_genre_hash[:ratings_array][k]
+
+          compared_id = user_hash[:user_id]
+          compared_rating = user_genre_hash[:ratings_array][k]
+
+          (0...5).each do |l| # l is number of leaders
+            if compared_rating > @all_highest_ratings[j][k][l][:rating]
+
+              next_compared_id = @all_highest_ratings[j][k][l][:user_id]
+              next_compared_rating = @all_highest_ratings[j][k][l][:rating]
+
+              @all_highest_ratings[j][k][l][:user_id] = compared_id
+              @all_highest_ratings[j][k][l][:rating] = compared_rating
+
+              compared_id = next_compared_id
+              compared_rating = next_compared_rating
+            end
           end
         end
       end
     end
 
-    @highest_ratings.each do |genre_ratings|
-      genre_ratings.each do |question_ratings|
-        user_id = question_ratings[:user_id]
-        if user_id != 0
-          user = User.find(user_id)
-          question_ratings[:user_name] = user.first_name + " " + user.last_name[0, 1] + "."
-        else
-          question_ratings[:user_name] = "No leader"
+    @all_highest_ratings.each do |highest_ratings|
+      highest_ratings.each do |genre_ratings|
+        genre_ratings.each do |question_ratings|
+          user_id = question_ratings[:user_id]
+          if user_id != 0
+            user = User.find(user_id)
+            question_ratings[:user_name] = user.first_name + " " + user.last_name[0, 1] + "."
+          else
+            question_ratings[:user_name] = "No leader"
+          end
         end
       end
     end
