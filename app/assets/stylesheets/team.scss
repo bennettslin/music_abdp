@@ -2,20 +2,10 @@ div.team {
   // padding-bottom: 25px;
 }
 
-
 h1.team {
   color: #444444;
   font-size: 3em;
   text-align: center;
-}
-
-div.about {
-  color: #efefef;
-
-  overflow: hidden;
-  background-color: rgba(198, 11, 21, 0.7);
-  padding: 30px;
-  height: 450px;
 }
 
 h2.about {
@@ -48,16 +38,24 @@ h3.about {
 
 p.about {
   font-size: 1em;
-  text-align: justify;
+  // text-align: justify;
 }
 
 .leaderboard-table {
   background-color: #aaa;
 }
 
-  #teamPic {
-    height: 200px;
-    width: 200px;
-    border-radius: 50%;
+#teamPic {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
 
-  }
+}
+
+div.about {
+  color: #efefef;
+  overflow: hidden;
+  background-color: rgba(198, 11, 21, 0.7);
+  padding: 30px;
+  height: 450px;
+}
