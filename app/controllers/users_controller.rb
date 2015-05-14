@@ -30,13 +30,13 @@ class UsersController < ApplicationController
       # get genre from quiz song
       song = Song.find(quiz.song_id)
       genre = Genre.find(song.genre_id)
-      genre_hash = genre_hashes[genre.id - 1]
+      genre_hash = genre_hashes[genre.value]
 
       # get user_hash of quiz's user
       user = User.find(quiz.user_id)
       if friends_array.include? user
         user_hash = user_hash_from_user_hashes user_hashes, user
-        user_genre_hash = user_hash[:genre_hashes][genre.id - 1]
+        user_genre_hash = user_hash[:genre_hashes][genre.value]
 
         # get true scores for each question from binary score
         quiz_score_array = score_array_from_binary_score quiz.result
