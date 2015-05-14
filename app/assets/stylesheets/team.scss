@@ -24,7 +24,8 @@ div.about {
   color: #ffffff;
   overflow: hidden;
   padding: 10px 20px;
-  text-align: left;
+  // text-align: left;
+  text-align: center;
 }
 
 h2.about {
@@ -44,7 +45,11 @@ h3.about {
 
 p.about {
   font-size: 1em;
+<<<<<<< HEAD
+  // text-align: justify;
+=======
   text-align: left;
+>>>>>>> c47715888a3072cbf4ea35c343634e2f81464fdf
 }
 
 #teamPic {
@@ -68,7 +73,7 @@ p.about {
 
 p.about {
   font-size: 1em;
-  // text-align: justify;
+  text-align: justify;
   // text-align: center;
 }
 
