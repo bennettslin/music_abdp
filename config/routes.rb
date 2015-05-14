@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 
   get 'signup' => 'users#new'
   post 'signup' => 'users#create'
-  get 'users/:id/friends' => 'users#friends'
+  get 'users/:id/stats' => 'users#stats'
 
   get 'about' => 'site#about'
   get 'leaderboard' => 'site#leaderboard'
