@@ -29,11 +29,27 @@ h3.about {
   margin-bottom: 7px;
 }
 
+.about a:hover {
+  text-decoration: none;
+}
+
+.about a:hover h2 {
+  color: rgb(24, 188, 15);
+}
+
+.glyphicon-new-window {
+  font-size: 0.75em;
+    color: #888;
+}
+
+.about a:hover .glyphicon-new-window {
+    color: rgb(24, 188, 156);
+}
+
 p.about {
   font-size: 1em;
   text-align: justify;
 }
-
 
 .leaderboard-table {
   background-color: #aaa;
