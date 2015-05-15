@@ -261,8 +261,16 @@
               <tr class="leaderboard-me">
                 <td>My trophies</td>
                 <% (0...@all_highest_ratings[i].count).each do |j| %>
-                <td></i><%= @user_hash[:genre_hashes][i][:ratings_array][j] %><i class='fa fa-trophy fa-fw'></i></td>
+                <td>
+
+                  <%= @user_hash[:genre_hashes][i][:ratings_array][j] %><i class='fa fa-trophy fa-fw'></i>
+                  <% if @user_hash[:pic_url] %>
+                    <img class="facebook-small" src='<%= @user_hash[:pic_url] %>' alt="">
+                  <% end %>
+                  </td>
                 <% end %>
+
+
                 <td><%= @user_hash[:genre_hashes][i][:total_quizzes] %></td>
               </tr>
               <% end %>
@@ -281,7 +289,14 @@
                         <% if rating > 0 %>
                           <% user_name = @all_highest_ratings[i][j][k][:user_name] %>
                           <% user = @all_highest_ratings[i][j][k][:user] %>
-                          <td><%= rating %><i class='fa fa-trophy fa-fw'></i> <%= link_to user_name, user %></td>
+                          <td><%= rating %><i class='fa fa-trophy fa-fw'></i>
+
+                            <% if @all_highest_ratings[i][j][k][:pic_url] %>
+                              <img class="facebook-small" src='<%= @all_highest_ratings[i][j][k][:pic_url] %>' alt="">
+                            <% end %>
+                            <%= user_name %>
+
+                          </td>
                         <% else %>
                           <td></td>
                         <% end %>

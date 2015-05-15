@@ -23,7 +23,9 @@ class UsersController < ApplicationController
         friends_array << @current_user
 
         user_hashes = friends_array.map do |user|
+          pic_url = facebook_user_pic_url user
           {
+            pic_url: pic_url,
             user_id: user.id,
             genre_hashes: empty_genre_hashes
           }
@@ -128,7 +130,7 @@ class UsersController < ApplicationController
               user = User.find(user_id)
               question_ratings[:user_name] = user.first_name + " " + user.last_name[0, 1] + "."
               question_ratings[:user] = user
-
+              question_ratings[:pic_url] = facebook_user_pic_url user
             else
               question_ratings[:user_name] = "No leader"
             end

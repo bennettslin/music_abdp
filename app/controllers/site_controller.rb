@@ -1,4 +1,5 @@
 include SiteHelper
+include UsersHelper
 
 class SiteController < ApplicationController
 
@@ -39,7 +40,9 @@ class SiteController < ApplicationController
 
     # create user hashes
     user_hashes = User.all.map do |user|
+      pic_url = facebook_user_pic_url user
       {
+        pic_url: pic_url,
         user_id: user.id,
         genre_hashes: empty_genre_hashes
       }
@@ -95,7 +98,7 @@ class SiteController < ApplicationController
         question_highest_ratings = []
 
         (0...5).each do |k| # k is number of leaders
-          question_highest_ratings << {user_id:0, rating:0}
+          question_highest_ratings << {user_id: 0, rating: 0}
         end
         genre_highest_ratings << question_highest_ratings
       end
@@ -136,6 +139,7 @@ class SiteController < ApplicationController
             user = User.find(user_id)
             question_ratings[:user_name] = user.first_name + " " + user.last_name[0, 1] + "."
             question_ratings[:user] = user
+            question_ratings[:pic_url] = facebook_user_pic_url user
           else
             question_ratings[:user_name] = "No leader"
           end

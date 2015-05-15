@@ -18,8 +18,11 @@ module UsersHelper
   end
 
   def facebook_user_pic_url facebook_user
-    pic_url = "https://graph.facebook.com/" + facebook_user.provider_id + "/picture"
+    if facebook_user.provider == 'facebook'
+      "https://graph.facebook.com/" + facebook_user.provider_id + "/picture"
+    else
+      nil
+    end
   end
 
 end
-
