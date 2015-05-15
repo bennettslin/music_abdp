@@ -30,6 +30,8 @@ class SiteController < ApplicationController
 
   end
 
+
+
   def leaderboard
 
     # create genre hashes
