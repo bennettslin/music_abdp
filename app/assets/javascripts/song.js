@@ -27,6 +27,9 @@ var trueScoreFromBinaryScore = function(binaryScore) {
   return trueScore;
 }
 
+
+
+
 $(document).ready(function(){
 
   $("#question1").fadeIn("slow");
@@ -162,6 +165,19 @@ $(document).ready(function(){
   $("#AddedtoListenList").click(function(){
     $(this).html("<i class='fa fa-check'></i>&nbsp; Added to Listen List")
   })
+
+  $(document).on("click", "#delete-bt", function(event){
+
+    var btn = $(this)
+
+    $.ajax({
+      method: "DELETE",
+      url: "/songs/"+this.value+"/favorite"
+    }).done(function(data){
+      btn.closest("tr").remove()
+    });
+
+    });
 
 
 });

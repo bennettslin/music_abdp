@@ -31,6 +31,9 @@ Rails.application.routes.draw do
   get 'team' => 'site#team'
   get 'favorite' => 'site#favorite'
 
+  delete 'songs/:id/favorite' => 'songs#remove_favorite'
+
+
   get 'quiz' => 'songs#quiz'
   get 'validate_artists' => 'songs#validate_artists'
   post 'persist_results' => 'songs#persist_results'

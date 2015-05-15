@@ -196,6 +196,19 @@ return
 
   end
 
+  def remove_favorite
+
+
+
+    song = Song.find(params[:id])
+
+    result = @current_user.songs.delete(song)
+
+    render :json => {result:result}
+
+
+  end
+
   private
 
   def song_params
