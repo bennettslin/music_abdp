@@ -145,6 +145,8 @@ class SiteController < ApplicationController
 
     @genre_hashes = genre_hashes
     @all_highest_ratings = all_highest_ratings
+    @test_value = 100
+    @hello = {hi: "how", are: "you"}
 
   end
 

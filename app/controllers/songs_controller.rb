@@ -92,6 +92,9 @@ class SongsController < ApplicationController
       quiz = Quiz.create(user_id:user_id, song_id: song.id, result: params["score"])
     end
 
+render :json => resource
+return
+
     redirect_to root_path
   end
 
