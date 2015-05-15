@@ -92,7 +92,8 @@
         i = parseInt(rating_objects[index]["cluster"]);
 
         // tweak with this number
-        r = parseFloat(rating_objects[index]["radius"]) * 50 / Math.sqrt(trophiesSum);
+
+        r = parseFloat(Math.sqrt(rating_objects[index]["radius"]) / Math.sqrt(trophiesSum)) * 175;
         user = rating_objects[index]["user"]
         d = {cluster: i, radius: r, user: user};
         if (!largestNodesPerCluster[i] || (r > largestNodesPerCluster[i].trophies)) {largestNodesPerCluster[i] = d;
