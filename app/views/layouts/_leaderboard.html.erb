@@ -37,7 +37,7 @@
         <% (0...@all_highest_ratings[i][j].count).each do |k| %>
           <% rating = @all_highest_ratings[i][j][k] %>
           <% if rating[:rating] > 0 %>
-            <input id= "genre-<%= i %>-user-<%= j %>-trophies-<%= k %>" type="hidden" data-genre='<%= i %>' data-user="<%= rating[:user_name] %>" data-trophies = '<%= rating[:rating] %>'>
+            <input id= "genre-<%= i %>-question-<%= j %>-trophies-<%= k %>" type="hidden" data-genre='<%= i %>' data-question="<%= j %>" data-user="<%= rating[:user_name] %>" data-trophies = '<%= rating[:rating] %>'>
             <% ratings_count += 1 %>
             <% trophies_sum += rating[:rating] %>
           <% end %>
@@ -76,12 +76,24 @@
       for (var i = 0; i < 10; i++) {
         for (var j = 0; j < 3; j++) {
           for (var k = 0; k < 5; k++) {
-            rating = $("#genre-" + i + "-user-" + j + "-trophies-" + k);
+            rating = $("#genre-" + i + "-question-" + j + "-trophies-" + k);
             trophies = rating.attr('data-trophies');
             if (parseInt(trophies) > 0) {
-              genre = rating.attr('data-genre');
-              user = rating.attr('data-user');
-              rating_object = {"cluster": genre, "user": user, "radius": trophies}
+              var genre = rating.attr('data-genre');
+              var user = rating.attr('data-user');
+              var raw_question = parseInt(rating.attr('data-question'));
+              var question;
+              if (raw_question == 0) {
+
+                // composer instead of artist for classical
+                question = genre == 2 ? "(composer)" : "(artist)";
+              } else if (raw_question == 1) {
+                question = "(album)";
+              } else {
+                question = "(track)";
+              }
+
+              rating_object = {"cluster": genre, "question": question, "user": user, "radius": trophies}
               rating_objects.push(rating_object)
             }
           }
@@ -93,9 +105,10 @@
 
         // tweak with this number
 
-        r = parseFloat(Math.sqrt(rating_objects[index]["radius"]) / Math.sqrt(trophiesSum)) * 175;
+        r = parseFloat(Math.sqrt(rating_objects[index]["radius"] / trophiesSum)) * 175;
+        q = rating_objects[index]["question"];
         user = rating_objects[index]["user"]
-        d = {cluster: i, radius: r, user: user};
+        d = {cluster: i, radius: r, user: user, question: q};
         if (!largestNodesPerCluster[i] || (r > largestNodesPerCluster[i].trophies)) {largestNodesPerCluster[i] = d;
         }
         return d;
@@ -136,10 +149,23 @@
 
       var label = gnode
       .append("text")
-      .text(function(d) { return d.user; })
+      .attr('dy', function(d) {return -d.radius})
+      .each(function (d) {
+        var arr = (d.user + "~" + d.question).split("~");
+        if (arr != undefined) {
+          for (i = 0; i < arr.length; i++) {
+            d3.select(this).append("tspan")
+              .text(arr[i])
+              .attr("dy", i ? d.radius * 0.35 : 0)
+              .attr("x", 0)
+              .attr("text-anchor", "middle")
+              .attr("class", "tspan" + i);
+          }
+        }
+      })
       .attr('font-size', function(d) {return (d.radius / 50) + "em"})
       .attr('text-anchor', "middle")
-      .attr('dy', function(d) {return d.radius / 8})
+      .classed('ball-text', true)
 
       node.transition()
       .duration(750)
@@ -148,14 +174,6 @@
         var i = d3.interpolate(0, d.radius);
         return function(t) { return d.radius = i(t); };
       });
-
-      // force.on("tick", function() {
-      //   // Translate the groups
-      //   gnode.attr("transform", function(d) {
-      //     return 'translate(' + [d.x, d.y] + ')';
-      //   });
-
-      // });
 
       function tick(e) {
         node

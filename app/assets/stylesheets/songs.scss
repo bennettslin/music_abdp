@@ -90,3 +90,8 @@ tr.colour-singer-songwriter {
 tr.colour-rock {
   background-color: rgb(23, 190, 207);
 }
+
+.ball-text {
+  // this makes text pass click event to ball
+  pointer-events: none;
+}
