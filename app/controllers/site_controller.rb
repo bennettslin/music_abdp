@@ -26,7 +26,7 @@ class SiteController < ApplicationController
     end
 
     render layout: false
-    # render :json => @favs_info_itunes_ids
+    # render :json => @favs_info
 
   end
 

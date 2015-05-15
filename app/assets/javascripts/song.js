@@ -163,5 +163,8 @@ $(document).ready(function(){
     $(this).html("<i class='fa fa-check'></i>&nbsp; Added to Listen List")
   })
 
+  $(document).on("click", ".x", function(){
+    alert(this.value);
+  })
 
 });
