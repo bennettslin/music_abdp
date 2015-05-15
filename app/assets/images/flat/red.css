@@ -47,7 +47,7 @@
     .icheckbox_flat-red,
     .iradio_flat-red {
 
-        background-image: url("flat/red@2x.png");
+        background-image: url("red@2x.png");
         -webkit-background-size: 176px 22px;
         background-size: 176px 22px;
     }
