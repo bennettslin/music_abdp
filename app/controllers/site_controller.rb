@@ -77,7 +77,6 @@ class SiteController < ApplicationController
           end
         end
       end
-
     end
 
     # remember percentage for each genre

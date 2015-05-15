@@ -31,6 +31,7 @@
     <%# passing in values from the controller in this manner is %>
     <%# embarrasingly awful, but it's Thursday night and I'm tired... %>
     <% ratings_count = 0 %>
+    <% trophies_sum = 0 %>
     <% (0...@all_highest_ratings.count).each do |i| %>
       <% (0...@all_highest_ratings[i].count).each do |j| %>
         <% (0...@all_highest_ratings[i][j].count).each do |k| %>
@@ -38,12 +39,14 @@
           <% if rating[:rating] > 0 %>
             <input id= "genre-<%= i %>-user-<%= j %>-trophies-<%= k %>" type="hidden" data-genre='<%= i %>' data-user="<%= rating[:user_name] %>" data-trophies = '<%= rating[:rating] %>'>
             <% ratings_count += 1 %>
+            <% trophies_sum += rating[:rating] %>
           <% end %>
         <% end %>
       <% end %>
     <% end %>
 
     <input id="ratings_count" type="hidden" data-count-value='<%= ratings_count %>'>
+    <input id="trophies_sum" type="hidden" data-trophies-sum='<%= trophies_sum %>'>
 
     <script>
 
@@ -51,14 +54,17 @@
       $("#balls").height(450);
 
       var width = $("#balls").width(),
-      height = $("#balls").height() - 20,
+          height = $("#balls").height() - 20,
           padding = 1.5, // separation between same-color nodes
           clusterPadding = 6, // separation between different-color nodes
           maxRadius = 12;
 
       var numberOfNodes = parseInt($('#ratings_count').attr('data-count-value')); // total number of nodes
+      var trophiesSum = parseInt($('#trophies_sum').attr('data-trophies-sum')); // total number of nodes
       console.log("number of nodes", numberOfNodes);
-          numberOfClusters = 10; // number of distinct clusters
+      console.log("trophies sum", trophiesSum);
+
+      numberOfClusters = 10; // number of distinct clusters
 
       var color = d3.scale.category10()
           .domain(d3.range(numberOfClusters));
@@ -75,23 +81,20 @@
             if (parseInt(trophies) > 0) {
               genre = rating.attr('data-genre');
               user = rating.attr('data-user');
-              rating_object = {"cluster": genre, "radius": trophies}
-              console.log("cluster: " + genre + ", radius: " + trophies);
+              rating_object = {"cluster": genre, "user": user, "radius": trophies}
               rating_objects.push(rating_object)
             }
           }
         }
       }
 
-      console.log("largest nodes is", largestNodesPerCluster);
-      console.log("rating objects count is ", rating_objects.length);
-
       var nodes = d3.range(numberOfNodes).map(function(index) {
-        console.log("index is ", index);
         i = parseInt(rating_objects[index]["cluster"]);
-        r = parseFloat(rating_objects[index]["radius"]);
-        d = {cluster: i, radius: r};
-        console.log(d);
+
+        // tweak with this number
+        r = parseFloat(rating_objects[index]["radius"]) * 50 / Math.sqrt(trophiesSum);
+        user = rating_objects[index]["user"]
+        d = {cluster: i, radius: r, user: user};
         if (!largestNodesPerCluster[i] || (r > largestNodesPerCluster[i].trophies)) {largestNodesPerCluster[i] = d;
         }
         return d;
@@ -119,28 +122,23 @@
       .attr("width", width)
       .attr("height", height);
 
-      // var gnode = svg.selectAll("g.gnode")
-      // .data(nodes)
-      // .enter()
-      // .append('g')
-      // .classed('gnode', true);
-
-      // var node = gnode
-      // .append("circle")
-      // .style("fill", function(d) { return color(d.cluster); })
-      // .call(force.drag);
-
-      // var label = gnode
-      // .append("text")
-      // .text("hello")
-      // console.log("label is ", label);
-
-      var node = svg.selectAll("circle")
+      var gnode = svg.selectAll("g.gnode")
       .data(nodes)
-      .enter().append("circle")
+      .enter()
+      .append('g')
+      .classed('gnode', true);
+
+      var node = gnode
+      .append("circle")
       .style("fill", function(d) { return color(d.cluster); })
       .call(force.drag);
 
+      var label = gnode
+      .append("text")
+      .text(function(d) { return d.user; })
+      .attr('font-size', function(d) {return (d.radius / 50) + "em"})
+      .attr('text-anchor', "middle")
+      .attr('dy', function(d) {return d.radius / 8})
 
       node.transition()
       .duration(750)
@@ -150,13 +148,26 @@
         return function(t) { return d.radius = i(t); };
       });
 
+      // force.on("tick", function() {
+      //   // Translate the groups
+      //   gnode.attr("transform", function(d) {
+      //     return 'translate(' + [d.x, d.y] + ')';
+      //   });
+
+      // });
+
       function tick(e) {
         node
         .each(cluster(10 * e.alpha * e.alpha))
         .each(collide(.5))
         .attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
+
+        label.attr("transform", function(d) {
+          return 'translate(' + [d.x, d.y] + ')';
+        });
       }
+
 
       // Move d to be adjacent to the cluster node.
       function cluster(alpha) {
