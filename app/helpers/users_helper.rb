@@ -17,4 +17,9 @@ module UsersHelper
     friends_array
   end
 
+  def facebook_user_pic_url facebook_user
+    pic_url = "https://graph.facebook.com/" + facebook_user.provider_id + "/picture"
+  end
+
 end
+
