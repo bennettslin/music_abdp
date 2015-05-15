@@ -11,149 +11,201 @@
   </ul>
   <!-- Tab panes -->
   <div class="tab-content">
-    <div role="tabpanel" class="div-balls tab-pane fade in active well well-lg" id="balls">
+    <div role="tabpanel" class="tab-pane fade in active well well-lg" id="balls">
 
     <div class="colour-key">
       <ul>
-        <li class="colour-alternative">Alternative</li>
-        <li class="colour-blues">Blues</li>
-        <li class="colour-classical">Classical</li>
-        <li class="colour-country">Country</li>
-        <li class="colour-hip-hop">Hip Hop</li>
-        <li class="colour-jazz">Jazz</li>
-        <li class="colour-pop">Pop</li>
-        <li class="colour-rb">R&B</li>
-        <li class="colour-singer-songwriter">Singer/Songwriter</li>
+        <li class="colour-alternative">Alternative</li><li> &bull; </li>
+        <li class="colour-blues">Blues</li><li> &bull; </li>
+        <li class="colour-classical">Classical</li><li> &bull; </li>
+        <li class="colour-country">Country</li><li> &bull; </li>
+        <li class="colour-hip-hop">Hip Hop</li><li> &bull; </li>
+        <li class="colour-jazz">Jazz</li><li> &bull; </li>
+        <li class="colour-pop">Pop</li><li> &bull; </li>
+        <li class="colour-rb">R&B</li><li> &bull; </li>
+        <li class="colour-singer-songwriter">Singer/Songwriter</li><li> &bull; </li>
         <li class="colour-rock">Rock</li>
       </ul>
     </div>
 
-    <input id="test_value" type="hidden" data-test-value='<%= @test_value %>'>
+    <%# passing in values from the controller in this manner is %>
+    <%# embarrasingly awful, but it's Thursday night and I'm tired... %>
+    <% ratings_count = 0 %>
+    <% (0...@all_highest_ratings.count).each do |i| %>
+      <% (0...@all_highest_ratings[i].count).each do |j| %>
+        <% (0...@all_highest_ratings[i][j].count).each do |k| %>
+          <% rating = @all_highest_ratings[i][j][k] %>
+          <% if rating[:rating] > 0 %>
+            <input id= "genre-<%= i %>-user-<%= j %>-trophies-<%= k %>" type="hidden" data-genre='<%= i %>' data-user="<%= rating[:user_name] %>" data-trophies = '<%= rating[:rating] %>'>
+            <% ratings_count += 1 %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
 
-      <script>
+    <input id="ratings_count" type="hidden" data-count-value='<%= ratings_count %>'>
 
-        // ideally, this should dynamically set height based on viewport
+    <script>
 
-        $(".div-balls").height(450);
+      // ideally, this should dynamically set height based on viewport
+      $("#balls").height(450);
 
-        var width = $(".div-balls").width(),
-        height = $(".div-balls").height() - 20,
-            padding = 1.5, // separation between same-color nodes
-            clusterPadding = 6, // separation between different-color nodes
-            maxRadius = 12;
+      var width = $("#balls").width(),
+      height = $("#balls").height() - 20,
+          padding = 1.5, // separation between same-color nodes
+          clusterPadding = 6, // separation between different-color nodes
+          maxRadius = 12;
 
-        var numberOfNodes = $('#test_value').attr('data-test-value'), // total number of nodes
-            numberOfClusters = 10; // number of distinct clusters
+      var numberOfNodes = parseInt($('#ratings_count').attr('data-count-value')); // total number of nodes
+      console.log("number of nodes", numberOfNodes);
+          numberOfClusters = 10; // number of distinct clusters
 
-        var color = d3.scale.category10()
-            .domain(d3.range(numberOfClusters));
+      var color = d3.scale.category10()
+          .domain(d3.range(numberOfClusters));
 
+      // The largest node for each cluster.
+      var largestNodesPerCluster = new Array(numberOfClusters);
 
-        // The largest node for each cluster.
-        var clusters = new Array(numberOfClusters);
-
-        var nodes = d3.range(numberOfNodes).map(function() {
-          var i = Math.floor(Math.random() * numberOfClusters),
-              r = Math.sqrt((i + 1) / numberOfClusters * -Math.log(Math.random())) * maxRadius * 1.5,
-              d = {cluster: i, radius: r};
-              console.log("cluster: " + i + ", radius: " + r);
-
-          if (!clusters[i] || (r > clusters[i].radius)) clusters[i] = d;
-          return d;
-        });
-
-        // Use the pack layout to initialize node positions.
-        d3.layout.pack()
-        .sort(null)
-        .size([width, height])
-        .children(function(d) { return d.values; })
-        .value(function(d) { return d.radius * d.radius; })
-        .nodes({values: d3.nest()
-          .key(function(d) { return d.cluster; })
-          .entries(nodes)});
-
-        var force = d3.layout.force()
-        .nodes(nodes)
-        .size([width, height])
-        .gravity(.02)
-        .charge(0)
-        .on("tick", tick)
-        .start();
-
-        var svg = d3.select(".div-balls").append("svg")
-        .attr("width", width)
-        .attr("height", height);
-
-        var node = svg.selectAll("circle")
-        .data(nodes)
-        .enter().append("circle")
-        .style("fill", function(d) { return color(d.cluster); })
-        .call(force.drag);
-
-        node.transition()
-        .duration(750)
-        .delay(function(d, i) { return i * 5; })
-        .attrTween("r", function(d) {
-          var i = d3.interpolate(0, d.radius);
-          return function(t) { return d.radius = i(t); };
-        });
-
-        function tick(e) {
-          node
-          .each(cluster(10 * e.alpha * e.alpha))
-          .each(collide(.5))
-          .attr("cx", function(d) { return d.x; })
-          .attr("cy", function(d) { return d.y; });
-        }
-
-        // Move d to be adjacent to the cluster node.
-        function cluster(alpha) {
-          return function(d) {
-            var cluster = clusters[d.cluster];
-            if (cluster === d) return;
-            var x = d.x - cluster.x,
-            y = d.y - cluster.y,
-            l = Math.sqrt(x * x + y * y),
-            r = d.radius + cluster.radius;
-            if (l != r) {
-              l = (l - r) / l * alpha;
-              d.x -= x *= l;
-              d.y -= y *= l;
-              cluster.x += x;
-              cluster.y += y;
+      var rating_objects = []
+      for (var i = 0; i < 10; i++) {
+        for (var j = 0; j < 3; j++) {
+          for (var k = 0; k < 5; k++) {
+            rating = $("#genre-" + i + "-user-" + j + "-trophies-" + k);
+            trophies = rating.attr('data-trophies');
+            if (parseInt(trophies) > 0) {
+              genre = rating.attr('data-genre');
+              user = rating.attr('data-user');
+              rating_object = {"cluster": genre, "radius": trophies}
+              console.log("cluster: " + genre + ", radius: " + trophies);
+              rating_objects.push(rating_object)
             }
-          };
+          }
         }
+      }
 
-        // Resolves collisions between d and all other circles.
-        function collide(alpha) {
-          var quadtree = d3.geom.quadtree(nodes);
-          return function(d) {
-            var r = d.radius + maxRadius + Math.max(padding, clusterPadding),
-            nx1 = d.x - r,
-            nx2 = d.x + r,
-            ny1 = d.y - r,
-            ny2 = d.y + r;
-            quadtree.visit(function(quad, x1, y1, x2, y2) {
-              if (quad.point && (quad.point !== d)) {
-                var x = d.x - quad.point.x,
-                y = d.y - quad.point.y,
-                l = Math.sqrt(x * x + y * y),
-                r = d.radius + quad.point.radius + (d.cluster === quad.point.cluster ? padding : clusterPadding);
-                if (l < r) {
-                  l = (l - r) / l * alpha;
-                  d.x -= x *= l;
-                  d.y -= y *= l;
-                  quad.point.x += x;
-                  quad.point.y += y;
-                }
+      console.log("largest nodes is", largestNodesPerCluster);
+      console.log("rating objects count is ", rating_objects.length);
+
+      var nodes = d3.range(numberOfNodes).map(function(index) {
+        console.log("index is ", index);
+        i = parseInt(rating_objects[index]["cluster"]);
+        r = parseFloat(rating_objects[index]["radius"]);
+        d = {cluster: i, radius: r};
+        console.log(d);
+        if (!largestNodesPerCluster[i] || (r > largestNodesPerCluster[i].trophies)) {largestNodesPerCluster[i] = d;
+        }
+        return d;
+      })
+
+      // Use the pack layout to initialize node positions.
+      d3.layout.pack()
+      .sort(null)
+      .size([width, height])
+      .children(function(d) { return d.values; })
+      .value(function(d) { return d.radius * d.radius; })
+      .nodes({values: d3.nest()
+        .key(function(d) { return d.cluster; })
+        .entries(nodes)});
+
+      var force = d3.layout.force()
+      .nodes(nodes)
+      .size([width, height])
+      .gravity(.02)
+      .charge(0)
+      .on("tick", tick)
+      .start();
+
+      var svg = d3.select("#balls").append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+      // var gnode = svg.selectAll("g.gnode")
+      // .data(nodes)
+      // .enter()
+      // .append('g')
+      // .classed('gnode', true);
+
+      // var node = gnode
+      // .append("circle")
+      // .style("fill", function(d) { return color(d.cluster); })
+      // .call(force.drag);
+
+      // var label = gnode
+      // .append("text")
+      // .text("hello")
+      // console.log("label is ", label);
+
+      var node = svg.selectAll("circle")
+      .data(nodes)
+      .enter().append("circle")
+      .style("fill", function(d) { return color(d.cluster); })
+      .call(force.drag);
+
+
+      node.transition()
+      .duration(750)
+      .delay(function(d, i) { return i * 5; })
+      .attrTween("r", function(d) {
+        var i = d3.interpolate(0, d.radius);
+        return function(t) { return d.radius = i(t); };
+      });
+
+      function tick(e) {
+        node
+        .each(cluster(10 * e.alpha * e.alpha))
+        .each(collide(.5))
+        .attr("cx", function(d) { return d.x; })
+        .attr("cy", function(d) { return d.y; });
+      }
+
+      // Move d to be adjacent to the cluster node.
+      function cluster(alpha) {
+        return function(d) {
+          var cluster = largestNodesPerCluster[d.cluster];
+          if (cluster === d) return;
+          var x = d.x - cluster.x,
+          y = d.y - cluster.y,
+          l = Math.sqrt(x * x + y * y),
+          r = d.radius + cluster.radius;
+          if (l != r) {
+            l = (l - r) / l * alpha;
+            d.x -= x *= l;
+            d.y -= y *= l;
+            cluster.x += x;
+            cluster.y += y;
+          }
+        };
+      }
+
+      // Resolves collisions between d and all other circles.
+      function collide(alpha) {
+        var quadtree = d3.geom.quadtree(nodes);
+        return function(d) {
+          var r = d.radius + maxRadius + Math.max(padding, clusterPadding),
+          nx1 = d.x - r,
+          nx2 = d.x + r,
+          ny1 = d.y - r,
+          ny2 = d.y + r;
+          quadtree.visit(function(quad, x1, y1, x2, y2) {
+            if (quad.point && (quad.point !== d)) {
+              var x = d.x - quad.point.x,
+              y = d.y - quad.point.y,
+              l = Math.sqrt(x * x + y * y),
+              r = d.radius + quad.point.radius + (d.cluster === quad.point.cluster ? padding : clusterPadding);
+              if (l < r) {
+                l = (l - r) / l * alpha;
+                d.x -= x *= l;
+                d.y -= y *= l;
+                quad.point.x += x;
+                quad.point.y += y;
               }
-              return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
-            });
-          };
-        }
+            }
+            return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+          });
+        };
+      }
 
-      </script>
+    </script>
     </div>
 
 
