@@ -23,7 +23,9 @@ class UsersController < ApplicationController
         friends_array << @current_user
 
         user_hashes = friends_array.map do |user|
+          pic_url = facebook_user_pic_url user
           {
+            pic_url: pic_url,
             user_id: user.id,
             genre_hashes: empty_genre_hashes
           }
@@ -40,28 +42,34 @@ class UsersController < ApplicationController
       Quiz.all.map do |quiz|
 
         # get genre from quiz song
-        song = Song.find(quiz.song_id)
-        genre = Genre.find(song.genre_id)
-        genre_hash = genre_hashes[genre.value]
+        if quiz.song_id
+          song = Song.find(quiz.song_id)
+          if song
+            genre = Genre.find(song.genre_id)
+            if genre
+              genre_hash = genre_hashes[genre.value]
 
-        # get user_hash of quiz's user
-        user = User.find(quiz.user_id)
-        if friends_array.include? user
-          user_hash = user_hash_from_user_hashes user_hashes, user
-          user_genre_hash = user_hash[:genre_hashes][genre.value]
+              # get user_hash of quiz's user
+              user = User.find(quiz.user_id)
+              if friends_array.include? user
+                user_hash = user_hash_from_user_hashes user_hashes, user
+                user_genre_hash = user_hash[:genre_hashes][genre.value]
 
-          # get true scores for each question from binary score
-          quiz_score_array = score_array_from_binary_score quiz.result
+                # get true scores for each question from binary score
+                quiz_score_array = score_array_from_binary_score quiz.result
 
-          # add true scores to genre and user hashes
-          (0...quiz_score_array.count).each do |i|
-            genre_hash[:total_scores_array][i] += quiz_score_array[i]
-            user_genre_hash[:total_scores_array][i] += quiz_score_array[i]
+                # add true scores to genre and user hashes
+                (0...quiz_score_array.count).each do |i|
+                  genre_hash[:total_scores_array][i] += quiz_score_array[i]
+                  user_genre_hash[:total_scores_array][i] += quiz_score_array[i]
+                end
+
+                # add quiz to total
+                genre_hash[:total_quizzes] += 1
+                user_genre_hash[:total_quizzes] += 1
+              end
+            end
           end
-
-          # add quiz to total
-          genre_hash[:total_quizzes] += 1
-          user_genre_hash[:total_quizzes] += 1
         end
       end
 
@@ -122,7 +130,7 @@ class UsersController < ApplicationController
               user = User.find(user_id)
               question_ratings[:user_name] = user.first_name + " " + user.last_name[0, 1] + "."
               question_ratings[:user] = user
-
+              question_ratings[:pic_url] = facebook_user_pic_url user
             else
               question_ratings[:user_name] = "No leader"
             end

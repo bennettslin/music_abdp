@@ -46,6 +46,7 @@ gem 'typhoeus'
 
 # for deploying to Heroku
 gem 'rails_12factor', group: :production
+gem 'icheck-rails'
 gem 'responders'
 
 group :development, :test do
