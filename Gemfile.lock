@@ -96,6 +96,10 @@ GEM
       signet (~> 0.6)
     hashie (3.4.1)
     i18n (0.7.0)
+    icheck-rails (1.0.2.1)
+      jquery-rails
+      rails (>= 3.1.0)
+      sass-rails
     jbuilder (2.2.13)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -266,6 +270,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   factory_girl_rails
   google-api-client (>= 0.6.2)
+  icheck-rails
   jbuilder (~> 2.0)
   jquery-rails
   letter_opener
