@@ -28,12 +28,12 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th></th>
-          <th><strong>Track</strong></th>
-          <th><strong>Artist</strong></th>
-          <th><strong>Album</strong></th>
-          <th></th>
-          <th></th>
+          <th class="favhead"></th>
+          <th class="favhead"><strong>Track</strong></th>
+          <th class="favhead"><strong>Artist</strong></th>
+          <th class="favhead"><strong>Album</strong></th>
+          <th class="favhead"></th>
+          <th class="favhead"></th>
         </tr>
       </thead>
       <tbody>
@@ -55,7 +55,9 @@
           <td class="track-info"><%= t.artist %></td>
           <td class="track-info"><%= t.album %></td>
           <td class="track-info"><%= link_to ("<button class='btn btn-default itunes'><i class='fa fa-apple'></i> Download on iTunes</button>").html_safe, t.buy_url, target: "itunes_store" %></td>
+
           <td class="track-info"><button id="delete-bt" value="<%= t.id %>" class="btn btn-primary x"><i class="fa fa-trash-o"></i></button></td>
+
         </tr>
         <% end %>
       </tbody>
@@ -71,40 +73,40 @@
         //   autoplay: false,
         //   preload: false
         // });
-    var audios = document.getElementsByTagName('audio');
+var audios = document.getElementsByTagName('audio');
 
-    var a3 = audiojs.create(audios, {
-      autoplay: false,
-      preload: false,
-      createPlayer: {
-        markup: '\
-        <div class="play-pause"> \
-          <p class="play"></p> \
-          <p class="pause"></p> \
-          <p class="loading"></p> \
-          <p class="error"></p> \
-        </div> \
-        <div class="scrubber"> \
-          <div class="progress"></div> \
-          <div class="loaded"></div> \
-        </div> \
-        <div class="time"> \
-          <em class="played">00:00</em>/<strong class="duration">00:00</strong> \
-        </div> \
-        <div class="error-message"></div>',
-        playPauseClass: 'play-pause',
-        scrubberClass: 'scrubber',
-        progressClass: 'progress',
-        loaderClass: 'loaded',
-        timeClass: 'time',
-        durationClass: 'duration',
-        playedClass: 'played',
-        errorMessageClass: 'error-message',
-        playingClass: 'playing',
-        loadingClass: 'loading',
-        errorClass: 'error'
-      }
-    });
-  });
+var a3 = audiojs.create(audios, {
+  autoplay: false,
+  preload: false,
+  createPlayer: {
+    markup: '\
+    <div class="play-pause"> \
+      <p class="play"></p> \
+      <p class="pause"></p> \
+      <p class="loading"></p> \
+      <p class="error"></p> \
+    </div> \
+    <div class="scrubber"> \
+      <div class="progress"></div> \
+      <div class="loaded"></div> \
+    </div> \
+    <div class="time"> \
+      <em class="played">00:00</em>/<strong class="duration">00:00</strong> \
+    </div> \
+    <div class="error-message"></div>',
+    playPauseClass: 'play-pause',
+    scrubberClass: 'scrubber',
+    progressClass: 'progress',
+    loaderClass: 'loaded',
+    timeClass: 'time',
+    durationClass: 'duration',
+    playedClass: 'played',
+    errorMessageClass: 'error-message',
+    playingClass: 'playing',
+    loadingClass: 'loading',
+    errorClass: 'error'
+  }
+});
+});
 
 </script>
