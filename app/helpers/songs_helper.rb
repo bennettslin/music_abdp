@@ -908,6 +908,7 @@ module SongsHelper
       {
         :genre => "rock",
         :artists => [
+          'The Beatles',
           'Talking Heads',
           'Carl Perkins',
           'Curtis Mayfield',

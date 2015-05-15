@@ -217,7 +217,9 @@ end
     end
 
     flash[:success] = "Your preferences have been updated!"
-    redirect_to @user
+
+    # redirects to previous page
+    redirect_to :back
   end
 
   private
