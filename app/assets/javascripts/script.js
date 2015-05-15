@@ -15,11 +15,4 @@ $(function() {
     $('#modal-sizing').addClass('modal-xl');
   })
 
-
-  $(document).ready(function(){
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_flat-red'
-    });
-  });
-
 })
