@@ -46,7 +46,11 @@
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
     .icheckbox_flat-red,
     .iradio_flat-red {
+<<<<<<< HEAD
+        background-image: url("red@2x.png");
+=======
         background-image: url("flat/red@2x.png");
+>>>>>>> 70c52e3390f3878f9797818ac837eae06d068528
         -webkit-background-size: 176px 22px;
         background-size: 176px 22px;
     }
