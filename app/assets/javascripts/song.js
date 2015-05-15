@@ -58,6 +58,7 @@ $(document).ready(function(){
   });
 
   $(".incorrect1").click(function(){
+    $("#q1").prop( "disabled", true );
     $(".incorrect1").css("opacity", "0");
     $(this).css({"opacity": ".9", "background-color": "#B20912"}).delay(1000);
     setTimeout(function() {
@@ -89,6 +90,7 @@ $(document).ready(function(){
   });
 
   $(".incorrect2").click(function(){
+    $("#q2").prop( "disabled", true );
     $(".incorrect2").css("opacity", "0");
     $(this).css({"opacity": ".9", "background-color": "#B20912"}).delay(1000);
     setTimeout(function() {
@@ -134,6 +136,7 @@ $(document).ready(function(){
 
   $(".incorrect3").click(function(){
     console.log(binaryScore);
+    $("#q3").prop( "disabled", true );
     $(".incorrect3").css("opacity", "0");
     $(this).css({"opacity": ".9", "background-color": "#B20912"}).delay(1000);
     setTimeout(function() {
