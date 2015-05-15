@@ -72,3 +72,4 @@ Some other challenges were ensuring that the finalized Heroku version worked cor
 - More mobile compatable
 - Add slogan "Gives Good Ear"
 - Frosted glass effect on Team page and Leaderboard
+- Error handeling with major testing
