@@ -289,7 +289,7 @@
                         <% if rating > 0 %>
                           <% user_name = @all_highest_ratings[i][j][k][:user_name] %>
                           <% user = @all_highest_ratings[i][j][k][:user] %>
-<<<<<<< HEAD
+
                           <td><%= rating %><i class='fa fa-trophy fa-fw'></i>
 
                             <% if @all_highest_ratings[i][j][k][:pic_url] %>
@@ -298,9 +298,7 @@
                             <%= user_name %>
 
                           </td>
-=======
-                          <td><%= rating %><i class='fa fa-trophy fa-fw'></i> <%= user_name %></td>
->>>>>>> 46f72ff9eee9d998f378bbed5f8ccbee5c33611c
+
                         <% else %>
                           <td></td>
                         <% end %>
