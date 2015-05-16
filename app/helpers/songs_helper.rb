@@ -106,8 +106,8 @@ module SongsHelper
           'Sum 41',
           'The Civil Wars',
           'Green Day'
-     ]
-     },
+        ]
+        },
 
       # blues
       {
@@ -210,8 +210,8 @@ module SongsHelper
           'Guitar Shorty',
           'Seasick Steve',
           'Mance Lipscomb'
-     ]
-     },
+        ]
+        },
 
       # classical
       {
@@ -267,8 +267,8 @@ module SongsHelper
           "Paul Hindemith",
           "Olivier Messiaen",
           "Aaron Copland"
-     ]
-     },
+        ]
+        },
 
       # country
       {
@@ -374,8 +374,8 @@ module SongsHelper
           'Tanya Tucker',
           'Scotty McCreery',
           'Rhett Akins'
-     ]
-     },
+        ]
+        },
 
       # hip hop
       {
@@ -481,8 +481,8 @@ module SongsHelper
           "Chamillionaire",
           "Slaughterhouse",
           "Run the Jewels"
-     ]
-     },
+        ]
+        },
 
       # jazz
       {
@@ -586,8 +586,8 @@ module SongsHelper
           "Donald Byrd",
           "Johnny Dodds",
           "Glenn Miller"
-     ]
-     },
+        ]
+        },
 
       # pop
       {
@@ -698,8 +698,8 @@ module SongsHelper
           'Walk The Moon',
           'Whitney Houston',
           'Who Is Fancy'
-     ]
-     },
+        ]
+        },
 
       # r&b
       {
@@ -793,8 +793,8 @@ module SongsHelper
           'Usher',
           'The Weeknd',
           'Whitney Houston'
-     ]
-     },
+        ]
+        },
 
       # singer/songwriter
       {
@@ -901,8 +901,8 @@ module SongsHelper
           'Patty Griffin',
           'Odessa',
           'Jamie Scott'
-     ]
-     },
+        ]
+        },
 
       # rock
       {
@@ -1008,46 +1008,46 @@ module SongsHelper
           'MC5',
           'Bad Company',
           'Cheap Trick',
-     ]
-}
-]
+        ]
+      }
+    ]
 
-end
+  end
 
 end
 
 def get_random_song artist_string, genre_id
 
-   song_object = nil
-   counter = 0
+  song_object = nil
+  counter = 0
 
   # try five times before failing
   while !song_object && counter < 5 do
 
-      request = Typhoeus::Request.new(
-         "itunes.apple.com/search",
-         method: :get,
-         params: {
-            term: artist_string,
-            attribute: "allArtistTerm",
-            entity: "song",
-            limit: 50
-       }
-       )
-      response = request.run
+    request = Typhoeus::Request.new(
+     "itunes.apple.com/search",
+     method: :get,
+     params: {
+      term: artist_string,
+      attribute: "allArtistTerm",
+      entity: "song",
+      limit: 50
+    }
+    )
+    response = request.run
 
-      if response
-         data = JSON.parse(response.body)
-         songs = data["results"]
+    if response
+     data = JSON.parse(response.body)
+     songs = data["results"]
 
-         if songs.any?
-            song = songs[rand(0...songs.count)]
-            song_cover_long = song['artworkUrl100']
+     if songs.any?
+      song = songs[rand(0...songs.count)]
+      song_cover_long = song['artworkUrl100']
 
-            song_object = {
-               itunes_id: song['trackId'],
-               image_url: song_cover_long[0...-14] + "jpg",
-               preview_url: song['previewUrl'],
+      song_object = {
+       itunes_id: song['trackId'],
+       image_url: song_cover_long[0...-14] + "jpg",
+       preview_url: song['previewUrl'],
 
           # for classical, store composer name rather than artist name
           artist: genre_id == 3 ? artist_string : song['artistName'],
@@ -1055,15 +1055,101 @@ def get_random_song artist_string, genre_id
           album: song['collectionName'],
           genre_id: genre_id,
           buy_url: song['trackViewUrl']
-     }
-end
+        }
+      end
+
+    end
+
+    counter += 1
+
+  end
+
+  song_object
 
 end
 
-counter += 1
+  # for development only
+  def validate_artists
 
-end
+    itunes_results = []
 
-song_object
+    genre_artists.each do |object|
+      itunes_artist_objects = [];
 
-end
+      object[:artists].each do |artist_string|
+
+        request = Typhoeus::Request.new(
+          "itunes.apple.com/search",
+          method: :get,
+          params: { term: artist_string, attribute: "allArtistTerm", entity: "song", limit: 5 }
+          )
+
+        response = request.run
+        data = JSON.parse(response.body)
+        track_objects = data["results"]
+
+        itunes_artist_object = {}
+
+        # there are some tracks
+        if track_objects.any?
+
+          itunes_top_tracks = track_objects.map do |track|
+            track["trackName"]
+          end
+          itunes_artist_object[:top_tracks] = itunes_top_tracks
+
+          # no tracks for this artist
+        else
+          itunes_artist_object[:top_tracks] = artist_string + " has no top tracks!!!!!!!!!!!!!!!!!!!!"
+        end
+
+        itunes_artist_objects << itunes_artist_object
+      end
+      itunes_results << {:genre => object[:genre], :artists => itunes_artist_objects}
+    end
+
+    render :json => itunes_results
+  end
+
+  # for dev purposes only
+  def persist_new_random_quiz
+    user_count = User.count
+    user = User.offset(rand(0...user_count)).first
+    genre_index = rand(0...genre_artists.count)
+    artist_index = rand(0...genre_artists[genre_index][:artists].count)
+    artist_string = genre_artists[genre_index][:artists][artist_index]
+
+    request = Typhoeus::Request.new(
+      "itunes.apple.com/search",
+      method: :get,
+      params: { term: artist_string, attribute: "allArtistTerm", entity: "song", limit: 5 }
+      )
+    response = request.run
+    data = JSON.parse(response.body)
+    song = data["results"]
+    song_random = song[rand(0...song.count)]
+
+    itunes_id = song_random['trackId']
+    song_cover_long = song_random['artworkUrl100']
+    image_url = song_cover_long[0...-14] + "jpg"
+    preview_url = song_random['previewUrl']
+    artist_name = song_random['artistName']
+    album_name = song_random['collectionName']
+    track_name = song_random['trackName']
+    buy_url = song_random['trackViewUrl']
+
+    song = Song.find_or_create_by(itunes_id: itunes_id) do |song|
+      song.image_url = image_url
+      song.preview_url = preview_url
+      song.artist = artist_name
+      song.album = album_name
+      song.title = track_name
+      song.buy_url = buy_url
+      song.genre_id = genre_index + 1 # will break if genre_ids are not 0 through 9
+    end
+
+    result = rand(0...8)
+    quiz = Quiz.create(user_id:user.id, song_id: song.id, result: result)
+    redirect_to root_path
+
+  end

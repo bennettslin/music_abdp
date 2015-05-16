@@ -63,27 +63,39 @@ class SongsController < ApplicationController
     # so that view says "composer" instead of "artist" for classical
     @classical = genre.name == "Classical"
 
-    # store correct song in a class variable (!)
-    # this is bad practise, don't do what I'm doing here, haha...
-    @@quiz_song = song0
+    if @current_user
+
+      if @current_user.quiz_song_id
+        song = Song.find(@current_user.quiz_song_id)
+        if song
+
+          # if no other user has favourited song, delete it from database
+          found_song = SongsUsers.find_by(song_id: song.id)
+          if !found_song
+            song.destroy
+          end
+        end
+      end
+
+      # store correct song as quiz song for user in database, for now
+      quiz_song = Song.find_or_create_by(itunes_id: song0[:itunes_id]) do |song|
+        song.itunes_id = song0[:itunes_id]
+        song.image_url = song0[:image_url]
+        song.preview_url = song0[:preview_url]
+        song.artist = song0[:artist]
+        song.album = song0[:album]
+        song.title = song0[:title]
+        song.genre_id = song0[:genre_id]
+        song.buy_url = song0[:buy_url]
+      end
+
+      @current_user.quiz_song_id = quiz_song.id
+      @current_user.save
+    end
+
   end
 
   def persist_results
-
-    # persist song, if not already present in database
-    if @@quiz_song.present?
-      song = Song.find_or_create_by(itunes_id: @@quiz_song[:itunes_id]) do |song|
-        song.itunes_id = @@quiz_song[:itunes_id]
-        song.image_url = @@quiz_song[:image_url]
-        song.preview_url = @@quiz_song[:preview_url]
-        song.artist = @@quiz_song[:artist]
-        song.album = @@quiz_song[:album]
-        song.title = @@quiz_song[:title]
-        song.genre_id = @@quiz_song[:genre_id]
-        song.buy_url = @@quiz_song[:buy_url]
-        print song.buy_url
-      end
-    end
 
     # persist quiz
     if params["score"].present?
@@ -92,121 +104,27 @@ class SongsController < ApplicationController
       quiz = Quiz.create(user_id:user_id, song_id: song.id, result: params["score"])
     end
 
-render :json => resource
-return
+    render :json => resource
+    return
 
     redirect_to root_path
-  end
-
-  # for development only
-  def validate_artists
-
-    itunes_results = []
-
-    genre_artists.each do |object|
-      itunes_artist_objects = [];
-
-      object[:artists].each do |artist_string|
-
-        request = Typhoeus::Request.new(
-          "itunes.apple.com/search",
-          method: :get,
-          params: { term: artist_string, attribute: "allArtistTerm", entity: "song", limit: 5 }
-          )
-
-        response = request.run
-        data = JSON.parse(response.body)
-        track_objects = data["results"]
-
-        itunes_artist_object = {}
-
-        # there are some tracks
-        if track_objects.any?
-
-          itunes_top_tracks = track_objects.map do |track|
-            track["trackName"]
-          end
-          itunes_artist_object[:top_tracks] = itunes_top_tracks
-
-          # no tracks for this artist
-        else
-          itunes_artist_object[:top_tracks] = artist_string + " has no top tracks!!!!!!!!!!!!!!!!!!!!"
-        end
-
-        itunes_artist_objects << itunes_artist_object
-      end
-      itunes_results << {:genre => object[:genre], :artists => itunes_artist_objects}
-    end
-
-    render :json => itunes_results
-  end
-
-  def persist_new_random_quiz
-    user_count = User.count
-    user = User.offset(rand(0...user_count)).first
-    genre_index = rand(0...genre_artists.count)
-    artist_index = rand(0...genre_artists[genre_index][:artists].count)
-    artist_string = genre_artists[genre_index][:artists][artist_index]
-
-    request = Typhoeus::Request.new(
-      "itunes.apple.com/search",
-      method: :get,
-      params: { term: artist_string, attribute: "allArtistTerm", entity: "song", limit: 5 }
-      )
-    response = request.run
-    data = JSON.parse(response.body)
-    song = data["results"]
-    song_random = song[rand(0...song.count)]
-
-    itunes_id = song_random['trackId']
-    song_cover_long = song_random['artworkUrl100']
-    image_url = song_cover_long[0...-14] + "jpg"
-    preview_url = song_random['previewUrl']
-    artist_name = song_random['artistName']
-    album_name = song_random['collectionName']
-    track_name = song_random['trackName']
-    buy_url = song_random['trackViewUrl']
-
-    song = Song.find_or_create_by(itunes_id: itunes_id) do |song|
-      song.image_url = image_url
-      song.preview_url = preview_url
-      song.artist = artist_name
-      song.album = album_name
-      song.title = track_name
-      song.buy_url = buy_url
-      song.genre_id = genre_index + 1 # will break if genre_ids are not 0 through 9
-    end
-
-    result = rand(0...8)
-    quiz = Quiz.create(user_id:user.id, song_id: song.id, result: result)
-    redirect_to root_path
-
   end
 
   def listen_later
 
-    user = @current_user
-    song = Song.find_by(itunes_id: @@quiz_song[:itunes_id])
-
-    puts song
-
-    user.songs << song
-
-    redirect_to quiz_path
-
+    # move quiz song to user's favourites
+    if @current_user
+      song = Song.find(@current_user.quiz_song_id)
+      @current_user.songs << song
+      @current_user.quiz_song_id = nil
+      redirect_to quiz_path
+    end
   end
 
   def remove_favorite
-
-
-
     song = Song.find(params[:id])
-
     result = @current_user.songs.delete(song)
-
     render :json => {result:result}
-
-
   end
 
   private

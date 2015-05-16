@@ -2,8 +2,9 @@ class User < ActiveRecord::Base
   has_secure_password
 
   has_and_belongs_to_many :genres
-
   has_and_belongs_to_many :songs
+
+  belongs_to :quiz_song, class_name: "Song", foreign_key: "quiz_song_id"
 
   validates :first_name,
   presence: true
