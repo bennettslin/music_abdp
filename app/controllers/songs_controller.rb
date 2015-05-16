@@ -64,11 +64,9 @@ class SongsController < ApplicationController
     @classical = genre.name == "Classical"
 
     if @current_user
-
       if @current_user.quiz_song_id
         song = Song.find(@current_user.quiz_song_id)
         if song
-
           # if no other user has favourited song, delete it from database
           found_song = SongsUsers.find_by(song_id: song.id)
           if !found_song
@@ -113,7 +111,7 @@ class SongsController < ApplicationController
   def listen_later
 
     # move quiz song to user's favourites
-    if @current_user
+    if @current_user && @current_user.quiz_song_id
       song = Song.find(@current_user.quiz_song_id)
       @current_user.songs << song
       @current_user.quiz_song_id = nil
