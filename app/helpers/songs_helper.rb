@@ -1,5 +1,59 @@
 module SongsHelper
 
+
+  def get_random_song artist_string, genre_id
+
+    song_object = nil
+    counter = 0
+
+    # try five times before failing
+    while !song_object && counter < 5 do
+
+      request = Typhoeus::Request.new(
+       "itunes.apple.com/search",
+       method: :get,
+       params: {
+
+        term: artist_string,
+        attribute: "allArtistTerm",
+        entity: "song",
+        limit: 50
+      }
+      )
+      response = request.run
+
+      if response
+       data = JSON.parse(response.body)
+       songs = data["results"]
+
+       if songs.any?
+        song = songs[rand(0...songs.count)]
+        song_cover_long = song['artworkUrl100']
+
+        song_object = {
+         itunes_id: song['trackId'],
+         image_url: song_cover_long[0...-14] + "jpg",
+         preview_url: song['previewUrl'],
+
+            # for classical, store composer name rather than artist name
+            artist: genre_id == 3 ? artist_string : song['artistName'],
+            title: song['trackName'],
+            album: song['collectionName'],
+            genre_id: genre_id,
+            buy_url: song['trackViewUrl']
+          }
+        end
+
+      end
+
+      counter += 1
+
+    end
+
+    song_object
+
+  end
+
   def genre_artists
     [
       # alternative rock
@@ -107,7 +161,7 @@ module SongsHelper
           'The Civil Wars',
           'Green Day'
         ]
-        },
+      },
 
       # blues
       {
@@ -211,7 +265,7 @@ module SongsHelper
           'Seasick Steve',
           'Mance Lipscomb'
         ]
-        },
+      },
 
       # classical
       {
@@ -266,9 +320,59 @@ module SongsHelper
           "Charles Ives",
           "Paul Hindemith",
           "Olivier Messiaen",
-          "Aaron Copland"
+          "Aaron Copland",
+          "Francois Couperin",
+          "William Byrd",
+          "Erik Satie",
+          "Benjamin Britten",
+          "Bedrick Smetana",
+          "César Franck",
+          "Alexander Nikolayevich Scriabin",
+          "Georges Bizet",
+          "Domenico Scarlatti",
+          "Georg Philipp Telemann",
+          "Anton Webern",
+          "Roland de Lassus",
+          "George Gershwin",
+          "Gaetano Donizetti",
+          "Carl Philipp Emanuel Bach",
+          "Archangelo Corelli",
+          "Thomas Tallis",
+          "Jules Massenet",
+          "Johann Strauss II",
+          "Leos Janácek",
+          "Guillaume de Machaut",
+          "Alban Berg",
+          "Alexander Borodin",
+          "Vincenzo Bellini",
+          "Charles Gounod",
+          "Francis Poulenc",
+          "Giovanni Gabrieli",
+          "Pérotin",
+          "Heinrich Schütz",
+          "John Cage",
+          "Giovanni Battista Pergolesi",
+          "John Dowland",
+          "Gustav Holst",
+          "Dietrich Buxtehude",
+          "Ottorino Respighi",
+          "Guillaume Dufay",
+          "Hugo Wolf",
+          "Carl Nielsen",
+          "William Walton",
+          "Darius Milhaud",
+          "Orlando Gibbons",
+          "Giacomo Meyerbeer",
+          "Samuel Barber",
+          "Tomás Luis de Victoria",
+          "Léonin",
+          "Manuel de Falla",
+          "Hildegard von Bingen",
+          "Mikhail Glinka",
+          "Alexander Glazunov",
+          "Don Carlo Gesualdo"
         ]
-        },
+      },
 
       # country
       {
@@ -375,7 +479,7 @@ module SongsHelper
           'Scotty McCreery',
           'Rhett Akins'
         ]
-        },
+      },
 
       # hip hop
       {
@@ -482,7 +586,7 @@ module SongsHelper
           "Slaughterhouse",
           "Run the Jewels"
         ]
-        },
+      },
 
       # jazz
       {
@@ -587,7 +691,7 @@ module SongsHelper
           "Johnny Dodds",
           "Glenn Miller"
         ]
-        },
+      },
 
       # pop
       {
@@ -699,7 +803,7 @@ module SongsHelper
           'Whitney Houston',
           'Who Is Fancy'
         ]
-        },
+      },
 
       # r&b
       {
@@ -794,7 +898,7 @@ module SongsHelper
           'The Weeknd',
           'Whitney Houston'
         ]
-        },
+      },
 
       # singer/songwriter
       {
@@ -902,7 +1006,7 @@ module SongsHelper
           'Odessa',
           'Jamie Scott'
         ]
-        },
+      },
 
       # rock
       {
@@ -987,7 +1091,7 @@ module SongsHelper
           'Journey',
           'Whitesnake',
           'Steppenwolf',
-          'Janes Addiction',
+          "Jane's Addiction",
           'Foreigner',
           'Stone Temple Pilots',
           'Pantera',
@@ -1007,66 +1111,11 @@ module SongsHelper
           'Megadeth',
           'MC5',
           'Bad Company',
-          'Cheap Trick',
+          'Cheap Trick'
         ]
       }
     ]
-
   end
-
-end
-
-def get_random_song artist_string, genre_id
-
-  song_object = nil
-  counter = 0
-
-  # try five times before failing
-  while !song_object && counter < 5 do
-
-    request = Typhoeus::Request.new(
-     "itunes.apple.com/search",
-     method: :get,
-     params: {
-      term: artist_string,
-      attribute: "allArtistTerm",
-      entity: "song",
-      limit: 50
-    }
-    )
-    response = request.run
-
-    if response
-     data = JSON.parse(response.body)
-     songs = data["results"]
-
-     if songs.any?
-      song = songs[rand(0...songs.count)]
-      song_cover_long = song['artworkUrl100']
-
-      song_object = {
-       itunes_id: song['trackId'],
-       image_url: song_cover_long[0...-14] + "jpg",
-       preview_url: song['previewUrl'],
-
-          # for classical, store composer name rather than artist name
-          artist: genre_id == 3 ? artist_string : song['artistName'],
-          title: song['trackName'],
-          album: song['collectionName'],
-          genre_id: genre_id,
-          buy_url: song['trackViewUrl']
-        }
-      end
-
-    end
-
-    counter += 1
-
-  end
-
-  song_object
-
-end
 
   # for development only
   def validate_artists
@@ -1153,3 +1202,5 @@ end
     redirect_to root_path
 
   end
+
+end

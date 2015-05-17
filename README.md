@@ -37,8 +37,7 @@ Some other challenges were ensuring that the final version deployed to Heroku wo
 
 ##Known issues
 
-- When the user favourites a song, sometimes wrong song is being saved. Possibly because a single class variable is being used to store each user's quiz song.
-- Player does not automatically start on mobile.
+- Player does not automatically start on mobile devices?
 
 ##Contributions
 
