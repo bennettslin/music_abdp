@@ -33,8 +33,8 @@ module MusicAbdp
 
     config.active_record.raise_in_transactional_callbacks = true
     config.exceptions_app = self.routes
-    config.assets.precompile += [
-      'red@2x.png', 'red.png', 'red.css'
-    ]
+    # config.assets.precompile += [
+      # 'red@2x.png', 'red.png', 'red.css'
+    # ]
   end
 end
