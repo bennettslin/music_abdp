@@ -67,8 +67,10 @@ class SongsController < ApplicationController
       if @current_user.quiz_song_id
         song = Song.find(@current_user.quiz_song_id)
         if song
-          # if no other user has favourited song, delete it from database
-          found_song = SongsUsers.find_by(song_id: song.id)
+          # if no user has favourited song,
+          # or if it's not associated with a quiz,
+          # then delete it from database
+          found_song = SongsUsers.find_by(song_id: song.id) || Quiz.find_by(song_id: song.id)
           if !found_song
             song.destroy
           end
@@ -95,11 +97,11 @@ class SongsController < ApplicationController
 
   def persist_results
 
-    # persist quiz
-    if params["score"].present?
-      # set user id to 0 if no current user
-      user_id = @current_user ? @current_user.id : 0;
-      quiz = Quiz.create(user_id:user_id, song_id: song.id, result: params["score"])
+    # only persist quiz if there is a current user
+    if @current_user && params["score"].present?
+      user_id = @current_user.id;
+      song_id = @current_user.quiz_song_id
+      quiz = Quiz.create(user_id:user_id, song_id: song_id, result: params["score"])
     end
 
     render :json => resource
