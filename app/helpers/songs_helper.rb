@@ -28,11 +28,11 @@ module SongsHelper
 
        if songs.any?
         song = songs[rand(0...songs.count)]
-        song_cover_long = song['artworkUrl100']
+        song_cover_long = song['artworkUrl30']
 
         song_object = {
          itunes_id: song['trackId'],
-         image_url: song_cover_long[0...-14] + "jpg",
+         image_url: song_cover_long[0...-14] + "900x900bb-85.jpg",
          preview_url: song['previewUrl'],
 
             # for classical, store composer name rather than artist name
