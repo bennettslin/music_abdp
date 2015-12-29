@@ -32,7 +32,7 @@ module SongsHelper
 
         song_object = {
          itunes_id: song['trackId'],
-         image_url: song_cover_long[0...-14] + "900x900bb-85.jpg",
+         image_url: song_cover_long[0...-11] + "900x900bb-85.jpg",
          preview_url: song['previewUrl'],
 
             # for classical, store composer name rather than artist name
